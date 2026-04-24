@@ -22,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="iphone_asas_mockup.svg" type="image/svg+xml">
     <style>
         * {
             margin: 0;
@@ -2403,6 +2404,15 @@
             transform-origin: top center;
         }
 
+        /* Daily Check: gleiche Größe wie vorher beibehalten */
+        .asas-how-visual.how-card.how-card-featured .card-img.daily-check-img {
+            object-fit: cover;
+            object-position: center top;
+            -webkit-transform: translateZ(0) scale(0.96);
+            transform: translateZ(0) scale(0.96);
+            transform-origin: top center;
+        }
+
         /* Safari/macOS: weniger skalierte Raster-Layer => sichtbar schärferes iPhone-Visual */
         @media (min-width: 769px) {
             html.is-apple .asas-how-visual.how-card.how-card-featured {
@@ -4578,12 +4588,12 @@
         .pricing-embed .microcopy { text-align: center; margin-top: 13px; font-size: 0.73rem; color: rgba(240,242,248,0.26); font-weight: 500; }
         .pricing-embed .footer-note {
             margin-top: 52px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: block;
             width: 100%;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            transform: none;
             clear: both;
             text-align: center;
             font-size: 0.76rem;
@@ -4591,6 +4601,15 @@
             letter-spacing: 0.02em;
             opacity: 0;
             animation: fadeUp 0.6s ease 0.5s forwards;
+        }
+
+        @media (min-width: 769px) {
+            .pricing-embed .footer-note {
+                width: max-content;
+                margin-left: 50%;
+                margin-right: 0;
+                transform: translateX(-50%);
+            }
         }
 
         @keyframes cardIn {
@@ -4695,46 +4714,128 @@
 
         .site-footer {
             margin-top: 40px;
-            padding: 0 max(28px, env(safe-area-inset-left, 0px)) 60px max(28px, env(safe-area-inset-right, 0px));
+            padding: 0 max(16px, env(safe-area-inset-left, 0px)) 60px max(16px, env(safe-area-inset-right, 0px));
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px 46px;
+            align-items: start;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+        }
+
+        /* Desktop: wie Referenz — innerhalb eines zentrierten Content-Bereichs */
+        @media (min-width: 1024px) {
+            .site-footer {
+                width: min(1280px, calc(100% - 64px));
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-col--legal {
+            justify-self: start;
+            align-items: flex-start;
+            margin-left: -14px;
+        }
+
+        .footer-col--meta {
+            justify-self: end;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .footer-link,
+        .footer-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            transition: color 0.22s ease;
+        }
+
+        .footer-legal-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 114px;
+            text-decoration: none;
+            flex-shrink: 0;
+            opacity: 0.88;
+            transition: opacity 0.22s ease;
+        }
+
+        .footer-brand-stack {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 14px;
-            box-sizing: border-box;
-            text-align: center;
+            gap: 10px;
+            flex-shrink: 0;
+            width: 114px;
+            transform: translateX(-22px);
         }
 
-        .footer-top {
-            font-size: 13px;
-            color: rgba(255,255,255,0.7);
+        .footer-brand:hover,
+        .footer-brand:focus-visible {
+            opacity: 1;
+        }
+
+        .footer-brand:focus-visible {
+            outline: none;
+        }
+
+        .footer-brand__symbol {
+            width: 20px;
+            height: auto;
+            display: block;
+        }
+
+        .footer-brand__wordmark {
+            width: 82px;
+            height: auto;
+            display: block;
+        }
+
+        .footer-kreislogo {
+            width: 114px;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transform: translateX(6px);
+            opacity: 0.86;
+        }
+
+        .footer-legal-links {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            line-height: 1.5;
-            width: 100%;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
         }
 
-        .footer-bottom {
-            font-size: 12px;
-            color: rgba(255,255,255,0.4);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            line-height: 1.45;
-            width: 100%;
+        .footer-link:hover,
+        .footer-link:focus-visible {
+            color: #d7e4ff;
         }
 
-        .footer-top span,
-        .footer-bottom span {
-            position: relative;
-            white-space: nowrap;
-        }
-
-        .footer-top span:not(:last-child)::after,
-        .footer-bottom span:not(:last-child)::after {
-            content: "�";
-            margin: 0 14px;
-            color: rgba(255,255,255,0.25);
+        .footer-link:focus-visible {
+            outline: none;
         }
 
         .faq-section {
@@ -5124,17 +5225,31 @@
             .site-footer {
                 margin-top: 28px;
                 padding-bottom: 42px;
-                gap: 10px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: left;
             }
 
-            .footer-top span,
-            .footer-bottom span {
-                white-space: normal;
+            .footer-col--meta {
+                justify-self: start;
+                align-items: flex-start;
+                text-align: left;
             }
 
-            .footer-top span:not(:last-child)::after,
-            .footer-bottom span:not(:last-child)::after {
-                margin: 0 8px;
+            .footer-legal-wrap {
+                flex-direction: column;
+                gap: 14px;
+                align-items: flex-start;
+            }
+
+            .footer-brand-stack {
+                align-items: center;
+            }
+
+            .footer-link,
+            .footer-text {
+                font-size: 15px;
+                line-height: 1.55;
             }
 
             .faq-section {
@@ -5566,10 +5681,11 @@
 
             <article class="asas-how-visual how-card how-card-featured" aria-label="Daily Check Visual">
                 <img
-                    class="card-img"
-                    src="control-center-iphone.svg"
+                    class="card-img daily-check-img"
+                    src="iphone_asas_mockup.svg"
                     alt=""
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
                     width="450"
                     height="920"
                 />
@@ -6389,18 +6505,26 @@ Founder: gleicher Zugang, aber dauerhaft zum reduzierten Preis. <br> Begrenzt au
     <div class="footer-divider"></div>
 
     <footer class="site-footer" aria-label="Website Footer">
-        <div class="footer-top" aria-label="Vertrauenshinweise">
-            <span>Sofortiger Zugang</span>
-            <span>Keine versteckten Kosten</span>
-            <span>Sichere Bezahlung</span>
-            <span>Alle Preise inkl. MwSt.</span>
+        <div class="footer-col footer-col--legal" aria-label="Rechtliche Links">
+            <div class="footer-legal-wrap">
+                <div class="footer-brand-stack">
+                    <a class="footer-brand" href="#animation-header" aria-label="Zur Startseite">
+                        <img src="ASAS_Symbol.svg" alt="" class="footer-brand__symbol" width="20" height="21" loading="lazy" decoding="async">
+                        <img src="ASAS_Text_white.svg" alt="" class="footer-brand__wordmark" width="82" height="16" loading="lazy" decoding="async">
+                    </a>
+                    <img src="asas_logo_vector.svg" alt="" class="footer-kreislogo" width="114" height="114" loading="lazy" decoding="async">
+                </div>
+                <div class="footer-legal-links">
+                    <a class="footer-link" href="/impressum">Impressum</a>
+                    <a class="footer-link" href="/datenschutz">Datenschutz</a>
+                    <a class="footer-link" href="/agb">AGB</a>
+                </div>
+            </div>
         </div>
 
-        <div class="footer-bottom" aria-label="Rechtliches">
-            <span>&copy; ASAS</span>
-            <span>Impressum</span>
-            <span>Datenschutz</span>
-            <span>Kontakt</span>
+        <div class="footer-col footer-col--meta" aria-label="Kontakt und Copyright">
+            <a class="footer-link" href="https://www.instagram.com/asas.mind/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <span class="footer-text">&copy; 2026 ASAS</span>
         </div>
     </footer>
 

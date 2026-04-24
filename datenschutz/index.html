@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="google" content="notranslate">
+    <title>Datenschutz - ASAS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --site-glass-header-bar: 100px; --page-bg: #000000; }
+        html, body {
+            background: var(--page-bg);
+            color: #ffffff;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        body {
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: calc(env(safe-area-inset-top, 0px) + var(--site-glass-header-bar));
+            line-height: 1.6;
+        }
+        .animated_bg {
+            position: fixed; inset: 0; pointer-events: none; z-index: -1;
+            background:
+                radial-gradient(1200px 520px at 12% -8%, rgba(34, 68, 255, 0.12), transparent 70%),
+                radial-gradient(1100px 500px at 88% -12%, rgba(17, 51, 238, 0.1), transparent 72%),
+                #000;
+        }
+        .site-glass-header { position: fixed; top: 0; left: 0; right: 0; z-index: 10050; pointer-events: none; padding-top: env(safe-area-inset-top, 0px); }
+        .site-glass-header__inner {
+            pointer-events: auto; width: 100%; overflow: hidden;
+            background: rgba(0, 0, 0, 0.22); -webkit-backdrop-filter: blur(48px); backdrop-filter: blur(48px);
+            box-shadow: inset 0 0 48px rgba(70, 72, 80, 0.11), inset 0 -1px 0 rgba(0, 0, 0, 0.48), 0 5px 20px rgba(14, 14, 18, 0.16);
+        }
+        .site-glass-header__row { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: var(--site-glass-header-bar); padding: 26px max(20px, env(safe-area-inset-right, 0px)) 26px max(24px, calc(env(safe-area-inset-left, 0px) + 18px)); }
+        .site-glass-header__brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .site-glass-header__brand .site-glass-header__logo { height: 44px; max-width: min(158px, 38vw); object-position: left center; }
+        .site-glass-header__wordmark { height: 26px; width: auto; max-width: min(240px, 42vw); object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.35)); }
+        .site-glass-header__nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+        .site-glass-header__menu-panel { position: absolute; left: 50%; top: 50%; z-index: 2; display: flex; justify-content: center; align-items: center; width: max-content; max-width: min(280px, calc(100vw - 170px)); box-sizing: border-box; opacity: 0; transform: translate(-50%, calc(-50% + 52px)); pointer-events: none; transition: opacity 0.65s ease, transform 0.85s cubic-bezier(0.22, 1, 0.36, 1); }
+        .site-glass-header.is-menu-open .site-glass-header__menu-panel { opacity: 1; transform: translate(-50%, -50%); pointer-events: auto; }
+        .btn { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Helvetica", sans-serif; border-radius: 9999px; border: none; }
+        .btn-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 30px; color: #fff; font-size: 17px; font-weight: 500; line-height: 1; cursor: pointer; background: linear-gradient(180deg, #0b37e7 0%, #142f94 45%, #1340e0 100%); box-shadow: 0 6px 20px rgba(0, 26, 255, 0.32); transition: transform 0.2s ease, background 0.2s ease; }
+        .btn-cta:hover { background: linear-gradient(180deg, #0033ffa2 0%, #003cffb9 45%, #0037ffa8 100%); transform: translateY(-1px); }
+        .cta-lock-icon { display: flex; flex-shrink: 0; line-height: 0; margin-left: -2px; }
+        .cta-lock-icon svg { width: 19px; height: auto; display: block; }
+        .btn.btn-cta:hover .shackle { transform: rotate(40deg); transform-origin: right bottom; }
+        .site-glass-header__menu-panel .site-glass-header__menu-cta { min-height: 52px; }
+        .site-glass-header__menu-toggle { width: 44px; height: 44px; border: none; border-radius: 10px; background: transparent; color: rgba(255,255,255,0.9); cursor: pointer; }
+        .site-glass-header__menu-bars { position: relative; width: 22px; height: 16px; display: inline-block; }
+        .site-glass-header__menu-bar { position: absolute; left: 0; width: 100%; height: 2px; border-radius: 1px; background: currentColor; transform-origin: center; transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.28s ease, top 0.38s cubic-bezier(0.22, 1, 0.36, 1); }
+        .site-glass-header__menu-bar:nth-child(1) { top: 1px; }
+        .site-glass-header__menu-bar:nth-child(2) { top: 7px; }
+        .site-glass-header__menu-bar:nth-child(3) { top: 13px; }
+        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(1) { top: 7px; transform: rotate(45deg); }
+        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(2) { opacity: 0; transform: scaleX(0.5); }
+        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+
+        .legal-main { width: 100%; max-width: 800px; margin: 0 auto; padding: 120px 24px 72px; }
+        .legal-title { font-size: clamp(40px, 6vw, 62px); line-height: 1.1; letter-spacing: -0.02em; color: #e0e0e0; margin-bottom: 56px; font-weight: 600; }
+        .legal-section { margin-bottom: 52px; }
+        .legal-subtitle { color: #dddddd; font-size: 24px; line-height: 1.25; margin-bottom: 16px; font-weight: 600; }
+        .legal-text { color: #adadad; font-size: 16px; line-height: 1.75; font-weight: 400; margin-bottom: 18px; }
+
+        .footer-divider { width: min(1080px, calc(100% - 56px)); height: 1px; margin: 40px auto 0; background: linear-gradient(to right, transparent, rgba(255,255,255,0.16), rgba(96,165,250,0.18), rgba(255,255,255,0.16), transparent); opacity: 0.55; }
+        .site-footer { margin-top: 40px; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 60px max(16px, env(safe-area-inset-right, 0px)); display: grid; grid-template-columns: 1fr auto; gap: 20px 46px; align-items: start; width: 100%; text-align: left; }
+        @media (min-width: 1024px) {
+            .site-footer { width: min(1280px, calc(100% - 64px)); margin-left: auto; margin-right: auto; padding-left: 0; padding-right: 0; }
+        }
+        .footer-col { display: flex; flex-direction: column; gap: 12px; }
+        .footer-col--legal { justify-self: start; align-items: flex-start; margin-left: -14px; }
+        .footer-col--meta { justify-self: end; align-items: flex-end; text-align: right; }
+        .footer-link, .footer-text { font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.5); letter-spacing: 0.01em; text-decoration: none; }
+        .footer-link:hover { color: #d7e4ff; }
+        .footer-legal-wrap { display: flex; align-items: flex-start; gap: 24px; }
+        .footer-brand-stack { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 114px; transform: translateX(-22px); }
+        .footer-brand { display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: 114px; text-decoration: none; opacity: 0.88; }
+        .footer-brand__symbol { width: 20px; height: auto; }
+        .footer-brand__wordmark { width: 82px; height: auto; }
+        .footer-kreislogo { width: 114px; height: auto; margin-left: auto; margin-right: auto; transform: translateX(6px); opacity: 0.86; }
+        .footer-legal-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+
+        @media (max-width: 768px) {
+            :root { --site-glass-header-bar: 88px; }
+            .legal-main { padding-top: 108px; padding-bottom: 56px; }
+            .legal-title { margin-bottom: 44px; }
+            .legal-section { margin-bottom: 42px; }
+            .site-glass-header__menu-panel .site-glass-header__menu-cta { min-height: 52px; padding: 0 28px; font-size: 17px; }
+            .site-glass-header__menu-panel .cta-lock-icon svg { width: 18px; }
+            .site-footer { grid-template-columns: 1fr; gap: 20px; }
+            .footer-col--meta { justify-self: start; align-items: flex-start; text-align: left; }
+            .footer-legal-wrap { flex-direction: column; gap: 14px; align-items: flex-start; }
+            .footer-brand-stack { align-items: center; }
+        }
+
+        @media (max-width: 640px) {
+            .site-glass-header__menu-panel { left: auto; right: calc(44px + 12px + env(safe-area-inset-right, 0px)); max-width: min(240px, calc(100vw - 168px)); justify-content: flex-end; transform: translateY(calc(-50% + 52px)); }
+            .site-glass-header.is-menu-open .site-glass-header__menu-panel { transform: translateY(-50%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated_bg" aria-hidden="true"></div>
+    <header class="site-glass-header" role="banner">
+        <div class="site-glass-header__inner">
+            <div class="site-glass-header__row">
+                <a href="/" class="site-glass-header__brand" aria-label="Zur Startseite">
+                    <img src="/ASAS_Symbol.svg" alt="" class="site-glass-header__logo" width="370" height="400" decoding="async">
+                    <img src="/ASAS_Text_white.svg" alt="" class="site-glass-header__wordmark" width="662" height="127" decoding="async">
+                </a>
+                <div id="site-glass-menu" class="site-glass-header__menu-panel" aria-hidden="true">
+                    <button type="button" class="btn btn-cta site-glass-header__menu-cta" id="site-glass-menu-cta">
+                        <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Platz sichern</span>
+                    </button>
+                </div>
+                <nav class="site-glass-header__nav" aria-label="Hauptnavigation">
+                    <button type="button" class="site-glass-header__menu-toggle" id="site-glass-menu-btn" aria-controls="site-glass-menu" aria-expanded="false" aria-label="Menü öffnen">
+                        <span class="site-glass-header__menu-bars" aria-hidden="true">
+                            <span class="site-glass-header__menu-bar"></span>
+                            <span class="site-glass-header__menu-bar"></span>
+                            <span class="site-glass-header__menu-bar"></span>
+                        </span>
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="legal-main">
+        <h1 class="legal-title">Datenschutz</h1>
+
+        <section class="legal-section">
+            <h2 class="legal-subtitle">Allgemeine Hinweise</h2>
+            <p class="legal-text">In Bearbeitung.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2 class="legal-subtitle">Verarbeitete Daten</h2>
+            <p class="legal-text">In Bearbeitung.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2 class="legal-subtitle">Betroffenenrechte</h2>
+            <p class="legal-text">In Bearbeitung.</p>
+        </section>
+
+        <section class="legal-section">
+            <h2 class="legal-subtitle">Dienste und Empfänger</h2>
+            <p class="legal-text">In Bearbeitung.</p>
+        </section>
+    </main>
+
+    <div class="footer-divider"></div>
+
+    <footer class="site-footer" aria-label="Website Footer">
+        <div class="footer-col footer-col--legal" aria-label="Rechtliche Links">
+            <div class="footer-legal-wrap">
+                <div class="footer-brand-stack">
+                    <a class="footer-brand" href="/" aria-label="Zur Startseite">
+                        <img src="/ASAS_Symbol.svg" alt="" class="footer-brand__symbol" width="20" height="21" loading="lazy" decoding="async">
+                        <img src="/ASAS_Text_white.svg" alt="" class="footer-brand__wordmark" width="82" height="16" loading="lazy" decoding="async">
+                    </a>
+                    <img src="/asas_logo_vector.svg" alt="" class="footer-kreislogo" width="114" height="114" loading="lazy" decoding="async">
+                </div>
+                <div class="footer-legal-links">
+                    <a class="footer-link" href="/impressum">Impressum</a>
+                    <a class="footer-link" href="/datenschutz">Datenschutz</a>
+                    <a class="footer-link" href="/agb">AGB</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-col footer-col--meta" aria-label="Kontakt und Copyright">
+            <a class="footer-link" href="https://www.instagram.com/asas.mind/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <span class="footer-text">&copy; 2026 ASAS</span>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var header = document.querySelector(".site-glass-header");
+            var menuBtn = document.getElementById("site-glass-menu-btn");
+            var menuPanel = document.getElementById("site-glass-menu");
+            var cta = document.getElementById("site-glass-menu-cta");
+            if (!header || !menuBtn || !menuPanel || !cta) return;
+
+            function setMenuOpen(open) {
+                header.classList.toggle("is-menu-open", open);
+                menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+                menuPanel.setAttribute("aria-hidden", open ? "false" : "true");
+                menuBtn.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+            }
+
+            menuBtn.addEventListener("click", function () {
+                setMenuOpen(!header.classList.contains("is-menu-open"));
+            });
+
+            cta.addEventListener("click", function () {
+                window.location.href = "/#pricing-section";
+            });
+
+            document.addEventListener("click", function (event) {
+                if (!header.classList.contains("is-menu-open")) return;
+                if (header.contains(event.target)) return;
+                setMenuOpen(false);
+            });
+        })();
+    </script>
+</body>
+</html>
