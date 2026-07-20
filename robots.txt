@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asas-mind.com/sitemap.xml

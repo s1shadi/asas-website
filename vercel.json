@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.asas-mind.com"
+        }
+      ],
+      "destination": "https://asas-mind.com/:path*",
+      "permanent": true
+    },
+    { "source": "/impressum.html", "destination": "/impressum", "permanent": true },
+    { "source": "/datenschutz.html", "destination": "/datenschutz", "permanent": true },
+    { "source": "/agb.html", "destination": "/agb", "permanent": true },
+    { "source": "/widerruf.html", "destination": "/widerruf", "permanent": true }
+  ]
+}
