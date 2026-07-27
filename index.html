@@ -5749,11 +5749,12 @@
         .pricing-embed .btn-primary:active { transform: translateY(0); }
         .pricing-embed .pricing-card-note {
             text-align: center;
-            margin: 0;
-            font-size: 0.73rem;
+            margin: 12px 0 0;
+            font-size: 0.72rem;
             color: rgba(240,242,248,0.26);
             font-weight: 500;
-            line-height: 1.45;
+            line-height: 1.35;
+            white-space: nowrap;
         }
         .pricing-embed .microcopy { text-align: center; margin-top: 13px; font-size: 0.73rem; color: rgba(240,242,248,0.26); font-weight: 500; }
         .pricing-embed .footer-note {
@@ -6253,9 +6254,23 @@
             }
 
             .hero-buttons {
+                width: 100%;
+            }
+
+            .hero .hero-cta-row {
                 flex-direction: column;
                 width: 100%;
                 align-items: center;
+            }
+
+            .hero .hero-cta-primary {
+                width: 100%;
+            }
+
+            .hero .hero-cta-note {
+                font-size: 0.72rem;
+                padding: 0 12px;
+                max-width: 100%;
             }
 
             .hero-buttons .btn {
@@ -7171,10 +7186,34 @@
 
         .hero .hero-buttons {
             display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
             justify-content: center;
+            margin-top: 4px;
+        }
+
+        .hero .hero-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .hero .hero-cta-primary {
+            display: flex;
+            flex-direction: column;
             align-items: center;
+            gap: 10px;
+        }
+
+        .hero .hero-cta-note {
+            margin: 0;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.35;
+            color: rgba(190, 200, 220, 0.52);
+            text-align: center;
+            max-width: 16.5rem;
         }
 
         .hero .hero-secondary-cta,
@@ -7182,15 +7221,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 52px;
-            padding: 0 22px;
+            min-height: 54px;
+            padding: 0 26px;
             border-radius: 999px;
             border: 1px solid rgba(255, 255, 255, 0.18);
             background: rgba(255, 255, 255, 0.04);
             color: rgba(240, 244, 255, 0.92);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
+            letter-spacing: -0.01em;
             text-decoration: none;
+            white-space: nowrap;
             transition: background 0.2s ease, border-color 0.2s ease;
         }
 
@@ -9099,8 +9140,8 @@
             margin: 0;
             padding: 16px 18px 16px 20px;
             display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 10px 14px;
+            grid-template-columns: 1fr;
+            gap: 8px;
             align-items: start;
             border-radius: 14px;
             border: 1px solid rgba(120, 160, 220, 0.12);
@@ -9138,6 +9179,7 @@
             display: inline-flex;
             align-items: center;
             width: fit-content;
+            max-width: 100%;
             margin: 1px 0 0;
             padding: 4px 10px;
             border-radius: 999px;
@@ -9149,7 +9191,9 @@
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            white-space: nowrap;
+            white-space: normal;
+            line-height: 1.25;
+            text-align: left;
         }
 
         #rang .open-principle p {
@@ -10290,6 +10334,14 @@
             color: rgba(186, 198, 220, 0.78);
         }
 
+        #pricing-section .pricing-card--founder .pricing-card-note {
+            margin-top: 12px;
+            font-size: clamp(0.58rem, 1.9vw, 0.7rem);
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
         #pricing-section .pricing-card__edge-badge {
             background: linear-gradient(90deg, #2c7ef8, #1f5fd0);
             box-shadow: 0 8px 18px rgba(26, 79, 214, 0.32);
@@ -10307,7 +10359,7 @@
 
         #pricing-section .pricing-embed .footer-note {
             margin-top: 28px;
-            max-width: 40rem;
+            max-width: 42rem;
             padding: 0;
         }
 
@@ -10317,9 +10369,298 @@
             line-height: 1.5;
         }
 
+        #pricing-section .pricing-embed .footer-note__steps {
+            margin: 0;
+            font-size: clamp(0.92rem, 1.6vw, 1.02rem);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.45;
+            color: rgba(210, 224, 255, 0.92);
+            text-shadow:
+                0 0 18px rgba(80, 140, 255, 0.28),
+                0 0 36px rgba(44, 100, 220, 0.14);
+        }
+
+        #pricing-section .pricing-embed .footer-note__meta {
+            margin: 16px 0 0;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.45;
+            color: rgba(176, 190, 216, 0.68);
+        }
+
         #pricing-section .pricing-embed .footer-note__legal {
-            color: rgba(176, 190, 216, 0.72);
-            font-size: 0.82rem;
+            margin-top: 20px;
+            color: rgba(176, 190, 216, 0.58);
+            font-size: 0.66rem;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 560px) {
+            #pricing-section .pricing-embed .footer-note__steps {
+                font-size: 0.88rem;
+                padding: 0 8px;
+            }
+
+            #pricing-section .pricing-embed .footer-note__meta {
+                font-size: 0.74rem;
+                padding: 0 6px;
+            }
+        }
+
+        /* —— 5b. Persönliche Einschätzung (Concierge) —— */
+        #asas-consult.asas-consult {
+            width: min(1200px, calc(100% - 32px));
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(28px, 4vw, 44px) 16px clamp(40px, 5vw, 56px);
+            position: relative;
+            background: transparent;
+            scroll-margin-top: calc(var(--site-glass-header-bar) + env(safe-area-inset-top, 0px) + 12px);
+            box-sizing: border-box;
+        }
+
+        .asas-consult__inner {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .asas-consult__panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) auto minmax(0, 0.95fr);
+            align-items: center;
+            gap: clamp(22px, 3vw, 32px);
+            padding: clamp(22px, 2.8vw, 28px) clamp(24px, 3vw, 32px);
+            border-radius: 16px;
+            border: 1px solid rgba(90, 140, 255, 0.18);
+            background:
+                radial-gradient(120% 140% at 0% 0%, rgba(44, 90, 220, 0.1), transparent 55%),
+                radial-gradient(90% 120% at 100% 100%, rgba(28, 60, 160, 0.07), transparent 50%),
+                linear-gradient(165deg, rgba(14, 18, 32, 0.96) 0%, rgba(8, 10, 18, 0.98) 100%);
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.035) inset,
+                0 0 0 1px rgba(0, 0, 0, 0.35) inset,
+                0 0 28px rgba(44, 100, 220, 0.08),
+                0 14px 36px rgba(0, 0, 0, 0.28);
+        }
+
+        .asas-consult__copy {
+            min-width: 0;
+            text-align: left;
+        }
+
+        .asas-consult__eyebrow {
+            display: block;
+            margin: 0 0 8px;
+            font-size: 0.72rem;
+            font-weight: 650;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(120, 168, 255, 0.78);
+        }
+
+        .asas-consult__title {
+            margin: 0 0 10px;
+            font-family: var(--hero-headline-font, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, sans-serif);
+            font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+            font-weight: 650;
+            letter-spacing: -0.025em;
+            line-height: 1.25;
+            color: #f3f6ff;
+        }
+
+        .asas-consult__text {
+            margin: 0;
+            max-width: 36rem;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            color: rgba(190, 200, 220, 0.7);
+        }
+
+        .asas-consult__divider {
+            width: 1px;
+            align-self: stretch;
+            min-height: 72px;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(110, 160, 255, 0.28) 18%,
+                rgba(110, 160, 255, 0.28) 82%,
+                transparent 100%
+            );
+        }
+
+        .asas-consult__action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .asas-consult__btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: max-content;
+            max-width: 100%;
+            min-height: 52px;
+            padding: 13px 22px;
+            border-radius: 999px;
+            border: 1px solid rgba(90, 150, 255, 0.32);
+            background:
+                linear-gradient(180deg, rgba(48, 98, 210, 0.28) 0%, rgba(28, 58, 140, 0.34) 100%);
+            color: rgba(236, 242, 255, 0.94);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            flex-shrink: 0;
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.08) inset,
+                0 0 0 1px rgba(44, 100, 220, 0.08),
+                0 8px 20px rgba(20, 50, 140, 0.18);
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .asas-consult__btn:hover,
+        .asas-consult__btn:focus-visible {
+            background:
+                linear-gradient(180deg, rgba(58, 112, 230, 0.36) 0%, rgba(34, 72, 170, 0.42) 100%);
+            border-color: rgba(120, 168, 255, 0.42);
+            color: #fff;
+            outline: none;
+            transform: translateY(-1px);
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.1) inset,
+                0 0 0 1px rgba(44, 100, 220, 0.12),
+                0 10px 24px rgba(28, 70, 180, 0.24);
+        }
+
+        .asas-consult__wa-icon {
+            display: inline-flex;
+            flex-shrink: 0;
+            color: rgba(170, 200, 255, 0.95);
+        }
+
+        .asas-consult__wa-icon svg {
+            display: block;
+            width: 19px;
+            height: 19px;
+        }
+
+        .asas-consult__btn-label--short {
+            display: none;
+        }
+
+        .asas-consult__trust {
+            margin: 0;
+            font-size: 0.76rem;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            line-height: 1.35;
+            color: rgba(196, 210, 236, 0.72);
+        }
+
+        @media (max-width: 768px) {
+            #asas-consult.asas-consult {
+                width: min(100%, calc(100% - 28px));
+                padding: clamp(20px, 5vw, 32px) 0;
+            }
+
+            .asas-consult__panel {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                padding: 18px 16px;
+                border-radius: 16px;
+            }
+
+            .asas-consult__eyebrow {
+                margin-bottom: 6px;
+                font-size: 0.68rem;
+                letter-spacing: 0.08em;
+            }
+
+            .asas-consult__title {
+                margin-bottom: 8px;
+                font-size: clamp(1.12rem, 5.2vw, 1.28rem);
+                line-height: 1.22;
+            }
+
+            .asas-consult__text {
+                font-size: 0.88rem;
+                line-height: 1.5;
+            }
+
+            .asas-consult__divider {
+                width: 100%;
+                height: 1px;
+                min-height: 0;
+                align-self: auto;
+                margin: 2px 0;
+                background: linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(110, 160, 255, 0.22) 12%,
+                    rgba(110, 160, 255, 0.22) 88%,
+                    transparent 100%
+                );
+            }
+
+            .asas-consult__copy {
+                text-align: left;
+            }
+
+            .asas-consult__action {
+                width: 100%;
+                text-align: center;
+                align-items: center;
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .asas-consult__btn {
+                flex-shrink: 0;
+                width: max-content;
+                max-width: none;
+                min-width: max-content;
+                min-height: 50px;
+                padding: 14px 26px;
+                font-size: 0.94rem;
+                gap: 10px;
+                white-space: nowrap;
+                box-sizing: border-box;
+            }
+
+            .asas-consult__btn-label--full {
+                display: none;
+            }
+
+            .asas-consult__btn-label--short {
+                display: inline;
+            }
+
+            .asas-consult__wa-icon {
+                flex-shrink: 0;
+            }
+
+            .asas-consult__wa-icon svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .asas-consult__trust {
+                font-size: 0.72rem;
+                text-align: center;
+            }
         }
 
         /* —— 6. FAQ —— */
@@ -10543,8 +10884,8 @@
                 </nav>
 
                 <div class="site-glass-header__actions">
-                    <button type="button" class="btn btn-cta site-glass-header__cta js-scroll-to-founder" aria-label="Founder-Platz sichern">
-                        <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Founder-Platz sichern</span>
+                    <button type="button" class="btn btn-cta site-glass-header__cta js-scroll-to-founder" aria-label="ASAS starten">
+                        <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>ASAS starten</span>
                     </button>
                     <button type="button" class="site-glass-header__menu-toggle" id="site-glass-menu-btn" aria-controls="site-glass-menu" aria-expanded="false" aria-haspopup="true" aria-label="Menü öffnen">
                         <span class="site-glass-header__menu-bars" aria-hidden="true">
@@ -10564,8 +10905,8 @@
                 <a class="site-glass-header__mobile-link" href="#pricing-section">Zugang</a>
                 <a class="site-glass-header__mobile-link" href="#faq-section">FAQ</a>
             </nav>
-            <button type="button" class="btn btn-cta site-glass-header__menu-cta js-scroll-to-founder" id="site-glass-menu-cta" aria-label="Founder-Platz sichern">
-                <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Founder-Platz sichern</span>
+            <button type="button" class="btn btn-cta site-glass-header__menu-cta js-scroll-to-founder" id="site-glass-menu-cta" aria-label="ASAS starten">
+                <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>ASAS starten</span>
             </button>
         </div>
     </header>
@@ -10595,8 +10936,13 @@
             <p class="hero-desc"><span class="hero-desc__lead">Gib deinem Fokus einen festen Platz in deinem Alltag.<br></span>Du entscheidest, was du erreichen willst.<br>Das System bringt dich jeden Tag<br>zu dieser Entscheidung zurück.</p>
         </div>
         <div class="hero-buttons page-intro-rise page-intro-rise--cta-last">
-            <button type="button" class="btn btn-cta js-scroll-to-founder" aria-label="Founder-Platz sichern"><span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Founder-Platz sichern</span></button>
-            <a class="btn btn-secondary hero-secondary-cta" href="#was-ist-asas"><span>So funktioniert ASAS</span></a>
+            <div class="hero-cta-row">
+                <div class="hero-cta-primary">
+                    <button type="button" class="btn btn-cta js-scroll-to-founder" aria-label="ASAS starten"><span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>ASAS starten</span></button>
+                    <p class="hero-cta-note">Sofortiger Zugang · monatlich kündbar</p>
+                </div>
+                <a class="btn btn-secondary hero-secondary-cta" href="#was-ist-asas"><span>So funktioniert ASAS</span></a>
+            </div>
         </div>
     </section>
 
@@ -10760,16 +11106,16 @@
 
             <div class="open-principles" role="list">
                 <article class="open-principle" role="listitem">
-                    <span class="open-principle__label">Diskret</span>
-                    <p>Niemand kennt deinen Fokus. Niemand bewertet deinen Weg. Es gibt keinen Chat, keinen Feed und keine Bühne, auf der sich Menschen gegenseitig etwas beweisen müssen.</p>
-                </article>
-                <article class="open-principle" role="listitem">
-                    <span class="open-principle__label">Still</span>
-                    <p>ASAS ist keine gewöhnliche Online-Community. Es ist eine stille Bewegung von Menschen, die beschlossen haben, dranzubleiben.</p>
+                    <span class="open-principle__label">Diskret &amp; Still</span>
+                    <p>Niemand kennt deinen Fokus oder bewertet deinen Weg. ASAS ist keine gewöhnliche Online-Community, sondern eine stille Bewegung von Menschen, die beschlossen haben, dranzubleiben – ohne Vergleich, Selbstdarstellung oder eine Bühne, auf der sich jemand beweisen muss.</p>
                 </article>
                 <article class="open-principle" role="listitem">
                     <span class="open-principle__label">Rang</span>
                     <p>Dein Rang zeigt nicht, wie erfolgreich du bist. Er zeigt, wie lange du deiner eigenen Entscheidung treu geblieben bist.</p>
+                </article>
+                <article class="open-principle" role="listitem">
+                    <span class="open-principle__label">Worüber läuft ASAS?</span>
+                    <p>ASAS ist aktuell direkt in Discord integriert – eine App, die viele bereits nutzen. Innerhalb von Discord funktioniert ASAS wie eine eigenständige, geschützte Anwendung: ruhig, klar und strukturiert. Dort findest du deine Daily Checks, Erinnerungen, Ränge und deinen persönlichen Mirror an einem Ort – ohne offene Chats oder Calls.</p>
                 </article>
             </div>
 
@@ -11128,8 +11474,8 @@
                             <li class="strong"><span class="check"><svg viewBox="0 0 16 16" aria-hidden="true"><polyline points="3.2 8.2 6.4 11.4 12.8 4.6"/></svg></span>dauerhafter Founder-Preis bei aktivem Zugang</li>
                         </ul>
                         <a class="btn btn-primary pricing-checkout-trigger" href="https://whop.com/checkout/plan_OwcpFpq9egpf0" rel="noopener noreferrer">Founder-Platz sichern</a>
-                        <div class="divider"></div>
                         <p class="pricing-card-note">Sobald alle Founder-Plätze vergeben sind, wird dieser Zugang geschlossen.</p>
+                        <div class="divider"></div>
                         <div class="microcopy">Für mindestens 3 Monate ausgelegt<br>
                             Der Founder-Preis gilt nur bei aktivem Zugang
                         </div>
@@ -11163,11 +11509,42 @@
             </div>
 
             <div class="footer-note">
-                <p>Sofortiger Zugang. Keine versteckten Kosten. Gesamtpreise inkl. MwSt. werden im Checkout ausgewiesen.</p>
+                <p class="footer-note__steps">Zugang wählen → Discord verbinden → Sofort einsteigen</p>
+                <p class="footer-note__meta">Kündigung direkt über Whop · Keine versteckten Kosten · Gesamtpreise inkl.&nbsp;MwSt. im&nbsp;Checkout</p>
                 <p class="footer-note__legal">Mit dem Kauf bestätigst du, dass die digitale Leistung sofort beginnt. Dein Widerrufsrecht erlischt, sobald die Leistung vollständig erbracht ist.</p>
             </div>
         </div>
     </section>
+
+    <!-- Persönliche Einschätzung (Concierge) -->
+    <section class="asas-consult" id="asas-consult" aria-labelledby="asas-consult-title">
+        <div class="asas-consult__inner">
+            <div class="asas-consult__panel">
+                <div class="asas-consult__copy">
+                    <span class="asas-consult__eyebrow">Noch unsicher?</span>
+                    <h2 class="asas-consult__title" id="asas-consult-title">Ist ASAS für dein Ziel geeignet?</h2>
+                    <p class="asas-consult__text">Lass dir von den Köpfen hinter ASAS persönlich sagen, ob das System zu deinem konkreten Ziel passt – ehrlich, direkt und unverbindlich.</p>
+                </div>
+
+                <div class="asas-consult__divider" aria-hidden="true"></div>
+
+                <div class="asas-consult__action">
+                    <!-- WhatsApp-Link vorerst entfernt. Später: <a href="https://wa.me/NUMMER?text=..."> -->
+                    <button type="button" class="asas-consult__btn">
+                        <span class="asas-consult__wa-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.04 2.1c-5.45 0-9.88 4.4-9.88 9.83 0 1.73.46 3.42 1.33 4.91L2.1 21.9l5.24-1.37a9.86 9.86 0 0 0 4.7 1.2h.01c5.45 0 9.88-4.4 9.88-9.83 0-2.62-1.03-5.09-2.9-6.94a9.86 9.86 0 0 0-6.99-2.86Zm0 1.76c2.15 0 4.17.83 5.69 2.34a7.97 7.97 0 0 1 2.35 5.73c0 4.48-3.66 8.12-8.16 8.12a8.2 8.2 0 0 1-4.16-1.13l-.3-.17-3.11.81.83-3.03-.2-.31a8.08 8.08 0 0 1-1.24-4.29c0-4.48 3.66-8.12 8.3-8.07Zm4.63 9.74c-.25-.13-1.49-.73-1.72-.81-.23-.09-.4-.13-.56.13-.17.25-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.13-1.05-.38-2-1.23-.74-.65-1.24-1.46-1.38-1.71-.15-.25-.02-.39.11-.51.12-.12.25-.29.38-.44.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.42h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.09s.9 2.42 1.03 2.59c.12.16 1.77 2.7 4.29 3.79 2.52 1.08 2.52.72 2.97.68.45-.04 1.49-.6 1.7-1.19.21-.58.21-1.08.15-1.19-.06-.1-.23-.16-.48-.29Z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                        <span class="asas-consult__btn-label asas-consult__btn-label--full">Kurz nachfragen</span>
+                        <span class="asas-consult__btn-label asas-consult__btn-label--short">Kurz nachfragen</span>
+                    </button>
+                    <p class="asas-consult__trust">Kostenlos · persönlich · unverbindlich</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="faq-section" id="faq-section">
         <h2 class="faq-heading">FAQs</h2>
         <div class="wrapper">
@@ -13038,7 +13415,7 @@ if(txtImg.complete)onLoad();
         (function initGlobalScrollMotion() {
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             if (window.matchMedia('(max-width: 768px)').matches) return;
-            var targets = document.querySelectorAll('.hero, .statements-section-slot, .statements-section-display, .problem-pull-zone, .asas-how-section, .journey-section, .pricing-section, .faq-section, .final-cta');
+            var targets = document.querySelectorAll('.hero, .statements-section-slot, .statements-section-display, .problem-pull-zone, .asas-how-section, .journey-section, .pricing-section, .asas-consult, .faq-section, .final-cta');
             if (!targets || !targets.length) return;
 
             targets.forEach(function (el) {
