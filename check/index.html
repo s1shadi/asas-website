@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="de" translate="no" class="notranslate">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#030611">
+    <title>Der 7-Minuten-Check | ASAS</title>
+    <meta name="description" content="Finde in sieben kurzen Fragen heraus, wo dein System Fortschritt verliert und was du in den nächsten 24 Stunden konkret ändern musst.">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <script defer src="/config.js"></script>
+    <style>
+        :root {
+            --bg: #040714;
+            --bg-soft: #0a1126;
+            --ink: #f3f7ff;
+            --ink-soft: rgba(210, 222, 242, 0.82);
+            --ink-muted: rgba(176, 190, 216, 0.74);
+            --line: rgba(120, 152, 212, 0.22);
+            --line-strong: rgba(110, 160, 255, 0.38);
+            --blue: #2e74e6;
+            --blue-deep: #1f57bd;
+            --card: rgba(10, 18, 36, 0.94);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(90% 120% at 0% 0%, rgba(36, 74, 166, 0.24), transparent 52%),
+                radial-gradient(120% 140% at 100% 100%, rgba(14, 28, 78, 0.28), transparent 58%),
+                var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .check-shell {
+            width: min(760px, calc(100% - 28px));
+            margin: 0 auto;
+            padding: clamp(26px, 5vw, 48px) 0 56px;
+        }
+
+        .check-hero {
+            margin-bottom: 20px;
+        }
+
+        .check-kicker {
+            margin: 0 0 10px;
+            font-size: 0.72rem;
+            font-weight: 640;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(130, 178, 255, 0.84);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.7rem, 5.6vw, 2.45rem);
+            line-height: 1.14;
+            letter-spacing: -0.03em;
+        }
+
+        .check-subtitle {
+            margin: 14px 0 0;
+            color: var(--ink-soft);
+            font-size: 0.98rem;
+        }
+
+        .check-trust {
+            margin: 14px 0 0;
+            color: var(--ink-muted);
+            font-size: 0.82rem;
+        }
+
+        .check-card {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background:
+                radial-gradient(100% 140% at 0% 0%, rgba(44, 92, 198, 0.11), transparent 56%),
+                linear-gradient(175deg, rgba(10, 16, 32, 0.96) 0%, rgba(7, 11, 24, 0.98) 100%);
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.04) inset,
+                0 0 0 1px rgba(0, 0, 0, 0.38) inset,
+                0 16px 36px rgba(0, 0, 0, 0.28);
+            padding: clamp(20px, 3.8vw, 30px);
+        }
+
+        .check-shell.is-running .check-hero {
+            display: none;
+        }
+
+        .check-shell.is-running {
+            min-height: 100svh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        .screen[hidden] { display: none; }
+
+        .start-copy {
+            margin: 0 0 18px;
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+        }
+
+        .progress-line {
+            font-size: 0.82rem;
+            color: rgba(184, 202, 235, 0.84);
+            margin: 0 0 14px;
+            letter-spacing: 0.01em;
+        }
+
+        .question-title {
+            margin: 0 0 16px;
+            font-size: clamp(1.14rem, 4.2vw, 1.44rem);
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .answer-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .answer-btn {
+            width: 100%;
+            text-align: left;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: var(--card);
+            color: rgba(230, 238, 255, 0.94);
+            padding: 14px 14px;
+            font-size: 0.93rem;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        }
+
+        .answer-btn:hover {
+            border-color: rgba(132, 176, 255, 0.42);
+            background: rgba(14, 25, 52, 0.95);
+        }
+
+        .answer-btn.is-selected {
+            border-color: var(--line-strong);
+            background: linear-gradient(180deg, rgba(41, 85, 182, 0.25), rgba(18, 34, 76, 0.92));
+            box-shadow: 0 0 0 1px rgba(78, 130, 240, 0.22) inset;
+            transform: translateY(-1px);
+        }
+
+        .nav-row {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn {
+            border-radius: 999px;
+            min-height: 47px;
+            border: 1px solid transparent;
+            font-size: 0.88rem;
+            font-weight: 610;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 16px;
+        }
+
+        .btn-primary {
+            border-color: rgba(90, 150, 255, 0.44);
+            background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
+            color: #fff;
+            box-shadow: 0 10px 22px rgba(26, 72, 176, 0.3);
+        }
+
+        .btn-secondary {
+            border-color: var(--line);
+            background: rgba(255, 255, 255, 0.03);
+            color: rgba(220, 232, 255, 0.9);
+        }
+
+        .btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .error-note {
+            min-height: 18px;
+            margin: 10px 0 0;
+            color: rgba(246, 171, 171, 0.95);
+            font-size: 0.77rem;
+        }
+
+        .result-title {
+            margin: 0;
+            font-size: clamp(1.28rem, 4.8vw, 1.68rem);
+            line-height: 1.23;
+            letter-spacing: -0.02em;
+        }
+
+        .result-kicker {
+            margin: 0 0 8px;
+            font-size: 0.72rem;
+            font-weight: 640;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(130, 178, 255, 0.84);
+        }
+
+        .result-text {
+            margin: 12px 0 0;
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+        }
+
+        .result-step {
+            margin: 16px 0 0;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(110, 160, 255, 0.32);
+            background: rgba(18, 34, 76, 0.35);
+            color: rgba(232, 239, 255, 0.95);
+            font-size: 0.9rem;
+        }
+
+        .result-next {
+            margin: 14px 0 0;
+            color: var(--ink-muted);
+            font-size: 0.84rem;
+        }
+
+        .result-actions {
+            margin-top: 18px;
+            display: grid;
+            gap: 10px;
+        }
+
+        .btn-soft {
+            border-color: rgba(110, 130, 170, 0.36);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(204, 219, 245, 0.86);
+        }
+    </style>
+</head>
+<body>
+    <main class="check-shell">
+        <header class="check-hero">
+            <p class="check-kicker">Der 7-Minuten-Check</p>
+            <h1>Was bremst deinen Fortschritt?</h1>
+            <p class="check-subtitle">Finde heraus, warum du mit deinem Ziel nicht so vorankommst, wie du es willst – und was du in den nächsten 24 Stunden ändern kannst.</p>
+            <p class="check-trust">Kostenlos · ohne Anmeldung · ohne E-Mail · WhatsApp optional</p>
+        </header>
+
+        <section class="check-card">
+            <div id="screen-start" class="screen">
+                <p class="start-copy">7 kurze Fragen - Danach siehst du deinen größten Engpass & einen klaren nächsten Schritt.</p>
+                <button class="btn btn-primary" id="start-check" type="button">Check starten</button>
+            </div>
+
+            <div id="screen-question" class="screen" hidden>
+                <p class="progress-line" id="progress-line">Frage 1 von 7</p>
+                <h2 class="question-title" id="question-title"></h2>
+                <div class="answer-list" id="answers"></div>
+                <p class="error-note" id="error-note"></p>
+                <div class="nav-row">
+                    <button class="btn btn-secondary" type="button" id="back-btn">Zurück</button>
+                    <button class="btn btn-primary" type="button" id="next-btn">Weiter</button>
+                </div>
+            </div>
+
+            <div id="screen-result" class="screen" hidden>
+                <p class="result-kicker" id="result-kicker"></p>
+                <h2 class="result-title" id="result-title"></h2>
+                <p class="result-text" id="result-explanation"></p>
+                <p class="result-text" id="result-reason"></p>
+                <div class="result-step" id="result-step"></div>
+                <p class="result-next" id="result-next"></p>
+                <div class="result-actions">
+                    <a id="result-whatsapp" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer" hidden>Mein Ergebnis kostenlos besprechen</a>
+                    <a id="result-product" class="btn btn-secondary" href="/#pricing-section">ASAS für 29 € monatlich ansehen</a>
+                    <button class="btn btn-soft" type="button" id="result-restart">Check erneut starten</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function initProgressCheck() {
+            var ALLOWED_PARAMS = ['src', 'creator', 'utm_source', 'utm_medium', 'utm_campaign'];
+            var questions = [
+                { key: 'q1', text: 'Hast du ein klares Ziel für die nächsten 30 Tage?', category: 'goal', answers: [
+                    { text: 'Ja, genau festgelegt', points: 0 },
+                    { text: 'Ja, aber nur ungefähr', points: 1 },
+                    { text: 'Ich habe mehrere Ziele', points: 2 },
+                    { text: 'Nein, noch kein Ziel', points: 3, noGoal: true }
+                ]},
+                { key: 'q2', text: 'Weißt du genau, was du morgen für dein Ziel tun musst?', category: 'goal', answers: [
+                    { text: 'Ja, ganz genau', points: 0 },
+                    { text: 'Nur ungefähr', points: 1 },
+                    { text: 'Ich habe zu viele Aufgaben', points: 2 },
+                    { text: 'Nein', points: 3 }
+                ]},
+                { key: 'q3', text: 'Schreibst du auf, was du für dein Ziel wirklich erledigt hast?', category: 'proof', answers: [
+                    { text: 'Jeden Tag', points: 0 },
+                    { text: 'An manchen Tagen', points: 1 },
+                    { text: 'Nur sehr selten', points: 2 },
+                    { text: 'Nie', points: 3 }
+                ]},
+                { key: 'q4', text: 'An wie vielen der letzten sieben Tage hast du etwas Wichtiges für dein Ziel getan?', category: 'proof', answers: [
+                    { text: '5–7 Tage', points: 0 },
+                    { text: '3–4 Tage', points: 1 },
+                    { text: '1–2 Tage', points: 2 },
+                    { text: 'An keinem Tag', points: 3 }
+                ]},
+                { key: 'q5', text: 'Prüfst du abends, ob du deinem Ziel nähergekommen bist?', category: 'feedback', answers: [
+                    { text: 'Jeden Abend', points: 0 },
+                    { text: 'An manchen Abenden', points: 1 },
+                    { text: 'Nur sehr selten', points: 2 },
+                    { text: 'Nie', points: 3 }
+                ]},
+                { key: 'q6', text: 'Wenn du eine wichtige Aufgabe nicht machst: Findest du heraus, warum?', category: 'feedback', answers: [
+                    { text: 'Ja, immer', points: 0 },
+                    { text: 'Manchmal', points: 1 },
+                    { text: 'Nur selten', points: 2 },
+                    { text: 'Nein', points: 3 }
+                ]},
+                { key: 'q7', text: 'Legst du abends fest, was du am nächsten Tag machen musst?', category: 'feedback', answers: [
+                    { text: 'Ja, ganz konkret', points: 0 },
+                    { text: 'Nur ungefähr', points: 1 },
+                    { text: 'Ich entscheide spontan', points: 2 },
+                    { text: 'Nein', points: 3 }
+                ]}
+            ];
+
+            var state = {
+                index: 0,
+                answers: Array(questions.length).fill(null),
+                started: false,
+                completed: false,
+            };
+
+            var attributionParams = new URLSearchParams();
+            var current = new URL(window.location.href);
+            ALLOWED_PARAMS.forEach(function (key) {
+                var value = current.searchParams.get(key);
+                if (value) attributionParams.set(key, value);
+            });
+
+            function emit(name) {
+                if (typeof window.va !== 'function') return;
+                window.va('event', { name: name });
+            }
+
+            function buildUrl(path, hash) {
+                var url = new URL(path, window.location.origin);
+                attributionParams.forEach(function (value, key) {
+                    url.searchParams.set(key, value);
+                });
+                if (hash) url.hash = hash;
+                return url.toString();
+            }
+
+            function selectedAnswerMeta(questionIndex) {
+                var answerIndex = state.answers[questionIndex];
+                if (answerIndex === null) return null;
+                return questions[questionIndex].answers[answerIndex];
+            }
+
+            function renderQuestion() {
+                var q = questions[state.index];
+                document.getElementById('progress-line').textContent = 'Frage ' + (state.index + 1) + ' von 7';
+                document.getElementById('question-title').textContent = q.text;
+                document.getElementById('error-note').textContent = '';
+                document.getElementById('back-btn').disabled = state.index === 0;
+                document.getElementById('next-btn').textContent = state.index === questions.length - 1 ? 'Ergebnis anzeigen' : 'Weiter';
+
+                var answersWrap = document.getElementById('answers');
+                answersWrap.innerHTML = '';
+                q.answers.forEach(function (answer, idx) {
+                    var btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'answer-btn' + (state.answers[state.index] === idx ? ' is-selected' : '');
+                    btn.textContent = answer.text;
+                    btn.setAttribute('data-answer-index', String(idx));
+                    btn.addEventListener('click', function () {
+                        state.answers[state.index] = idx;
+                        renderQuestion();
+                    });
+                    answersWrap.appendChild(btn);
+                });
+            }
+
+            function highestLeak(values) {
+                var tieOrder = ['proof', 'feedback', 'goal'];
+                var highest = tieOrder[0];
+                tieOrder.forEach(function (key) {
+                    if (values[key] > values[highest]) {
+                        highest = key;
+                    } else if (values[key] === values[highest] && tieOrder.indexOf(key) < tieOrder.indexOf(highest)) {
+                        highest = key;
+                    }
+                });
+                return highest;
+            }
+
+            function secondHighest(values, primary) {
+                var order = ['proof', 'feedback', 'goal'].filter(function (k) { return k !== primary; });
+                if (values[order[0]] >= values[order[1]]) return order[0];
+                return order[1];
+            }
+
+            function makeResult() {
+                var q1 = selectedAnswerMeta(0);
+                var scores = state.answers.map(function (answerIndex, idx) {
+                    return questions[idx].answers[answerIndex].points;
+                });
+
+                var normalized = {
+                    goal: (scores[0] + scores[1]) / 6,
+                    proof: (scores[2] + scores[3]) / 6,
+                    feedback: (scores[4] + scores[5] + scores[6]) / 9,
+                };
+
+                if (q1 && q1.noGoal) {
+                    emit('result_no_goal');
+                    return {
+                        key: 'no_goal',
+                        kicker: 'DEIN ERSTER SCHRITT',
+                        title: 'Ziel zuerst festlegen',
+                        explanation: 'Bevor du deine Tage sinnvoll planen kannst, brauchst du ein klares Ziel für die nächsten 30 Tage.',
+                        reason: 'Deine Antworten zeigen, dass aktuell noch kein klares 30-Tage-Ziel gesetzt ist. Ohne klares Ziel bleibt auch der nächste Schritt unscharf.',
+                        step: '24-Stunden-Schritt: Formuliere heute ein einziges 30-Tage-Ziel in einem Satz und lege eine konkrete Aufgabe für morgen fest, die direkt darauf einzahlt.',
+                        secondary: '',
+                        resultName: 'Ziel zuerst festlegen'
+                    };
+                }
+
+                var stableSystem = normalized.goal <= 0.33 && normalized.proof <= 0.33 && normalized.feedback <= 0.33;
+                if (stableSystem) {
+                    emit('result_stable_system');
+                    return {
+                        key: 'stable',
+                        kicker: 'DEIN ERGEBNIS',
+                        title: 'Starke Grundlage',
+                        explanation: 'Du hast ein klares Ziel, setzt wichtige Aufgaben um und prüfst regelmäßig, ob du vorankommst.',
+                        reason: 'Deine Antworten deuten darauf hin, dass Zielklarheit, sichtbarer Fortschritt und tägliche Auswertung bereits vergleichsweise gut greifen.',
+                        step: '24-Stunden-Schritt: Halte deinen aktuellen Ablauf bei und dokumentiere morgen nur ein sichtbares Tagesergebnis, um die Stabilität bewusst zu sichern.',
+                        secondary: 'ASAS kann optional helfen, diese Struktur gebündelt an einem Ort zu halten, ist aber momentan nicht zwingend notwendig.',
+                        resultName: 'Starke Grundlage'
+                    };
+                }
+
+                var primaryLeak = highestLeak(normalized);
+                var nextLeak = secondHighest(normalized, primaryLeak);
+                if (primaryLeak === 'goal') {
+                    emit('result_goal_leak');
+                    return {
+                        key: 'goal',
+                        kicker: 'HIER SOLLTEST DU ANSETZEN',
+                        title: 'Klares Ziel',
+                        explanation: 'Dein Ziel für die nächsten 30 Tage ist noch nicht konkret genug.',
+                        reason: 'Deine Antworten zeigen, dass Zielklarheit und konkrete Tagesausrichtung noch nicht stabil stehen.',
+                        step: '24-Stunden-Schritt: Lege ein einziges 30-Tage-Ziel fest und definiere genau eine Aufgabe, die du morgen bis zu einer klaren Uhrzeit erledigst.',
+                        secondary: nextLeak === 'proof' ? 'Nächster sinnvoller Fokus danach: Sichtbarer Fortschritt.' : 'Nächster sinnvoller Fokus danach: Tägliche Auswertung.',
+                        resultName: 'Klares Ziel'
+                    };
+                }
+                if (primaryLeak === 'proof') {
+                    emit('result_proof_leak');
+                    return {
+                        key: 'proof',
+                        kicker: 'HIER SOLLTEST DU ANSETZEN',
+                        title: 'Sichtbarer Fortschritt',
+                        explanation: 'Du hältst noch nicht klar fest, was du für dein Ziel wirklich getan hast.',
+                        reason: 'In deinen Antworten fehlt vor allem ein klarer, sichtbarer Nachweis von täglichem Fortschritt.',
+                        step: '24-Stunden-Schritt: Definiere für morgen ein einziges sichtbares Ergebnis, das am Tagesende eindeutig erledigt oder nicht erledigt ist.',
+                        secondary: nextLeak === 'feedback' ? 'Nächster sinnvoller Fokus danach: Tägliche Auswertung.' : 'Nächster sinnvoller Fokus danach: Klares Ziel.',
+                        resultName: 'Sichtbarer Fortschritt'
+                    };
+                }
+                emit('result_feedback_leak');
+                return {
+                    key: 'feedback',
+                    kicker: 'HIER SOLLTEST DU ANSETZEN',
+                    title: 'Tägliche Auswertung',
+                    explanation: 'Du prüfst noch nicht regelmäßig, was funktioniert hat und was du morgen ändern musst.',
+                    reason: 'Deine Antworten deuten auf fehlende Tagesauswertung und zu wenig konkrete Anpassung für den nächsten Tag.',
+                    step: '24-Stunden-Schritt: Mache heute Abend eine kurze Auswertung (Was hat funktioniert? Was nicht?) und entscheide genau eine konkrete Änderung für morgen.',
+                    secondary: nextLeak === 'proof' ? 'Nächster sinnvoller Fokus danach: Sichtbarer Fortschritt.' : 'Nächster sinnvoller Fokus danach: Klares Ziel.',
+                    resultName: 'Tägliche Auswertung'
+                };
+            }
+
+            function isWhatsAppReady(config) {
+                var enabled = !!(config && config.whatsappEnabled === true);
+                var number = String((config && config.whatsappNumber) || '').replace(/\s+/g, '');
+                return enabled && /^\d{8,15}$/.test(number) ? number : '';
+            }
+
+            function showResult(result) {
+                document.getElementById('screen-question').hidden = true;
+                document.getElementById('screen-result').hidden = false;
+                document.getElementById('result-kicker').textContent = result.kicker;
+                document.getElementById('result-title').textContent = result.title;
+                document.getElementById('result-explanation').textContent = result.explanation;
+                document.getElementById('result-reason').textContent = result.reason;
+                document.getElementById('result-step').textContent = result.step;
+                document.getElementById('result-next').textContent = result.secondary || '';
+
+                var config = window.ASAS_CONFIG || {};
+                var whatsappNumber = isWhatsAppReady(config);
+                var whatsappText = 'Hi, ich habe den 7-Minuten-Fortschrittscheck gemacht. Mein Ergebnis ist: ' + result.resultName + '. Mein Ziel für die nächsten 30 Tage ist: ____. Ich möchte herausfinden, ob ASAS zu mir passt.';
+
+                var waButton = document.getElementById('result-whatsapp');
+                if (whatsappNumber) {
+                    var waUrl = new URL('https://wa.me/' + whatsappNumber);
+                    waUrl.searchParams.set('text', whatsappText);
+                    attributionParams.forEach(function (value, key) {
+                        waUrl.searchParams.set(key, value);
+                    });
+                    waButton.hidden = false;
+                    waButton.setAttribute('href', waUrl.toString());
+                    waButton.onclick = function () {
+                        emit('result_whatsapp_clicked');
+                    };
+                } else {
+                    waButton.hidden = true;
+                    waButton.removeAttribute('href');
+                    waButton.onclick = null;
+                }
+
+                var productButton = document.getElementById('result-product');
+                productButton.setAttribute('href', buildUrl('/', 'pricing-section'));
+                productButton.onclick = function () {
+                    emit('result_product_clicked');
+                };
+
+                productButton.classList.remove('btn-soft');
+                productButton.classList.add('btn-secondary');
+                if (result.key === 'stable' || result.key === 'no_goal') {
+                    productButton.classList.add('btn-soft');
+                    productButton.classList.remove('btn-secondary');
+                }
+            }
+
+            function restartCheck() {
+                state.index = 0;
+                state.answers = Array(questions.length).fill(null);
+                state.started = false;
+                state.completed = false;
+                document.querySelector('.check-shell').classList.remove('is-running');
+                document.getElementById('screen-result').hidden = true;
+                document.getElementById('screen-question').hidden = true;
+                document.getElementById('screen-start').hidden = false;
+                document.getElementById('error-note').textContent = '';
+            }
+
+            function goToQuestions() {
+                document.getElementById('screen-start').hidden = true;
+                document.getElementById('screen-question').hidden = false;
+                renderQuestion();
+            }
+
+            document.getElementById('start-check').addEventListener('click', function () {
+                if (!state.started) {
+                    emit('check_started');
+                    state.started = true;
+                }
+                document.querySelector('.check-shell').classList.add('is-running');
+                goToQuestions();
+            });
+
+            document.getElementById('back-btn').addEventListener('click', function () {
+                if (state.index === 0) return;
+                state.index -= 1;
+                renderQuestion();
+            });
+
+            document.getElementById('next-btn').addEventListener('click', function () {
+                if (state.completed) return;
+
+                if (state.answers[state.index] === null) {
+                    document.getElementById('error-note').textContent = 'Bitte wähle eine Antwort, bevor du weitergehst.';
+                    return;
+                }
+
+                if (state.index < questions.length - 1) {
+                    state.index += 1;
+                    renderQuestion();
+                    return;
+                }
+
+                state.completed = true;
+                emit('check_completed');
+                showResult(makeResult());
+            });
+
+            document.getElementById('result-restart').addEventListener('click', function () {
+                restartCheck();
+            });
+        })();
+    </script>
+</body>
+</html>
+
