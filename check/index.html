@@ -525,7 +525,7 @@
                 var config = window.ASAS_CONFIG || {};
                 var whatsappNumber = isWhatsAppReady(config);
                 var resultTitle = result.title || result.resultName || '';
-                var whatsappText = 'Hi, ich habe den kostenlosen 7-Minuten-Fortschrittscheck gemacht.\n\nMein Ergebnis: ' + resultTitle + '\n\nMein Ziel für die nächsten 30 Tage: ____.\n\nKannst du mir sagen, was mein sinnvollster nächster Schritt ist und ob ASAS zu mir passt?';
+                var whatsappText = 'Hi, ich habe den 7-Minuten-Check gemacht. Mein Ergebnis: ' + resultTitle + '. Kommt ASAS für mich infrage?';
 
                 var waButton = document.getElementById('result-whatsapp');
                 if (whatsappNumber) {

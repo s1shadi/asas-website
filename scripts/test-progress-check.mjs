@@ -455,14 +455,9 @@ function main() {
         errors.push(`whatsapp href missing number: ${href}`);
       }
       const textParam = new URL(href).searchParams.get('text') || '';
-      if (!textParam.includes(`Mein Ergebnis: ${testCase.expected}`)) {
-        errors.push(`whatsapp text missing result title ${testCase.expected}`);
-      }
-      if (!textParam.includes('kostenlosen 7-Minuten-Fortschrittscheck')) {
-        errors.push('whatsapp text missing expected intro');
-      }
-      if (!textParam.includes('sinnvollster nächster Schritt')) {
-        errors.push('whatsapp text missing closing question');
+      const expectedText = `Hi, ich habe den 7-Minuten-Check gemacht. Mein Ergebnis: ${testCase.expected}. Kommt ASAS für mich infrage?`;
+      if (textParam !== expectedText) {
+        errors.push(`whatsapp text mismatch: ${JSON.stringify(textParam)}`);
       }
     } catch (error) {
       errors.push(error.message);
