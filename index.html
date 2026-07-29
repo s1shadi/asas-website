@@ -7243,6 +7243,22 @@
             outline: none;
         }
 
+        /* Must come after base .hero-cta-row (align-items: flex-start) or mobile stays left-aligned */
+        @media (max-width: 768px) {
+            .hero .hero-cta-row {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+
+            .hero .hero-secondary-cta,
+            .hero .btn-secondary.hero-secondary-cta {
+                align-self: center;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         .hero {
             padding-bottom: clamp(40px, 7vw, 72px);
         }
