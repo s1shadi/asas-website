@@ -508,7 +508,7 @@
 
             function isWhatsAppReady(config) {
                 var enabled = !!(config && config.whatsappEnabled === true);
-                var number = String((config && config.whatsappNumber) || '').replace(/\s+/g, '');
+                var number = String((config && config.whatsappNumber) || '').replace(/\D/g, '');
                 return enabled && /^\d{8,15}$/.test(number) ? number : '';
             }
 
@@ -524,17 +524,18 @@
 
                 var config = window.ASAS_CONFIG || {};
                 var whatsappNumber = isWhatsAppReady(config);
-                var whatsappText = 'Hi, ich habe den 7-Minuten-Fortschrittscheck gemacht. Mein Ergebnis ist: ' + result.resultName + '. Mein Ziel für die nächsten 30 Tage ist: ____. Ich möchte herausfinden, ob ASAS zu mir passt.';
+                var resultTitle = result.title || result.resultName || '';
+                var whatsappText = 'Hi, ich habe den kostenlosen 7-Minuten-Fortschrittscheck gemacht.\n\nMein Ergebnis: ' + resultTitle + '\n\nMein Ziel für die nächsten 30 Tage: ____.\n\nKannst du mir sagen, was mein sinnvollster nächster Schritt ist und ob ASAS zu mir passt?';
 
                 var waButton = document.getElementById('result-whatsapp');
                 if (whatsappNumber) {
-                    var waUrl = new URL('https://wa.me/' + whatsappNumber);
-                    waUrl.searchParams.set('text', whatsappText);
+                    var waUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappText);
+                    var waParsed = new URL(waUrl);
                     attributionParams.forEach(function (value, key) {
-                        waUrl.searchParams.set(key, value);
+                        waParsed.searchParams.set(key, value);
                     });
                     waButton.hidden = false;
-                    waButton.setAttribute('href', waUrl.toString());
+                    waButton.setAttribute('href', waParsed.toString());
                     waButton.onclick = function () {
                         emit('result_whatsapp_clicked');
                     };

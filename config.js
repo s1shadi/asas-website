@@ -1,4 +1,4 @@
 window.ASAS_CONFIG = {
-  whatsappEnabled: false,
-  whatsappNumber: ""
+  whatsappEnabled: true,
+  whatsappNumber: "4915905463277"
 };

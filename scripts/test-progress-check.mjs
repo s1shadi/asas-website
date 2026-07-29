@@ -67,7 +67,8 @@ function referenceResult(answerValues) {
   };
 }
 
-function loadProductionLogic(harness = createHarness()) {
+function loadProductionLogic(options = {}) {
+  const harness = createHarness(options);
   const html = fs.readFileSync(checkHtmlPath, 'utf8');
   const scriptMatch = html.match(/<script>\s*\(function initProgressCheck\(\) \{([\s\S]*?)\}\)\(\);\s*<\/script>/);
   if (!scriptMatch) {
@@ -98,7 +99,14 @@ function loadProductionLogic(harness = createHarness()) {
   return { logic, harness };
 }
 
-function createHarness(initialSearch = '?src=test&creator=qa&utm_source=x&utm_medium=y&utm_campaign=z') {
+function createHarness(options = {}) {
+  const initialSearch = typeof options === 'string'
+    ? options
+    : (options.search || '?src=test&creator=qa&utm_source=x&utm_medium=y&utm_campaign=z');
+  const whatsappEnabled = typeof options === 'object' && options.whatsappEnabled === true;
+  const whatsappNumber = typeof options === 'object' && options.whatsappNumber
+    ? String(options.whatsappNumber)
+    : '';
   const elements = new Map();
 
   function makeElement(id, tag = 'div') {
@@ -194,8 +202,8 @@ function createHarness(initialSearch = '?src=test&creator=qa&utm_source=x&utm_me
     window: {
       location: new URL(`http://localhost/check${initialSearch}`),
       ASAS_CONFIG: {
-        whatsappEnabled: false,
-        whatsappNumber: '',
+        whatsappEnabled,
+        whatsappNumber,
       },
       va() {},
     },
@@ -426,6 +434,42 @@ function main() {
     return result;
   });
 
+  const whatsappCases = uiCases.map((testCase) => {
+    const { logic: caseLogic, harness } = loadProductionLogic({
+      search: '?src=test',
+      whatsappEnabled: true,
+      whatsappNumber: '4915905463277',
+    });
+    const errors = [];
+    let href = '';
+    try {
+      caseLogic.setAnswers(testCase.answers);
+      caseLogic.setIndex(testCase.answers.length - 1);
+      caseLogic.setCompleted(true);
+      const result = caseLogic.makeResult(testCase.answers);
+      caseLogic.showResult(result);
+      const wa = harness.elements.get('result-whatsapp');
+      if (wa.hidden) errors.push('whatsapp button hidden despite valid config');
+      href = wa.getAttribute('href') || '';
+      if (!href.startsWith('https://wa.me/4915905463277?text=')) {
+        errors.push(`whatsapp href missing number: ${href}`);
+      }
+      const textParam = new URL(href).searchParams.get('text') || '';
+      if (!textParam.includes(`Mein Ergebnis: ${testCase.expected}`)) {
+        errors.push(`whatsapp text missing result title ${testCase.expected}`);
+      }
+      if (!textParam.includes('kostenlosen 7-Minuten-Fortschrittscheck')) {
+        errors.push('whatsapp text missing expected intro');
+      }
+      if (!textParam.includes('sinnvollster nächster Schritt')) {
+        errors.push('whatsapp text missing closing question');
+      }
+    } catch (error) {
+      errors.push(error.message);
+    }
+    return { name: `whatsapp:${testCase.name}`, href, errors };
+  });
+
   const report = {
     exhaustivePassed: exhaustive.failures.length === 0,
     totalCombinations: exhaustive.total,
@@ -434,11 +478,13 @@ function main() {
     exhaustiveFailureCount: exhaustive.failures.length,
     uiResults,
     uiPassed: uiResults.every((result) => result.errors.length === 0),
+    whatsappResults: whatsappCases,
+    whatsappPassed: whatsappCases.every((result) => result.errors.length === 0),
   };
 
   console.log(JSON.stringify(report, null, 2));
 
-  if (!report.exhaustivePassed || !report.uiPassed) {
+  if (!report.exhaustivePassed || !report.uiPassed || !report.whatsappPassed) {
     process.exitCode = 1;
   }
 }

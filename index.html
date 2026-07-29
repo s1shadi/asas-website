@@ -14220,9 +14220,9 @@ if(txtImg.complete)onLoad();
 
             var config = window.ASAS_CONFIG || {};
             var whatsappEnabled = config.whatsappEnabled === true;
-            var whatsappNumber = String(config.whatsappNumber || '').replace(/\s+/g, '');
+            var whatsappNumber = String(config.whatsappNumber || '').replace(/\D/g, '');
             var whatsappReady = whatsappEnabled && /^\d{8,15}$/.test(whatsappNumber);
-            var whatsappMessage = 'Hi, ich moechte den kostenlosen Fit-Check auf WhatsApp machen.';
+            var whatsappMessage = 'Hi, ich möchte herausfinden, ob ASAS zu mir und meinem Ziel passt.';
 
             document.querySelectorAll('.js-whatsapp-link').forEach(function (link) {
                 var wrap = link.closest('.progress-check-teaser__alt') || link;
@@ -14233,12 +14233,12 @@ if(txtImg.complete)onLoad();
                 }
 
                 wrap.hidden = false;
-                var waUrl = new URL('https://wa.me/' + whatsappNumber);
-                waUrl.searchParams.set('text', whatsappMessage);
+                var waUrl = 'https://wa.me/' + whatsappNumber + '?text=' + encodeURIComponent(whatsappMessage);
+                var waParsed = new URL(waUrl);
                 keptParams.forEach(function (value, key) {
-                    waUrl.searchParams.set(key, value);
+                    waParsed.searchParams.set(key, value);
                 });
-                link.setAttribute('href', waUrl.toString());
+                link.setAttribute('href', waParsed.toString());
             });
         })();
     </script>
