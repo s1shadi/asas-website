@@ -391,7 +391,7 @@ function runUiScenario(logic, harness, name, answers) {
 
     const product = harness.elements.get('result-product');
     const productHref = product.getAttribute('href') || '';
-    if (!productHref.includes('pricing-section')) {
+    if (!productHref.includes('angebot')) {
       errors.push(`product href invalid: ${productHref}`);
     }
     if (!productHref.includes('src=test')) errors.push('src param missing on product link');

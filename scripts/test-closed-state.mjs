@@ -43,7 +43,7 @@ ok = assert('closed hero headline font', /closed-title[\s\S]*font-family:\s*var\
 ok = assert('closed fullscreen layout', /\.closed-page[\s\S]*min-height:\s*calc\(100dvh/.test(closed)) && ok;
 ok = assert('closed uses ASAS background', /\.animated_bg/.test(closed)) && ok;
 
-ok = assert('homepage preserved', index.includes('progress-check-teaser')) && ok;
+ok = assert('new homepage preserved', index.includes('id="so-funktionierts"') && index.includes('id="angebot"') && index.includes('id="faq"')) && ok;
 ok = assert('check route preserved', check.includes('initProgressCheck')) && ok;
 ok = assert('check still loads config.js', check.includes('src="/config.js"')) && ok;
 ok = assert('check href /check unchanged', !check.includes('PUBLIC_SITE_CLOSED')) && ok;

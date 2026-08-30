@@ -18,7 +18,7 @@ const ALLOWED_PREFIXES = [
   '/_vercel/',
 ];
 
-const ALLOWED_ASSET = /\.(svg|ico|png|jpg|jpeg|webp|gif|woff2?|txt|xml|js)$/i;
+const ALLOWED_ASSET = /\.(svg|ico|png|jpg|jpeg|webp|gif|woff2?|txt|xml|css|js)$/i;
 
 function isAllowedPath(pathname) {
   if (ALLOWED_EXACT.has(pathname)) return true;

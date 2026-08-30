@@ -292,7 +292,7 @@
                 <p class="result-next" id="result-next"></p>
                 <div class="result-actions">
                     <a id="result-whatsapp" class="btn btn-primary" href="#" target="_blank" rel="noopener noreferrer" hidden>Mein Ergebnis kostenlos besprechen</a>
-                    <a id="result-product" class="btn btn-secondary" href="/#pricing-section">ASAS für 29 € monatlich ansehen</a>
+                    <a id="result-product" class="btn btn-secondary" href="/#angebot">ASAS-Zyklus ansehen</a>
                     <button class="btn btn-soft" type="button" id="result-restart">Check erneut starten</button>
                 </div>
             </div>
@@ -546,7 +546,7 @@
                 }
 
                 var productButton = document.getElementById('result-product');
-                productButton.setAttribute('href', buildUrl('/', 'pricing-section'));
+                productButton.setAttribute('href', buildUrl('/', 'angebot'));
                 productButton.onclick = function () {
                     emit('result_product_clicked');
                 };
@@ -618,4 +618,3 @@
     </script>
 </body>
 </html>
-
