@@ -13,9 +13,12 @@ const ALLOWED_EXACT = new Set([
   '/widerruf.html',
   '/abo-verwalten',
   '/abo-verwalten/',
+  '/checkout',
+  '/checkout/',
 ]);
 
 const ALLOWED_PREFIXES = [
+  '/checkout/',
   '/check/',
   '/_vercel/',
   '/.well-known/',
