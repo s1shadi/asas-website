@@ -414,8 +414,8 @@
   top: 18px;
   width: 285px;
   height: 365px;
-  opacity: 0.28;
-  filter: blur(4px);
+  opacity: 0.48;
+  filter: blur(2.5px);
   transform: rotate(2deg);
   animation: share-float-back 14s ease-in-out infinite;
   animation-delay: -6s;
@@ -427,8 +427,8 @@
   top: 176px;
   width: 310px;
   height: 400px;
-  opacity: 0.58;
-  filter: blur(2px);
+  opacity: 0.74;
+  filter: blur(1px);
   transform: rotate(-7deg);
   animation: share-float-left 10s ease-in-out infinite;
   animation-delay: -3s;
@@ -440,8 +440,8 @@
   top: 142px;
   width: 325px;
   height: 418px;
-  opacity: 0.62;
-  filter: blur(1.5px);
+  opacity: 0.78;
+  filter: blur(0.75px);
   transform: rotate(7deg);
   animation: share-float-right 12s ease-in-out infinite;
   animation-delay: -5s;
@@ -462,6 +462,7 @@
 .share-moment--back,
 .share-moment--left {
   background-image: none;
+  background-color: #cfd4db;
 }
 
 .share-moment--right {
