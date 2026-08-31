@@ -408,19 +408,6 @@
   will-change: transform;
 }
 
-.share-moment--back {
-  z-index: 1;
-  left: 448px;
-  top: 18px;
-  width: 285px;
-  height: 365px;
-  opacity: 0.48;
-  filter: blur(2.5px);
-  transform: rotate(2deg);
-  animation: share-float-back 14s ease-in-out infinite;
-  animation-delay: -6s;
-}
-
 .share-moment--left {
   z-index: 2;
   left: 76px;
@@ -457,13 +444,6 @@
   filter: none;
   transform: none;
   box-shadow: 0 34px 80px rgba(16, 17, 20, 0.24);
-}
-
-.share-moment--back {
-  background-image: url("/assets/share-studio/share-layer-back.jpg");
-  background-size: cover;
-  background-position: center;
-  background-color: #101114;
 }
 
 .share-moment--left {
@@ -506,17 +486,6 @@
 
   50% {
     transform: rotate(7deg) translateY(-8px);
-  }
-}
-
-@keyframes share-float-back {
-  0%,
-  100% {
-    transform: rotate(2deg) translateY(0);
-  }
-
-  50% {
-    transform: rotate(2deg) translateY(-8px);
   }
 }
 
@@ -1502,10 +1471,6 @@
     width: min(calc(100% - 32px), 1240px);
   }
 
-  .share-moment--back {
-    left: 380px;
-  }
-
   .share-moment--front {
     left: 280px;
   }
@@ -1623,10 +1588,6 @@
     margin-top: 48px;
   }
 
-  .share-moment--back {
-    display: none;
-  }
-
   .share-moment--front {
     left: 50%;
     top: 70px;
@@ -1700,7 +1661,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .share-moment--back,
   .share-moment--left,
   .share-moment--right {
     animation: none;
