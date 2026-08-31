@@ -460,9 +460,15 @@
 }
 
 .share-moment--back,
-.share-moment--left,
-.share-moment--right {
+.share-moment--left {
   background-image: none;
+}
+
+.share-moment--right {
+  background-image: url("/assets/share-studio/share-layer-right.png");
+  background-size: cover;
+  background-position: center;
+  background-color: #101114;
 }
 
 .share-moment--front {
