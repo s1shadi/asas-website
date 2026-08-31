@@ -1,18 +1,18 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="de" translate="no" class="notranslate">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="google" content="notranslate">
     <meta name="description" content="Datenschutzerklärung von ASAS – Informationen zur Verarbeitung personenbezogener Daten auf asas-mind.com.">
     <meta name="robots" content="index, follow">
-    <meta name="theme-color" content="#000000">
+    <meta name="theme-color" content="#ffffff">
     <title>Datenschutz - ASAS</title>
     <link rel="canonical" href="https://asas-mind.com/datenschutz">
-    <link rel="icon" href="../favicon.ico?v=5" sizes="any">
-    <link rel="icon" href="../favicon-32.png?v=5" type="image/png" sizes="32x32">
-    <link rel="icon" href="../favicon.svg?v=5" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="../apple-touch-icon.png?v=5" sizes="180x180">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">
     <meta property="og:site_name" content="ASAS">
@@ -24,584 +24,106 @@
     <meta name="twitter:title" content="Datenschutz – ASAS">
     <meta name="twitter:description" content="Datenschutzerklärung von ASAS – Informationen zur Verarbeitung personenbezogener Daten auf asas-mind.com.">
     <meta name="twitter:image" content="https://asas-mind.com/og-image-v2.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --site-glass-header-bar: 100px; --page-bg: #000000; }
-        html, body {
-            background: var(--page-bg);
-            color: #ffffff;
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            -webkit-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
-        body {
-            min-height: 100vh;
-            min-height: 100dvh;
-            padding-top: calc(env(safe-area-inset-top, 0px) + var(--site-glass-header-bar));
-            line-height: 1.6;
-        }
-        .animated_bg {
-            position: fixed; inset: 0; pointer-events: none; z-index: -1;
-            background:
-                radial-gradient(1200px 520px at 12% -8%, rgba(34, 68, 255, 0.12), transparent 70%),
-                radial-gradient(1100px 500px at 88% -12%, rgba(17, 51, 238, 0.1), transparent 72%),
-                #000;
-        }
-        .site-glass-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10050;
-            pointer-events: none;
-            padding-top: env(safe-area-inset-top, 0px);
-        }
+    <link rel="stylesheet" href="/site.css?v=20260831-15">
+    <link rel="stylesheet" href="/legal.css?v=20260831-15">
+  </head>
+  <body class="legal-page">
+    <a class="skip-link" href="#legal-main">Zum Inhalt</a>
 
-        .site-glass-header__inner {
-            pointer-events: auto;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-            background: rgba(0, 0, 0, 0.22);
-            -webkit-backdrop-filter: blur(64px) saturate(1.12);
-            backdrop-filter: blur(64px) saturate(1.12);
-            box-shadow:
-                inset 0 0 48px rgba(70, 72, 80, 0.11),
-                inset 0 -1px 0 rgba(0, 0, 0, 0.48),
-                0 5px 20px rgba(14, 14, 18, 0.16);
-        }
-
-        .site-glass-header__row {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            min-height: var(--site-glass-header-bar);
-            padding: 26px max(20px, env(safe-area-inset-right, 0px)) 26px max(24px, calc(env(safe-area-inset-left, 0px) + 18px));
-        }
-
-        .site-glass-header__brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .site-glass-header__brand .site-glass-header__logo {
-            height: 44px;
-            width: auto;
-            max-width: min(158px, 38vw);
-            object-fit: contain;
-            object-position: left center;
-            filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35));
-        }
-
-        .site-glass-header__wordmark {
-            height: 26px;
-            width: auto;
-            max-width: min(240px, 42vw);
-            object-fit: contain;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-        }
-
-        .site-glass-header__desktop-nav {
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: clamp(12px, 1.8vw, 24px);
-            flex: 1 1 auto;
-            min-width: 0;
-        }
-
-        .site-glass-header__navlink {
-            color: rgba(240, 244, 255, 0.72);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: -0.01em;
-            white-space: nowrap;
-            padding: 6px 2px;
-            transition: color 0.2s ease;
-        }
-
-        .site-glass-header__navlink:hover,
-        .site-glass-header__navlink:focus-visible {
-            color: #fff;
-            outline: none;
-        }
-
-        .site-glass-header__actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-left: auto;
-            flex-shrink: 0;
-            pointer-events: auto;
-        }
-
-        .site-glass-header__cta {
-            display: none;
-            min-height: 42px !important;
-            padding: 8px 18px !important;
-            font-size: 0.9rem !important;
-            gap: 8px !important;
-            cursor: pointer;
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Helvetica", sans-serif;
-            text-shadow: none;
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.14),
-                0 0 0 1px rgba(61, 106, 255, 0.18),
-                0 8px 20px rgba(0, 0, 0, 0.35) !important;
-        }
-
-        .site-glass-header__cta .cta-lock-icon svg { width: 15px; }
-
-        .btn {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Helvetica", sans-serif;
-            border-radius: 9999px;
-            border: none;
-        }
-
-        .btn-cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 14px 30px;
-            color: #fff;
-            font-size: 17px;
-            font-weight: 650;
-            line-height: 1;
-            cursor: pointer;
-            text-decoration: none;
-            border: 1.5px solid rgba(108, 156, 255, 0.58);
-            background:
-                radial-gradient(130% 170% at 50% 0%, rgba(72, 130, 255, 0.44) 0%, transparent 54%),
-                linear-gradient(180deg, rgba(34, 58, 124, 0.98) 0%, rgba(16, 28, 68, 0.99) 46%, rgba(8, 14, 38, 0.99) 100%);
-            box-shadow:
-                inset 0 1px 0 rgba(255, 255, 255, 0.14),
-                0 0 0 1px rgba(61, 106, 255, 0.22),
-                0 0 26px rgba(61, 106, 255, 0.34),
-                0 16px 40px rgba(0, 0, 0, 0.48);
-            transition: transform 0.24s ease, box-shadow 0.24s ease, filter 0.24s ease, border-color 0.24s ease;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            filter: brightness(1.06);
-            border-color: rgba(138, 178, 255, 0.72);
-        }
-
-        .cta-lock-icon {
-            display: flex;
-            flex-shrink: 0;
-            line-height: 0;
-            margin-left: -2px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-lock-icon svg {
-            width: 19px;
-            height: auto;
-            display: block;
-        }
-
-        .btn.btn-cta:hover .shackle {
-            transform: rotate(40deg);
-            transform-origin: right bottom;
-            transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1);
-        }
-
-        .site-glass-header__menu-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            margin: 0;
-            padding: 0;
-            border: none;
-            border-radius: 10px;
-            background: transparent;
-            color: rgba(255, 255, 255, 0.88);
-            cursor: pointer;
-            transition: background 0.2s ease, color 0.2s ease;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .site-glass-header__menu-toggle:hover,
-        .site-glass-header__menu-toggle:focus-visible {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
-            outline: none;
-        }
-
-        .site-glass-header__menu-bars {
-            position: relative;
-            width: 22px;
-            height: 16px;
-            display: block;
-            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
-        }
-
-        .site-glass-header__menu-bar {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            border-radius: 1px;
-            background: currentColor;
-            transform-origin: center;
-            transition:
-                transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.28s ease,
-                top 0.38s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .site-glass-header__menu-bar:nth-child(1) { top: 1px; }
-        .site-glass-header__menu-bar:nth-child(2) { top: 7px; }
-        .site-glass-header__menu-bar:nth-child(3) { top: 13px; }
-
-        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(1) {
-            top: 7px;
-            transform: rotate(45deg);
-        }
-
-        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0.15);
-        }
-
-        .site-glass-header.is-menu-open .site-glass-header__menu-bar:nth-child(3) {
-            top: 7px;
-            transform: rotate(-45deg);
-        }
-
-        .site-glass-header__menu-panel {
-            position: absolute;
-            left: auto;
-            right: max(12px, env(safe-area-inset-right, 0px));
-            top: calc(100% + 6px);
-            transform: translateY(-6px);
-            width: min(320px, calc(100vw - 24px));
-            max-width: none;
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 4px;
-            padding: 14px;
-            border-radius: 16px;
-            background: rgba(8, 10, 18, 0.96);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 5;
-            box-sizing: border-box;
-            transition: opacity 0.28s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-
-        .site-glass-header.is-menu-open .site-glass-header__menu-panel {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .site-glass-header__mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .site-glass-header__mobile-link {
-            display: block;
-            padding: 12px 14px;
-            border-radius: 10px;
-            color: rgba(240, 244, 255, 0.88);
-            text-decoration: none;
-            font-size: 0.98rem;
-            font-weight: 500;
-        }
-
-        .site-glass-header__mobile-link:hover,
-        .site-glass-header__mobile-link:focus-visible {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
-            outline: none;
-        }
-
-        .site-glass-header__menu-panel .site-glass-header__menu-cta {
-            width: 100%;
-            margin-top: 8px;
-            min-height: 48px;
-            font-size: 0.95rem;
-            box-sizing: border-box;
-            justify-content: center;
-        }
-
-        @media (min-width: 961px) {
-            .site-glass-header__desktop-nav,
-            .site-glass-header__cta { display: flex; }
-            .site-glass-header__menu-toggle { display: none; }
-            .site-glass-header__menu-panel { display: none !important; }
-        }
-
-
-
-        .legal-main { width: 100%; max-width: 800px; margin: 0 auto; padding: 120px 24px 72px; }
-        .legal-title { font-size: clamp(40px, 6vw, 62px); line-height: 1.1; letter-spacing: -0.02em; color: #e0e0e0; margin-bottom: 56px; font-weight: 600; }
-        .legal-section { margin-bottom: 52px; }
-        .legal-subtitle { color: #dddddd; font-size: 24px; line-height: 1.25; margin-bottom: 16px; font-weight: 600; }
-        .legal-text { color: #adadad; font-size: 16px; line-height: 1.75; font-weight: 400; margin-bottom: 18px; overflow-wrap: break-word; word-break: normal; }
-
-        .footer-divider { width: min(1080px, calc(100% - 56px)); height: 1px; margin: 40px auto 0; background: linear-gradient(to right, transparent, rgba(255,255,255,0.16), rgba(96,165,250,0.18), rgba(255,255,255,0.16), transparent); opacity: 0.55; }
-        .site-footer { margin-top: 40px; padding: 0 max(16px, env(safe-area-inset-left, 0px)) 60px max(16px, env(safe-area-inset-right, 0px)); display: grid; grid-template-columns: 1fr auto; gap: 20px 46px; align-items: start; width: 100%; text-align: left; }
-        @media (min-width: 1024px) {
-            .site-footer { width: min(1280px, calc(100% - 64px)); margin-left: auto; margin-right: auto; padding-left: 0; padding-right: 0; }
-        }
-        .footer-col { display: flex; flex-direction: column; gap: 12px; }
-        .footer-col--legal { justify-self: start; align-items: flex-start; margin-left: -14px; }
-        .footer-col--meta { justify-self: end; align-items: flex-end; text-align: right; }
-        .footer-link, .footer-text { font-size: 15px; line-height: 1.5; color: rgba(255,255,255,0.5); letter-spacing: 0.01em; text-decoration: none; }
-        .footer-link:hover { color: #d7e4ff; }
-        .footer-social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 18px;
-            height: 18px;
-        }
-        .footer-social-links {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .footer-social-icon svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-        .footer-legal-wrap { display: flex; align-items: flex-start; gap: 24px; }
-        .footer-brand-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; width: auto; transform: none; }
-        .footer-brand { display: inline-flex; align-items: center; gap: 12px; width: auto; text-decoration: none; opacity: 1; }
-        .footer-brand__symbol { height: 44px; width: auto; max-width: min(158px, 38vw); object-fit: contain; object-position: left center; filter: brightness(0) invert(1) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.35)); }
-        .footer-brand__wordmark { height: 26px; width: auto; max-width: min(240px, 42vw); object-fit: contain; object-position: left center; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35)); }
-        .footer-kreislogo { width: 114px; height: auto; margin-left: auto; margin-right: auto; transform: translateX(6px); opacity: 0.86; }
-        .footer-legal-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-
-        @media (max-width: 768px) {
-            :root { --site-glass-header-bar: 88px; }
-            .legal-main { padding-top: 108px; padding-bottom: 56px; }
-            .legal-title { margin-bottom: 44px; }
-            .legal-section { margin-bottom: 42px; }
-            .legal-subtitle { font-size: 20px; }
-            .site-footer { grid-template-columns: 1fr; gap: 20px; }
-            .footer-col--meta { justify-self: start; align-items: flex-start; text-align: left; }
-            .footer-legal-wrap { flex-direction: column; gap: 14px; align-items: flex-start; }
-            .footer-brand-stack { align-items: center; }
-        }
-    </style>
-</head>
-<body>
-    <div class="animated_bg" aria-hidden="true"></div>
-    <header class="site-glass-header" role="banner">
-        <div class="site-glass-header__inner">
-            <div class="site-glass-header__row">
-                <a href="../index.html" class="site-glass-header__brand" aria-label="Zur Startseite">
-                    <img src="../ASAS_Symbol.svg" alt="" class="site-glass-header__logo" width="370" height="400" decoding="async">
-                    <img src="../ASAS_Text_white.svg" alt="" class="site-glass-header__wordmark" width="662" height="127" decoding="async">
-                </a>
-
-                <nav class="site-glass-header__desktop-nav" aria-label="Hauptnavigation">
-                    <a class="site-glass-header__navlink" href="../index.html#was-ist-asas">Ablauf</a>
-                    <a class="site-glass-header__navlink" href="../index.html#rang">Ränge</a>
-                    <a class="site-glass-header__navlink" href="/#angebot">Zyklus</a>
-                    <a class="site-glass-header__navlink" href="../index.html#faq-section">FAQ</a>
-                </nav>
-
-                <div class="site-glass-header__actions">
-                    <a class="btn btn-cta site-glass-header__cta" href="/#angebot" aria-label="Zyklus starten">
-                        <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Zyklus starten</span>
-                    </a>
-                    <button type="button" class="site-glass-header__menu-toggle" id="site-glass-menu-btn" aria-controls="site-glass-menu" aria-expanded="false" aria-haspopup="true" aria-label="Menü öffnen">
-                        <span class="site-glass-header__menu-bars" aria-hidden="true">
-                            <span class="site-glass-header__menu-bar"></span>
-                            <span class="site-glass-header__menu-bar"></span>
-                            <span class="site-glass-header__menu-bar"></span>
-                        </span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div id="site-glass-menu" class="site-glass-header__menu-panel" role="region" aria-label="Menü" aria-hidden="true">
-            <nav class="site-glass-header__mobile-nav" aria-label="Menü-Navigation">
-                <a class="site-glass-header__mobile-link" href="../index.html#was-ist-asas">Ablauf</a>
-                <a class="site-glass-header__mobile-link" href="../index.html#rang">Ränge</a>
-                <a class="site-glass-header__mobile-link" href="/#angebot">Zyklus</a>
-                <a class="site-glass-header__mobile-link" href="../index.html#faq-section">FAQ</a>
-            </nav>
-            <a class="btn btn-cta site-glass-header__menu-cta" id="site-glass-menu-cta" href="/#angebot" aria-label="Zyklus starten">
-                <span class="cta-lock-icon" aria-hidden="true"><svg width="18" height="22" viewBox="0 0 18 22" fill="none" overflow="visible" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="10" width="14" height="12" rx="2.5" fill="white"/><circle cx="9" cy="16" r="1.8" fill="#1c2f6a"/><g class="shackle"><path d="M5.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke="white" stroke-width="2.2" stroke-linecap="round" fill="none"/></g></svg></span><span>Zyklus starten</span>
-            </a>
-        </div>
+    <header class="site-header legal-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" decoding="async">
+        </a>
+        <a class="legal-header-back" href="/">Zur Website</a>
+      </div>
     </header>
 
-    <main class="legal-main">
+    <main id="legal-main" class="legal-main">
+      <div class="legal-shell">
         <h1 class="legal-title">Datenschutzerklärung</h1>
 
-        <section class="legal-section">
-            <p class="legal-text">Nachstehend informieren wir Sie über Art, Umfang und Zweck der Verarbeitung Ihrer personenbezogenen Daten bei der Nutzung unserer Seite unter der Adresse „https://www.asas-mind.com“. Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen.</p>
-        </section>
+                <section class="legal-section">
+                    <p class="legal-text">Nachstehend informieren wir Sie über Art, Umfang und Zweck der Verarbeitung Ihrer personenbezogenen Daten bei der Nutzung unserer Seite unter der Adresse „https://www.asas-mind.com“. Personenbezogene Daten sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">1. Verantwortlicher</h2>
-            <p class="legal-text">Verantwortlicher im Sinne der EU-Datenschutzgrundverordnung (DSGVO) ist diejenige natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet. Für die in diesem Shop verarbeiteten personenbezogenen Daten ist Verantwortlicher im Sinne der DSGVO: Shadi Abdallah, Kurfürstendamm 195, 10707 Berlin, E-Mail <a class="footer-link" href="mailto:de.support.asas@gmail.com">de.support.asas@gmail.com</a> (im Folgenden „wir“).</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">1. Verantwortlicher</h2>
+                    <p class="legal-text">Verantwortlicher im Sinne der EU-Datenschutzgrundverordnung (DSGVO) ist diejenige natürliche oder juristische Person, die allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten entscheidet. Für die in diesem Shop verarbeiteten personenbezogenen Daten ist Verantwortlicher im Sinne der DSGVO: Shadi Abdallah, Kurfürstendamm 195, 10707 Berlin, E-Mail <a class="footer-link" href="mailto:de.support.asas@gmail.com">de.support.asas@gmail.com</a> (im Folgenden „wir“).</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">2. Wenn Sie unsere Webseite besuchen</h2>
-            <p class="legal-text">Wenn Sie unsere Webseite besuchen, erhebt unser Server die folgenden Informationen von Ihrem Endgerät: Browser-Typ und -Version, Betriebssystem, die zuvor besuchte Webseite („Referrer“), IP-Adresse und Zeitpunkt des Seitenaufrufs.</p>
-            <p class="legal-text">Wir erheben und verarbeiten diese Daten, um den störungsfreien Betrieb unserer Webseite sicherzustellen und einen Missbrauch unserer Leistungen erkennen, abwehren und verfolgen zu können. Ferner nutzen wir die erhobenen Daten zu statistischen Zwecken, um etwa auszuwerten, mit welchen Endgeräten und Browsern unser Shop aufgerufen wird, um auf dieser Basis unser Angebot laufend an die Bedürfnisse der Nutzer anzupassen und zu verbessern. Diese Datenverarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe f DSGVO.</p>
-            <p class="legal-text">Alle oben genannten personenbezogenen Daten löschen wir spätestens zwölf Monate nach ihrer Erhebung.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">2. Wenn Sie unsere Webseite besuchen</h2>
+                    <p class="legal-text">Wenn Sie unsere Webseite besuchen, erhebt unser Server die folgenden Informationen von Ihrem Endgerät: Browser-Typ und -Version, Betriebssystem, die zuvor besuchte Webseite („Referrer“), IP-Adresse und Zeitpunkt des Seitenaufrufs.</p>
+                    <p class="legal-text">Wir erheben und verarbeiten diese Daten, um den störungsfreien Betrieb unserer Webseite sicherzustellen und einen Missbrauch unserer Leistungen erkennen, abwehren und verfolgen zu können. Ferner nutzen wir die erhobenen Daten zu statistischen Zwecken, um etwa auszuwerten, mit welchen Endgeräten und Browsern unser Shop aufgerufen wird, um auf dieser Basis unser Angebot laufend an die Bedürfnisse der Nutzer anzupassen und zu verbessern. Diese Datenverarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe f DSGVO.</p>
+                    <p class="legal-text">Alle oben genannten personenbezogenen Daten löschen wir spätestens zwölf Monate nach ihrer Erhebung.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">3. Wenn Sie einen Vertrag mit uns schließen</h2>
-            <p class="legal-text">Wenn Sie bei uns bestellen bzw. buchen, verarbeiten wir Ihren Namen, Ihre Anschrift (soweit von Ihnen angegeben) und Ihre E-Mail-Adresse. Soweit Sie bei Ihrer Bestellung freiwillig weitere Daten angeben (z.B. eine abweichende Rechnungsadresse oder eine Telefonnummer), verarbeiten wir auch diese Daten.</p>
-            <p class="legal-text">Wir verarbeiten diese Daten elektronisch zur ordnungsgemäßen Vertragserfüllung, insbesondere für die Lieferung, die Rechnungsstellung, die Verbuchung von Zahlungen und die Bearbeitung von Reklamationen. Sofern wir verpflichtet sind, Ihnen für ein digitales Produkt oder für eine Ware mit digitalen Elementen Aktualisierungen bereitzustellen, verarbeiten wir Ihre Kontaktdaten auch hierfür. Diese Datenverarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe b DSGVO.</p>
-            <p class="legal-text">Wir halten diese Daten gespeichert, bis alle gegenseitigen Ansprüche aus dem jeweiligen Vertragsverhältnis mit Ihnen vollständig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind, denen wir unterliegen.</p>
-            <p class="legal-text">Für einen Vertragsschluss zwischen Ihnen und uns ist es erforderlich, dass wir Ihren Namen und Ihre E-Mail-Adresse erhalten. Die Erforderlichkeit der Bereitstellung dieser Daten ergibt sich aus gesetzlichen Vorschriften (etwa § 312i Abs. 1 Ziffer 3 BGB, § 14 Abs. 4 UStG). Ohne Bereitstellung dieser Daten können Sie mit uns daher keinen Vertrag schließen.</p>
-            <p class="legal-text">Bei der Entscheidung über einen Vertragsschluss verzichten wir auf automatisierte Entscheidungsfindungen und auf Profiling.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">3. Wenn Sie einen Vertrag mit uns schließen</h2>
+                    <p class="legal-text">Wenn Sie bei uns bestellen bzw. buchen, verarbeiten wir Ihren Namen, Ihre Anschrift (soweit von Ihnen angegeben) und Ihre E-Mail-Adresse. Soweit Sie bei Ihrer Bestellung freiwillig weitere Daten angeben (z.B. eine abweichende Rechnungsadresse oder eine Telefonnummer), verarbeiten wir auch diese Daten.</p>
+                    <p class="legal-text">Wir verarbeiten diese Daten elektronisch zur ordnungsgemäßen Vertragserfüllung, insbesondere für die Lieferung, die Rechnungsstellung, die Verbuchung von Zahlungen und die Bearbeitung von Reklamationen. Sofern wir verpflichtet sind, Ihnen für ein digitales Produkt oder für eine Ware mit digitalen Elementen Aktualisierungen bereitzustellen, verarbeiten wir Ihre Kontaktdaten auch hierfür. Diese Datenverarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe b DSGVO.</p>
+                    <p class="legal-text">Wir halten diese Daten gespeichert, bis alle gegenseitigen Ansprüche aus dem jeweiligen Vertragsverhältnis mit Ihnen vollständig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind, denen wir unterliegen.</p>
+                    <p class="legal-text">Für einen Vertragsschluss zwischen Ihnen und uns ist es erforderlich, dass wir Ihren Namen und Ihre E-Mail-Adresse erhalten. Die Erforderlichkeit der Bereitstellung dieser Daten ergibt sich aus gesetzlichen Vorschriften (etwa § 312i Abs. 1 Ziffer 3 BGB, § 14 Abs. 4 UStG). Ohne Bereitstellung dieser Daten können Sie mit uns daher keinen Vertrag schließen.</p>
+                    <p class="legal-text">Bei der Entscheidung über einen Vertragsschluss verzichten wir auf automatisierte Entscheidungsfindungen und auf Profiling.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">4. Bezahlung</h2>
-            <p class="legal-text">Für die Bezahlung erhebt und verarbeitet der von Ihnen gewählte Zahlungsdienstleister Ihren Namen, Ihre E-Mail-Adresse, Ihre Karten- oder Kontonummer und/oder weitere Daten, soweit für die von Ihnen gewählte Zahlungsmethode jeweils erforderlich. Es gelten insoweit ergänzend die Vertrags- und Datenschutzbestimmungen des von Ihnen gewählten Zahlungsdienstleisters.</p>
-            <p class="legal-text">Beim Empfang einer Zahlung verarbeiten wir diejenigen Daten, die uns der Zahlungsdienstleister übermittelt.</p>
-            <p class="legal-text">Die Verarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe b DSGVO. Wir halten diese Daten gespeichert, bis alle gegenseitigen Ansprüche aus dem jeweiligen Vertragsverhältnis mit Ihnen vollständig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind, denen wir unterliegen.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">4. Bezahlung</h2>
+                    <p class="legal-text">Für die Bezahlung erhebt und verarbeitet der von Ihnen gewählte Zahlungsdienstleister Ihren Namen, Ihre E-Mail-Adresse, Ihre Karten- oder Kontonummer und/oder weitere Daten, soweit für die von Ihnen gewählte Zahlungsmethode jeweils erforderlich. Es gelten insoweit ergänzend die Vertrags- und Datenschutzbestimmungen des von Ihnen gewählten Zahlungsdienstleisters.</p>
+                    <p class="legal-text">Beim Empfang einer Zahlung verarbeiten wir diejenigen Daten, die uns der Zahlungsdienstleister übermittelt.</p>
+                    <p class="legal-text">Die Verarbeitung erfolgt auf Grundlage von Artikel 6 Absatz 1 Buchstabe b DSGVO. Wir halten diese Daten gespeichert, bis alle gegenseitigen Ansprüche aus dem jeweiligen Vertragsverhältnis mit Ihnen vollständig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind, denen wir unterliegen.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">5. Auftragsverarbeiter</h2>
-            <p class="legal-text">Zur Unterstützung unserer betrieblichen Abläufe nutzen wir die Dienste von Whop Inc. (11249 Brooklyn, New York, USA), Vercel Inc. (91723 Covina, Kalifornien, USA) als Auftragsverarbeiter im Einklang mit Artikel 28 DSGVO.</p>
-            <p class="legal-text">Für den Betrieb unserer Webseite im Internet nehmen wir die technischen Leistungen von Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States als Auftragsverarbeiter gemäß Artikel 28 DSGVO in Anspruch.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">5. Auftragsverarbeiter</h2>
+                    <p class="legal-text">Zur Unterstützung unserer betrieblichen Abläufe nutzen wir die Dienste von Whop Inc. (11249 Brooklyn, New York, USA), Vercel Inc. (91723 Covina, Kalifornien, USA) als Auftragsverarbeiter im Einklang mit Artikel 28 DSGVO.</p>
+                    <p class="legal-text">Für den Betrieb unserer Webseite im Internet nehmen wir die technischen Leistungen von Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 91723, United States als Auftragsverarbeiter gemäß Artikel 28 DSGVO in Anspruch.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">6. Kontaktaufnahme</h2>
-            <p class="legal-text">Wenn Sie uns eine Nachricht per E-Mail schicken, speichern wir Ihre Nachricht mit den damit übermittelten Absenderdaten (Name, E-Mail-Adresse und ggf. weitere von Ihrem E-Mail-Programm und den übermittelnden Servern hinzugefügte Informationen). Für den Empfang, die Speicherung und den Versand von E-Mails nutzen wir Leistungen von Google Mail (Google Ireland Ltd., Barrow Street, Dublin 4, Irland) als Auftragsverarbeiter gemäß Artikel 28 DSGVO.</p>
-            <p class="legal-text">Rechtsgrundlage für diese Datenverarbeitung ist unser berechtigtes Interesse, Ihre Nachricht zu beantworten und auch auf eventuelle Folgefragen von Ihnen reagieren zu können (Artikel 6 Absatz 1 Buchstabe f DSGVO). Wir löschen die mit Ihrer Nachricht erhobenen Daten spätestens zwölf Monate nach der letzten mit Ihnen geführten Kommunikation zu Ihrem Anliegen, vorbehaltlich der Reglung im folgenden Absatz.</p>
-            <p class="legal-text">Wenn Sie uns eine rechtlich relevante Erklärung zum Vertragsverhältnis übermitteln (z.B. einen Widerruf oder eine Reklamation), ist Rechtsgrundlage für die Verarbeitung, unabhängig vom Übermittlungsweg, auch Artikel 6 Absatz 1 Buchstabe b DSGVO. In einem solchen Fall löschen wir die mit Ihrer Erklärung zusammenhängenden Daten, sobald alle wechselseitigen Ansprüche aus dem Vertragsverhältnis endgültig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">6. Kontaktaufnahme</h2>
+                    <p class="legal-text">Wenn Sie uns eine Nachricht per E-Mail schicken, speichern wir Ihre Nachricht mit den damit übermittelten Absenderdaten (Name, E-Mail-Adresse und ggf. weitere von Ihrem E-Mail-Programm und den übermittelnden Servern hinzugefügte Informationen). Für den Empfang, die Speicherung und den Versand von E-Mails nutzen wir Leistungen von Google Mail (Google Ireland Ltd., Barrow Street, Dublin 4, Irland) als Auftragsverarbeiter gemäß Artikel 28 DSGVO.</p>
+                    <p class="legal-text">Rechtsgrundlage für diese Datenverarbeitung ist unser berechtigtes Interesse, Ihre Nachricht zu beantworten und auch auf eventuelle Folgefragen von Ihnen reagieren zu können (Artikel 6 Absatz 1 Buchstabe f DSGVO). Wir löschen die mit Ihrer Nachricht erhobenen Daten spätestens zwölf Monate nach der letzten mit Ihnen geführten Kommunikation zu Ihrem Anliegen, vorbehaltlich der Reglung im folgenden Absatz.</p>
+                    <p class="legal-text">Wenn Sie uns eine rechtlich relevante Erklärung zum Vertragsverhältnis übermitteln (z.B. einen Widerruf oder eine Reklamation), ist Rechtsgrundlage für die Verarbeitung, unabhängig vom Übermittlungsweg, auch Artikel 6 Absatz 1 Buchstabe b DSGVO. In einem solchen Fall löschen wir die mit Ihrer Erklärung zusammenhängenden Daten, sobald alle wechselseitigen Ansprüche aus dem Vertragsverhältnis endgültig erledigt und die handels- und steuerrechtlichen Aufbewahrungsfristen abgelaufen sind.</p>
+                </section>
 
-        <section class="legal-section">
-            <h2 class="legal-subtitle">7. Ihre Rechte</h2>
-            <p class="legal-text">Bezüglich der personenbezogenen Daten, die wir über Sie verarbeiten, stehen Ihnen die folgenden Rechte zu:</p>
-            <p class="legal-text">Sie haben das Recht, von uns eine Bestätigung darüber zu verlangen, ob wir Sie betreffende personenbezogene Daten verarbeiten. Ist dies der Fall, so teilen wir Ihnen die über Sie gespeicherten personenbezogenen Daten und die weiteren Informationen gemäß Artikel 15 Abs. 1 u. 2 DSGVO mit.</p>
-            <p class="legal-text">Sie haben das Recht, Sie betreffende unrichtige personenbezogene Daten unverzüglich berichtigen zu lassen. Unter Berücksichtigung der Zwecke der Verarbeitung haben Sie auch das Recht, die Vervollständigung unvollständiger personenbezogener Daten – auch mittels einer ergänzenden Erklärung – zu verlangen.</p>
-            <p class="legal-text">Sie können von uns die unverzügliche Löschung der Sie betreffenden personenbezogenen Daten unter den Voraussetzungen von Artikel 17 Absatz 1 DSGVO verlangen, soweit deren Verarbeitung nicht gemäß Artikel 17 Absatz 3 DSGVO erforderlich ist.</p>
-            <p class="legal-text">Sie können von uns die Einschränkung der Verarbeitung Ihrer Daten verlangen, wenn eine der Voraussetzungen von Artikel 18 Absatz 1 DSGVO vorliegt. Sie können die Einschränkung insbesondere anstelle einer Löschung verlangen.</p>
-            <p class="legal-text">Wir werden jede Berichtigung oder Löschung Ihrer personenbezogenen Daten und eine Einschränkung der Verarbeitung allen Empfängern mitteilen, denen wir Sie betreffende personenbezogene Daten offengelegt haben, es sei denn, dies erweist sich als unmöglich oder ist mit einem unverhältnismäßigen Aufwand verbunden. Wir werden Sie zudem über diese Empfänger unterrichten, wenn Sie dies verlangen.</p>
-            <p class="legal-text">Sie haben das Recht, die personenbezogenen Daten, die Sie uns bereitgestellt haben, in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten, und können verlangen, dass wir diese Daten einem anderen Verantwortlichen ohne Behinderung übermitteln, soweit dies technisch möglich ist.</p>
-            <p class="legal-text">Soweit eine Datenverarbeitung auf Ihrer Einwilligung beruht, haben Sie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der Datenverarbeitung, die bis zu Ihrem Widerruf erfolgt ist, nicht berührt.</p>
-            <p class="legal-text"><strong>Widerspruchsrecht:</strong> Aus Gründen, die sich aus Ihrer besonderen Situation ergeben, können Sie jederzeit der Verarbeitung der Sie betreffenden personenbezogenen Daten widersprechen; dieses Widerspruchsrecht besteht in Bezug auf diejenige Datenverarbeitung, die auf Grundlage von Artikel 6 Absatz 1 Buchstabe f DSGVO zur Wahrung berechtigter Interessen unsererseits oder eines Dritten erfolgt, sofern nicht Ihre Interessen oder Grundrechte und Grundfreiheiten, die den Schutz personenbezogener Daten erfordern, überwiegen. Wenn Sie Ihr Widerspruchsrecht ausüben, werden wir die betreffenden Daten nicht mehr verarbeiten, es sei denn, dass wir zwingende schutzwürdige Gründe für die Verarbeitung nachweisen können, die die Interessen, Rechte und Freiheiten von Ihnen überwiegen, oder dass die Verarbeitung der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen dient.</p>
-            <p class="legal-text"><strong>Direktwerbung:</strong> Für den Fall, dass wir personenbezogene Daten für die Direktwerbung (z.B. Newsletter) verarbeiten, können Sie jederzeit Widerspruch gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten zum Zwecke derartiger Werbung einlegen mit der Folge, dass wir Ihre Daten für diese Zwecke nicht mehr verarbeiten werden.</p>
-            <p class="legal-text">Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen die DSGVO verstößt, können Sie Beschwerde einlegen bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat Ihres Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Das schließt anderweitige behördliche oder gerichtliche Rechtsbehelfe nicht aus.</p>
-        </section>
+                <section class="legal-section">
+                    <h2 class="legal-subtitle">7. Ihre Rechte</h2>
+                    <p class="legal-text">Bezüglich der personenbezogenen Daten, die wir über Sie verarbeiten, stehen Ihnen die folgenden Rechte zu:</p>
+                    <p class="legal-text">Sie haben das Recht, von uns eine Bestätigung darüber zu verlangen, ob wir Sie betreffende personenbezogene Daten verarbeiten. Ist dies der Fall, so teilen wir Ihnen die über Sie gespeicherten personenbezogenen Daten und die weiteren Informationen gemäß Artikel 15 Abs. 1 u. 2 DSGVO mit.</p>
+                    <p class="legal-text">Sie haben das Recht, Sie betreffende unrichtige personenbezogene Daten unverzüglich berichtigen zu lassen. Unter Berücksichtigung der Zwecke der Verarbeitung haben Sie auch das Recht, die Vervollständigung unvollständiger personenbezogener Daten – auch mittels einer ergänzenden Erklärung – zu verlangen.</p>
+                    <p class="legal-text">Sie können von uns die unverzügliche Löschung der Sie betreffenden personenbezogenen Daten unter den Voraussetzungen von Artikel 17 Absatz 1 DSGVO verlangen, soweit deren Verarbeitung nicht gemäß Artikel 17 Absatz 3 DSGVO erforderlich ist.</p>
+                    <p class="legal-text">Sie können von uns die Einschränkung der Verarbeitung Ihrer Daten verlangen, wenn eine der Voraussetzungen von Artikel 18 Absatz 1 DSGVO vorliegt. Sie können die Einschränkung insbesondere anstelle einer Löschung verlangen.</p>
+                    <p class="legal-text">Wir werden jede Berichtigung oder Löschung Ihrer personenbezogenen Daten und eine Einschränkung der Verarbeitung allen Empfängern mitteilen, denen wir Sie betreffende personenbezogene Daten offengelegt haben, es sei denn, dies erweist sich als unmöglich oder ist mit einem unverhältnismäßigen Aufwand verbunden. Wir werden Sie zudem über diese Empfänger unterrichten, wenn Sie dies verlangen.</p>
+                    <p class="legal-text">Sie haben das Recht, die personenbezogenen Daten, die Sie uns bereitgestellt haben, in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten, und können verlangen, dass wir diese Daten einem anderen Verantwortlichen ohne Behinderung übermitteln, soweit dies technisch möglich ist.</p>
+                    <p class="legal-text">Soweit eine Datenverarbeitung auf Ihrer Einwilligung beruht, haben Sie das Recht, Ihre Einwilligung jederzeit zu widerrufen. Durch den Widerruf der Einwilligung wird die Rechtmäßigkeit der Datenverarbeitung, die bis zu Ihrem Widerruf erfolgt ist, nicht berührt.</p>
+                    <p class="legal-text"><strong>Widerspruchsrecht:</strong> Aus Gründen, die sich aus Ihrer besonderen Situation ergeben, können Sie jederzeit der Verarbeitung der Sie betreffenden personenbezogenen Daten widersprechen; dieses Widerspruchsrecht besteht in Bezug auf diejenige Datenverarbeitung, die auf Grundlage von Artikel 6 Absatz 1 Buchstabe f DSGVO zur Wahrung berechtigter Interessen unsererseits oder eines Dritten erfolgt, sofern nicht Ihre Interessen oder Grundrechte und Grundfreiheiten, die den Schutz personenbezogener Daten erfordern, überwiegen. Wenn Sie Ihr Widerspruchsrecht ausüben, werden wir die betreffenden Daten nicht mehr verarbeiten, es sei denn, dass wir zwingende schutzwürdige Gründe für die Verarbeitung nachweisen können, die die Interessen, Rechte und Freiheiten von Ihnen überwiegen, oder dass die Verarbeitung der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen dient.</p>
+                    <p class="legal-text"><strong>Direktwerbung:</strong> Für den Fall, dass wir personenbezogene Daten für die Direktwerbung (z.B. Newsletter) verarbeiten, können Sie jederzeit Widerspruch gegen die Verarbeitung der Sie betreffenden personenbezogenen Daten zum Zwecke derartiger Werbung einlegen mit der Folge, dass wir Ihre Daten für diese Zwecke nicht mehr verarbeiten werden.</p>
+                    <p class="legal-text">Wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten gegen die DSGVO verstößt, können Sie Beschwerde einlegen bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat Ihres Aufenthaltsorts, Ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes. Das schließt anderweitige behördliche oder gerichtliche Rechtsbehelfe nicht aus.</p>
+                </section>
+      </div>
     </main>
 
-    <div class="footer-divider"></div>
-
-    <footer class="site-footer" aria-label="Website Footer">
-        <div class="footer-col footer-col--legal" aria-label="Rechtliche Links">
-            <div class="footer-legal-wrap">
-                <div class="footer-brand-stack">
-                    <a class="footer-brand" href="/" aria-label="ASAS Startseite">
-                        <img src="/ASAS_Symbol.svg" alt="" class="footer-brand__symbol" width="370" height="400" loading="lazy" decoding="async">
-                        <img src="/ASAS_Text_white.svg" alt="" class="footer-brand__wordmark" width="662" height="127" loading="lazy" decoding="async">
-                    </a>
-                    <img src="../asas_logo_vector.svg" alt="" class="footer-kreislogo" width="114" height="114" loading="lazy" decoding="async">
-                </div>
-                <div class="footer-legal-links">
-                    <a class="footer-link" href="/abo-verwalten/">Abo verwalten</a>
-                    <a class="footer-link" href="../impressum.html">Impressum</a>
-                    <a class="footer-link" href="../datenschutz.html">Datenschutz</a>
-                    <a class="footer-link" href="../agb.html">AGB</a>
-                    <a class="footer-link" href="../widerruf.html">Widerrufsrecht</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-col footer-col--meta" aria-label="Kontakt und Copyright">
-            <div class="footer-social-links" aria-label="Social Media">
-                <a class="footer-link" href="https://www.instagram.com/asas.mind/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <span class="footer-social-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5.25" stroke="currentColor" stroke-width="1.8"/>
-                            <circle cx="12" cy="12" r="4.25" stroke="currentColor" stroke-width="1.8"/>
-                            <circle cx="17.55" cy="6.45" r="1.2" fill="currentColor"/>
-                        </svg>
-                    </span>
-                </a>
-                <a class="footer-link" href="https://www.tiktok.com/@asas.mind" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <span class="footer-social-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16.6 4.2c.8 1.1 1.9 1.9 3.2 2.3v2.7a8.3 8.3 0 0 1-3.1-.9v6.1a5.4 5.4 0 1 1-4.7-5.4v2.8a2.7 2.7 0 1 0 2 2.6V2.2h2.6c0 .7.2 1.4.6 2z"/>
-                        </svg>
-                    </span>
-                </a>
-            </div>
-            <span class="footer-text">&copy; 2026 ASAS</span>
-        </div>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="brand footer-brand" href="/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" loading="lazy" decoding="async">
+        </a>
+        <p>30 Tage. Mehr Konsequenz.</p>
+        <nav aria-label="Seitenlinks und Rechtliches">
+          <a href="/#faq">FAQ</a>
+          <a href="/affiliate/">Affiliate</a>
+          <a href="/abo-verwalten/">Abo verwalten</a>
+          <a href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/agb">AGB</a>
+          <a href="/widerruf">Widerruf</a>
+        </nav>
+        <p class="copyright">© <span data-year>2026</span> ASAS</p>
+      </div>
     </footer>
-    <script src="/config.js"></script>
-    <script src="/legal-checkout-gate.js"></script>
-    <script>
-        (function () {
-            var header = document.querySelector(".site-glass-header");
-            var menuBtn = document.getElementById("site-glass-menu-btn");
-            var menuPanel = document.getElementById("site-glass-menu");
-            if (!header || !menuBtn || !menuPanel) return;
 
-            function setMenuOpen(open) {
-                header.classList.toggle("is-menu-open", open);
-                menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
-                menuPanel.setAttribute("aria-hidden", open ? "false" : "true");
-                menuBtn.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
-            }
-
-            function closeMenu() { setMenuOpen(false); }
-
-            menuBtn.addEventListener("click", function (e) {
-                e.stopPropagation();
-                setMenuOpen(!header.classList.contains("is-menu-open"));
-            });
-
-            menuPanel.addEventListener("click", function (e) {
-                if (e.target.closest("a")) closeMenu();
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!header.classList.contains("is-menu-open")) return;
-                if (header.contains(event.target)) return;
-                closeMenu();
-            });
-
-            document.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") closeMenu();
-            });
-        })();
-    </script>
-</body>
+    <script src="/site.js?v=20260831-15" defer></script>
+  </body>
 </html>
