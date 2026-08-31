@@ -465,21 +465,21 @@
 }
 
 .share-moment--left {
-  background-image: url("/assets/share-studio/share-layer-left.png");
+  background-image: url("/assets/share-studio/share-layer-left.jpg");
   background-size: cover;
   background-position: center bottom;
   background-color: #101114;
 }
 
 .share-moment--right {
-  background-image: url("/assets/share-studio/share-layer-right.png");
+  background-image: url("/assets/share-studio/share-layer-right.jpg");
   background-size: cover;
   background-position: center 58%;
   background-color: #101114;
 }
 
 .share-moment--front {
-  background-image: url("/assets/share-studio/share-layer-middle.png");
+  background-image: url("/assets/share-studio/share-layer-middle.jpg");
   background-size: cover;
   background-position: center bottom;
   background-color: #e6e9ee;
@@ -743,7 +743,7 @@
 
 .community {
   position: relative;
-  padding: 104px 0 0;
+  padding: 104px 0 112px;
   background: #101114;
   color: #fff;
   overflow: hidden;
@@ -827,7 +827,7 @@
   gap: 88px;
   align-items: start;
   margin-top: 72px;
-  padding: 48px 36px calc(40px + 112px);
+  padding: 48px 36px 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
   overflow: hidden;
   isolation: isolate;
@@ -836,13 +836,10 @@
 .community-affiliate::before {
   content: "";
   position: absolute;
-  top: 0;
-  right: -10px;
-  bottom: -10px;
-  left: -10px;
+  inset: -28px;
   background: url("/assets/community/community-affiliate-bg.png") center / cover no-repeat;
-  filter: blur(10px);
-  transform: scale(1.04);
+  filter: blur(28px);
+  transform: scale(1.08);
   z-index: -2;
 }
 
@@ -850,7 +847,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(16, 17, 20, 0.58);
+  background: rgba(16, 17, 20, 0.74);
   z-index: -1;
 }
 
@@ -1641,11 +1638,7 @@
   }
 
   .community {
-    padding: 72px 0 0;
-  }
-
-  .community-affiliate {
-    padding-bottom: calc(40px + 72px);
+    padding: 72px 0;
   }
 
   .community-grid {
