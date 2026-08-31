@@ -461,19 +461,15 @@
 
 .share-moment--back,
 .share-moment--left,
-.share-moment--front {
+.share-moment--right {
   background-image: none;
 }
 
-.share-moment--right {
+.share-moment--front {
   background-image: url("/assets/share-studio/share-layer-middle.png");
   background-size: cover;
   background-position: center;
-}
-
-.share-moment--front {
-  background:
-    linear-gradient(165deg, #f0f2f6 0%, #e6e9ee 48%, #dfe3ea 100%);
+  background-color: #e6e9ee;
 }
 
 @keyframes share-float-left {
