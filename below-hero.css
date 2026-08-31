@@ -461,9 +461,14 @@
 
 .share-moment--back,
 .share-moment--left,
-.share-moment--right,
 .share-moment--front {
   background-image: none;
+}
+
+.share-moment--right {
+  background-image: url("/assets/share-studio/share-layer-middle.png");
+  background-size: cover;
+  background-position: center;
 }
 
 .share-moment--front {
