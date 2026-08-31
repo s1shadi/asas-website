@@ -1,14 +1,36 @@
 {
+  "headers": [
+    {
+      "source": "/.well-known/apple-developer-merchantid-domain-association",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain"
+        }
+      ]
+    }
+  ],
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/((?!\\.well-known).*)",
       "has": [
         {
           "type": "host",
           "value": "www.asas-mind.com"
         }
       ],
-      "destination": "https://asas-mind.com/:path*",
+      "destination": "https://asas-mind.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.asas-mind.com"
+        }
+      ],
+      "destination": "https://asas-mind.com/",
       "permanent": true
     },
     { "source": "/impressum.html", "destination": "/impressum", "permanent": true },

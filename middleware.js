@@ -36,6 +36,14 @@ function isAllowedPath(pathname) {
   return false;
 }
 
+function passThrough() {
+  return new Response(null, {
+    headers: {
+      'x-middleware-next': '1',
+    },
+  });
+}
+
 function rewriteTo(url) {
   return new Response(null, {
     headers: {
@@ -45,10 +53,10 @@ function rewriteTo(url) {
 }
 
 export default function middleware(request) {
-  if (!PUBLIC_SITE_CLOSED) return;
+  if (!PUBLIC_SITE_CLOSED) return passThrough();
 
   const url = new URL(request.url);
-  if (isAllowedPath(url.pathname)) return;
+  if (isAllowedPath(url.pathname)) return passThrough();
 
   return rewriteTo(new URL('/closed.html', url));
 }
