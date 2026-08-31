@@ -827,8 +827,42 @@
   gap: 88px;
   align-items: start;
   margin-top: 72px;
-  padding-top: 48px;
+  padding: 48px 36px 40px;
   border-top: 1px solid rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.community-affiliate::before {
+  content: "";
+  position: absolute;
+  inset: -28px;
+  background: url("/assets/community/community-affiliate-bg.png") center / cover no-repeat;
+  filter: blur(28px);
+  transform: scale(1.08);
+  z-index: -2;
+}
+
+.community-affiliate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(16, 17, 20, 0.74);
+  z-index: -1;
+}
+
+.community-affiliate__ai-label {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.68rem;
+  font-weight: 560;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .community-affiliate__eyebrow {
@@ -1492,6 +1526,12 @@
   .community-affiliate {
     grid-template-columns: 1fr;
     gap: 24px;
+    padding-inline: 24px;
+  }
+
+  .community-affiliate__ai-label {
+    right: 12px;
+    bottom: 8px;
   }
 }
 
