@@ -468,7 +468,7 @@
 .share-moment--front {
   background-image: url("/assets/share-studio/share-layer-middle.png");
   background-size: cover;
-  background-position: center;
+  background-position: center bottom;
   background-color: #e6e9ee;
 }
 
