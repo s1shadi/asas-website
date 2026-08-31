@@ -9,6 +9,16 @@
     <link rel="stylesheet" href="/site.css?v=20260831-15">
     <link rel="stylesheet" href="/below-hero.css?v=20260831-15">
     <title>Checkout — ASAS</title>
+    <script>
+      (function () {
+        var planKey = new URLSearchParams(window.location.search).get("plan") === "3months" ? "3months" : "monthly";
+        document.documentElement.dataset.checkoutPlan = planKey;
+      })();
+    </script>
+    <style>
+      html[data-checkout-plan="monthly"] [data-plan-3months-only] { display: none !important; }
+      html[data-checkout-plan="3months"] [data-plan-monthly-only] { display: none !important; }
+    </style>
   </head>
   <body class="checkout-page">
     <a class="skip-link" href="#checkout-main">Zum Checkout</a>
@@ -28,9 +38,29 @@
             <a class="checkout-back" href="/#angebot">← Tarif ändern</a>
 
             <p class="checkout-kicker">Dein gewählter Zugang</p>
-            <h1 data-checkout-title>Ein Zyklus nach dem anderen</h1>
-            <p class="checkout-summary" data-checkout-summary>39 € / Monat</p>
-            <p class="checkout-terms" data-checkout-terms></p>
+            <h1 data-checkout-title>
+              <span data-plan-monthly-only data-checkout-title-monthly>Ein Zyklus nach dem anderen</span>
+              <span data-plan-3months-only data-checkout-title-3months>Drei aufeinanderfolgende Zyklen</span>
+            </h1>
+            <p class="checkout-summary" data-checkout-summary>
+              <span data-plan-monthly-only data-checkout-summary-monthly>39 € / Monat</span>
+              <span data-plan-3months-only data-checkout-summary-3months>99 € für die ersten 90 Tage</span>
+            </p>
+            <p class="checkout-terms" data-checkout-terms>
+              <span data-plan-monthly-only data-checkout-terms-monthly>
+                Direkter Start für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.
+              </span>
+              <span data-plan-3months-only data-checkout-terms-3months>
+                Die ersten 90 Tage kosten insgesamt 99 €. Danach verlängert sich der Zugang für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.
+              </span>
+            </p>
+            <noscript>
+              <p class="checkout-terms">
+                Monatstarif: 39 € / Monat. 90-Tage-Tarif: 99 € für die ersten 90 Tage — wähle
+                <a href="/checkout/?plan=monthly">Monat</a> oder
+                <a href="/checkout/?plan=3months">90 Tage</a>.
+              </p>
+            </noscript>
 
             <ul class="checkout-benefits">
               <li>Drei selbstgewählte Fokusse</li>
