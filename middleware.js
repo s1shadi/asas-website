@@ -1,4 +1,4 @@
-export const PUBLIC_SITE_CLOSED = true;
+export const PUBLIC_SITE_CLOSED = false;
 
 const ALLOWED_EXACT = new Set([
   '/closed.html',
