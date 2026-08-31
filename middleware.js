@@ -11,6 +11,8 @@ const ALLOWED_EXACT = new Set([
   '/datenschutz.html',
   '/agb.html',
   '/widerruf.html',
+  '/abo-verwalten',
+  '/abo-verwalten/',
 ]);
 
 const ALLOWED_PREFIXES = [

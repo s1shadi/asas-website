@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/site.css?v=20260831-14">
+    <link rel="stylesheet" href="/below-hero.css?v=20260831-14">
+    <title>Checkout — ASAS</title>
+  </head>
+  <body class="checkout-page">
+    <a class="skip-link" href="#checkout-main">Zum Checkout</a>
+
+    <header class="site-header checkout-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" decoding="async">
+        </a>
+      </div>
+    </header>
+
+    <main id="checkout-main" class="checkout-main">
+      <div class="checkout-shell">
+        <div class="checkout-layout">
+          <div class="checkout-summary-col">
+            <a class="checkout-back" href="/#angebot">← Tarif ändern</a>
+
+            <p class="checkout-kicker">Dein gewählter Zugang</p>
+            <h1 data-checkout-title>Ein Zyklus nach dem anderen</h1>
+            <p class="checkout-summary" data-checkout-summary>39 € / Monat</p>
+            <p class="checkout-terms" data-checkout-terms></p>
+
+            <ul class="checkout-benefits">
+              <li>Drei selbstgewählte Fokusse</li>
+              <li>Täglicher Check + Reminder</li>
+              <li>Analyse, Cycle Journey und Mirror</li>
+              <li>Share Studio und kommende Features</li>
+            </ul>
+          </div>
+
+          <div class="checkout-frame-col">
+            <div class="checkout-frame" aria-busy="true">
+              <p class="checkout-loading" data-checkout-loading role="status">
+                Sicherer Checkout wird geladen …
+              </p>
+
+              <div
+                id="whop-embedded-checkout"
+                class="checkout-embed"
+                hidden
+              ></div>
+
+              <div class="checkout-fallback" data-checkout-fallback hidden>
+                <p>Der eingebettete Checkout konnte nicht geladen werden.</p>
+                <a class="button checkout-fallback-link" data-checkout-redirect href="#">
+                  Checkout sicher öffnen
+                </a>
+              </div>
+            </div>
+
+            <p class="checkout-trust">
+              Fragen? <a href="mailto:de.support.asas@gmail.com">de.support.asas@gmail.com</a>
+              · <a href="/agb">AGB</a> · <a href="/widerruf">Widerruf</a> · <a href="/datenschutz">Datenschutz</a>
+              · <a href="/abo-verwalten/">Abo verwalten</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="brand footer-brand" href="/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" loading="lazy" decoding="async">
+        </a>
+        <p>30 Tage. Mehr Konsequenz.</p>
+        <nav aria-label="Seitenlinks und Rechtliches">
+          <a href="/#faq">FAQ</a>
+          <a href="/affiliate/">Affiliate</a>
+          <a href="/abo-verwalten/">Abo verwalten</a>
+          <a href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/agb">AGB</a>
+          <a href="/widerruf">Widerruf</a>
+        </nav>
+        <p class="copyright">© <span data-year>2026</span> ASAS</p>
+      </div>
+    </footer>
+
+    <script src="/config.js"></script>
+    <script src="/site.js?v=20260830-8" defer></script>
+    <script src="/checkout.js?v=20260831-13" defer></script>
+  </body>
+</html>
