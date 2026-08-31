@@ -474,7 +474,7 @@
 .share-moment--right {
   background-image: url("/assets/share-studio/share-layer-right.png");
   background-size: cover;
-  background-position: center;
+  background-position: center 58%;
   background-color: #101114;
 }
 
