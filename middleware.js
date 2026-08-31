@@ -18,6 +18,7 @@ const ALLOWED_EXACT = new Set([
 const ALLOWED_PREFIXES = [
   '/check/',
   '/_vercel/',
+  '/.well-known/',
 ];
 
 const ALLOWED_ASSET = /\.(svg|ico|png|jpg|jpeg|webp|gif|woff2?|txt|xml|css|js)$/i;
