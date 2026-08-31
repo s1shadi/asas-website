@@ -459,10 +459,16 @@
   box-shadow: 0 34px 80px rgba(16, 17, 20, 0.24);
 }
 
-.share-moment--back,
-.share-moment--left {
+.share-moment--back {
   background-image: none;
   background-color: #cfd4db;
+}
+
+.share-moment--left {
+  background-image: url("/assets/share-studio/share-layer-left.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-color: #101114;
 }
 
 .share-moment--right {
