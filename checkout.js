@@ -99,6 +99,19 @@
     embedHost.dataset.whopCheckoutAffiliateCode = affiliate;
   }
 
+  window.asasWhopCheckoutComplete = function asasWhopCheckoutComplete(_planId, receiptId) {
+    if (window.__asasWhopCheckoutDone) return;
+    var id = receiptId && String(receiptId).trim();
+    if (!id || !id.startsWith("pay_")) return;
+    window.__asasWhopCheckoutDone = true;
+    var base =
+      checkoutConfig.activateReturnUrl || "https://app.asas-mind.com/activate/session";
+    var url = new URL(base);
+    url.searchParams.set("payment_id", id);
+    window.location.assign(url.toString());
+  };
+  embedHost.dataset.whopCheckoutOnComplete = "asasWhopCheckoutComplete";
+
   var observer;
   var fallbackTimeoutId;
   var observerDisconnectTimeoutId;
