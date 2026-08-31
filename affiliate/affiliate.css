@@ -21,9 +21,56 @@
 }
 
 .affiliate-hero {
+  position: relative;
+  z-index: 1;
   padding: 120px 0;
   background: #101114;
   color: #fff;
+  overflow: visible;
+}
+
+.affiliate-hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+.affiliate-hero::before,
+.affiliate-hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+}
+
+.affiliate-hero::before {
+  background: url("/assets/community/community-affiliate-bg.png") center / cover no-repeat;
+  filter: blur(2px);
+  transform: scale(1.02);
+  transform-origin: center center;
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.affiliate-hero::after {
+  background: rgba(16, 17, 20, 0.22);
+  z-index: 1;
+}
+
+.affiliate-hero__ai-label {
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.2;
+  text-transform: none;
+  pointer-events: none;
 }
 
 .affiliate-hero h1 {
