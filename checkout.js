@@ -1,4 +1,8 @@
 (function initCheckout() {
+  var CHECKOUT_EMBED_ID = "whop-embedded-checkout";
+  var SUBMIT_LABEL = "Zahlungspflichtig bestellen";
+  var PROCESSING_LABEL = "Wird verarbeitet …";
+
   var config = window.ASAS_CONFIG || {};
   var checkoutConfig = config.checkout || {};
   var plans = checkoutConfig.plans || {};
@@ -31,14 +35,26 @@
   var title = document.querySelector("[data-checkout-title]");
   var summary = document.querySelector("[data-checkout-summary]");
   var terms = document.querySelector("[data-checkout-terms]");
-  var embedHost = document.getElementById("whop-embedded-checkout");
+  var embedHost = document.getElementById(CHECKOUT_EMBED_ID);
+  var submitButton = document.querySelector("[data-checkout-submit]");
   var loading = document.querySelector("[data-checkout-loading]");
   var fallback = document.querySelector("[data-checkout-fallback]");
   var checkoutFrame = document.querySelector(".checkout-frame");
+  var checkoutState = "loading";
+  var isSubmitting = false;
 
   if (title) title.textContent = planCopy.title;
   if (summary) summary.textContent = planCopy.summary;
   if (terms) terms.textContent = planCopy.terms;
+
+  function updateSubmitButton() {
+    if (!submitButton) return;
+
+    var enabled = checkoutState === "ready" && !isSubmitting;
+    submitButton.disabled = !enabled;
+    submitButton.textContent = isSubmitting ? PROCESSING_LABEL : SUBMIT_LABEL;
+    submitButton.setAttribute("aria-busy", isSubmitting ? "true" : "false");
+  }
 
   function buildAppCheckoutUrl() {
     var appOrigin = checkoutConfig.appOrigin || "https://app.asas-mind.com";
@@ -51,6 +67,7 @@
   function showFallback() {
     if (loading) loading.hidden = true;
     if (embedHost) embedHost.hidden = true;
+    if (submitButton) submitButton.hidden = true;
     if (fallback) {
       fallback.hidden = false;
       var link = fallback.querySelector("[data-checkout-redirect]");
@@ -62,8 +79,10 @@
   function showEmbed() {
     if (loading) loading.hidden = true;
     if (embedHost) embedHost.hidden = false;
+    if (submitButton) submitButton.hidden = false;
     if (fallback) fallback.hidden = true;
     if (checkoutFrame) checkoutFrame.setAttribute("aria-busy", "false");
+    updateSubmitButton();
   }
 
   function loadWhopCheckout() {
@@ -94,6 +113,7 @@
     checkoutConfig.activateReturnUrl || "https://app.asas-mind.com/activate/session";
   embedHost.dataset.whopCheckoutStyleContainerPaddingX = "0";
   embedHost.dataset.whopCheckoutStyleContainerPaddingY = "0";
+  embedHost.dataset.whopCheckoutHideSubmitButton = "true";
 
   if (affiliate) {
     embedHost.dataset.whopCheckoutAffiliateCode = affiliate;
@@ -111,6 +131,33 @@
     window.location.assign(url.toString());
   };
   embedHost.dataset.whopCheckoutOnComplete = "asasWhopCheckoutComplete";
+
+  window.asasWhopCheckoutStateChange = function asasWhopCheckoutStateChange(state) {
+    checkoutState = state || "loading";
+    if (checkoutState === "ready" || checkoutState === "disabled") {
+      isSubmitting = false;
+    }
+    updateSubmitButton();
+  };
+  embedHost.dataset.whopCheckoutOnStateChange = "asasWhopCheckoutStateChange";
+
+  if (submitButton) {
+    submitButton.addEventListener("click", function onSubmitClick() {
+      if (submitButton.disabled || isSubmitting || checkoutState !== "ready") return;
+      if (!window.wco || typeof window.wco.submit !== "function") return;
+
+      isSubmitting = true;
+      updateSubmitButton();
+
+      try {
+        window.wco.submit(CHECKOUT_EMBED_ID);
+      } catch (error) {
+        isSubmitting = false;
+        updateSubmitButton();
+        console.error("Whop checkout submit failed", error);
+      }
+    });
+  }
 
   var observer;
   var fallbackTimeoutId;
