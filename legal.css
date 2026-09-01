@@ -76,6 +76,18 @@
   margin-bottom: 0;
 }
 
+.legal-list {
+  margin: 0 0 16px;
+  padding-left: 1.25rem;
+  color: var(--muted);
+  font-size: clamp(0.95rem, 1.5vw, 1.02rem);
+  line-height: 1.72;
+}
+
+.legal-list li + li {
+  margin-top: 0.35rem;
+}
+
 .legal-text strong {
   color: var(--ink);
   font-weight: 620;
