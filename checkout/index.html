@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="stylesheet" href="/site.css?v=20260831-15">
-    <link rel="stylesheet" href="/below-hero.css?v=20260831-15">
+    <link rel="stylesheet" href="/below-hero.css?v=20260901-03">
     <title>Checkout — ASAS</title>
     <script>
       (function () {
@@ -82,6 +82,16 @@
                 hidden
               ></div>
 
+              <button
+                type="button"
+                class="checkout-submit"
+                data-checkout-submit
+                hidden
+                disabled
+              >
+                Zahlungspflichtig bestellen
+              </button>
+
               <div class="checkout-fallback" data-checkout-fallback hidden>
                 <p>Der eingebettete Checkout konnte nicht geladen werden.</p>
                 <a class="button checkout-fallback-link" data-checkout-redirect href="#">
@@ -121,6 +131,6 @@
 
     <script src="/config.js"></script>
     <script src="/site.js?v=20260831-15" defer></script>
-    <script src="/checkout.js?v=20260901-01" defer></script>
+    <script src="/checkout.js?v=20260901-03" defer></script>
   </body>
 </html>
