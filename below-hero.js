@@ -138,11 +138,17 @@ function initExperienceCarousel() {
   var currentEl = root.querySelector("[data-experience-current]");
   var totalEl = root.querySelector("[data-experience-total]");
   var statusEl = root.querySelector("[data-experience-status]");
+  var dotsEl = root.querySelector("[data-experience-dots]");
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var activeIndex = 0;
   var total = published.length;
+  var dotButtons = [];
 
   if (!track || !viewport) return;
+
+  function wrapIndex(index) {
+    return ((index % total) + total) % total;
+  }
 
   published.forEach(function buildSlide(slide, index) {
     var article = document.createElement("article");
@@ -196,6 +202,21 @@ function initExperienceCarousel() {
 
   var slides = Array.from(track.querySelectorAll(".experience-slide"));
 
+  if (dotsEl) {
+    published.forEach(function buildDot(_slide, index) {
+      var dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "experience-carousel__dot";
+      dot.setAttribute("role", "tab");
+      dot.setAttribute("aria-label", "Erfahrung " + (index + 1));
+      dot.addEventListener("click", function onDotClick() {
+        scrollToIndex(index);
+      });
+      dotsEl.appendChild(dot);
+      dotButtons.push(dot);
+    });
+  }
+
   if (totalEl) totalEl.textContent = formatSlideNumber(total);
 
   if (controls) {
@@ -219,17 +240,20 @@ function initExperienceCarousel() {
       statusEl.textContent = "Erfahrung " + (index + 1) + " von " + total;
     }
 
-    if (prevBtn) prevBtn.disabled = index <= 0;
-    if (nextBtn) nextBtn.disabled = index >= total - 1;
+    dotButtons.forEach(function updateDot(dot, dotIndex) {
+      var isActive = dotIndex === index;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
   }
 
   function scrollToIndex(index, behavior) {
-    var clamped = Math.max(0, Math.min(index, total - 1));
+    var wrapped = wrapIndex(index);
     viewport.scrollTo({
-      left: clamped * viewport.clientWidth,
+      left: wrapped * viewport.clientWidth,
       behavior: behavior || (reducedMotion ? "auto" : "smooth"),
     });
-    setSlideState(clamped);
+    setSlideState(wrapped);
   }
 
   function syncFromScroll() {
@@ -253,7 +277,6 @@ function initExperienceCarousel() {
       scrollToIndex(activeIndex + 1);
     });
   }
-
   viewport.addEventListener("scroll", syncFromScroll, { passive: true });
 
   root.addEventListener("keydown", function onKeydown(event) {
