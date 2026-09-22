@@ -1,7 +1,5 @@
 (function initCheckout() {
-  var CHECKOUT_EMBED_ID = "whop-embedded-checkout";
-  var SUBMIT_LABEL = "Zahlungspflichtig bestellen";
-  var PROCESSING_LABEL = "Wird verarbeitet …";
+  var WHOP_ELEMENTS_SRC = "https://cdn.whop.com/elements/amber/elements.js";
 
   var config = window.ASAS_CONFIG || {};
   var checkoutConfig = config.checkout || {};
@@ -31,30 +29,18 @@
   };
 
   var planCopy = copy[planKey] || copy.monthly;
-
   var title = document.querySelector("[data-checkout-title]");
   var summary = document.querySelector("[data-checkout-summary]");
   var terms = document.querySelector("[data-checkout-terms]");
-  var embedHost = document.getElementById(CHECKOUT_EMBED_ID);
-  var submitButton = document.querySelector("[data-checkout-submit]");
+  var embedHost = document.getElementById("whop-elements-checkout");
   var loading = document.querySelector("[data-checkout-loading]");
   var fallback = document.querySelector("[data-checkout-fallback]");
   var checkoutFrame = document.querySelector(".checkout-frame");
-  var checkoutState = "loading";
-  var isSubmitting = false;
+  var fallbackTimeoutId;
 
   if (title) title.textContent = planCopy.title;
   if (summary) summary.textContent = planCopy.summary;
   if (terms) terms.textContent = planCopy.terms;
-
-  function updateSubmitButton() {
-    if (!submitButton) return;
-
-    var enabled = checkoutState === "ready" && !isSubmitting;
-    submitButton.disabled = !enabled;
-    submitButton.textContent = isSubmitting ? PROCESSING_LABEL : SUBMIT_LABEL;
-    submitButton.setAttribute("aria-busy", isSubmitting ? "true" : "false");
-  }
 
   function buildAppCheckoutUrl() {
     var appOrigin = checkoutConfig.appOrigin || "https://app.asas-mind.com";
@@ -64,41 +50,82 @@
     return url.toString();
   }
 
+  function finishLoading() {
+    window.clearTimeout(fallbackTimeoutId);
+    if (checkoutFrame) checkoutFrame.setAttribute("aria-busy", "false");
+  }
+
   function showFallback() {
+    finishLoading();
     if (loading) loading.hidden = true;
     if (embedHost) embedHost.hidden = true;
-    if (submitButton) submitButton.hidden = true;
     if (fallback) {
       fallback.hidden = false;
       var link = fallback.querySelector("[data-checkout-redirect]");
       if (link) link.href = buildAppCheckoutUrl();
     }
-    if (checkoutFrame) checkoutFrame.setAttribute("aria-busy", "false");
   }
 
   function showEmbed() {
+    finishLoading();
     if (loading) loading.hidden = true;
     if (embedHost) embedHost.hidden = false;
-    if (submitButton) submitButton.hidden = false;
     if (fallback) fallback.hidden = true;
-    if (checkoutFrame) checkoutFrame.setAttribute("aria-busy", "false");
-    updateSubmitButton();
   }
 
-  function loadWhopCheckout() {
-    if (document.querySelector('script[src*="checkout/loader.js"]')) return;
+  function mountCheckout() {
+    if (!window.WhopElements || !plan || !plan.planId || !embedHost) {
+      showFallback();
+      return;
+    }
+
+    try {
+      var whop = window.WhopElements({ locale: "de" });
+      var options = {
+        plan: plan.planId,
+        returnUrl:
+          checkoutConfig.activateReturnUrl || "https://app.asas-mind.com/activate",
+      };
+
+      if (affiliate) options.affiliateCode = affiliate;
+
+      var checkout = whop.checkout.create(options);
+      var checkoutElement = checkout.create("checkout", {
+        onLoaderStart: function onLoaderStart() {
+          if (loading) loading.hidden = false;
+        },
+        onReady: showEmbed,
+        onError: function onCheckoutError(error) {
+          console.error("Whop Elements checkout failed", error);
+          showFallback();
+        },
+      });
+
+      embedHost.hidden = false;
+      checkoutElement.mount(embedHost);
+    } catch (error) {
+      console.error("Whop Elements checkout could not be initialized", error);
+      showFallback();
+    }
+  }
+
+  function loadWhopElements() {
+    var existingScript = document.querySelector("script[data-whop-elements]");
+
+    if (existingScript) {
+      if (window.WhopElements) mountCheckout();
+      else existingScript.addEventListener("load", mountCheckout, { once: true });
+      existingScript.addEventListener("error", showFallback, { once: true });
+      return;
+    }
 
     var script = document.createElement("script");
-    script.src = "https://js.whop.com/static/checkout/loader.js";
+    script.src = WHOP_ELEMENTS_SRC;
     script.async = true;
-    script.defer = true;
-    script.onerror = function onScriptError() {
-      window.clearTimeout(fallbackTimeoutId);
-      window.clearTimeout(observerDisconnectTimeoutId);
-      if (observer) observer.disconnect();
-      showFallback();
-    };
-    document.body.appendChild(script);
+    script.dataset.whopElements = "";
+    script.addEventListener("load", mountCheckout, { once: true });
+    script.addEventListener("error", showFallback, { once: true });
+    document.head.appendChild(script);
   }
 
   if (!plan || !plan.planId || !embedHost) {
@@ -106,85 +133,6 @@
     return;
   }
 
-  embedHost.dataset.whopCheckoutPlanId = plan.planId;
-  embedHost.dataset.whopCheckoutTheme = "light";
-  embedHost.dataset.whopCheckoutThemeAccentColor = "blue";
-  embedHost.dataset.whopCheckoutReturnUrl =
-    checkoutConfig.activateReturnUrl || "https://app.asas-mind.com/activate/session";
-  embedHost.dataset.whopCheckoutStyleContainerPaddingX = "0";
-  embedHost.dataset.whopCheckoutStyleContainerPaddingY = "0";
-  embedHost.dataset.whopCheckoutHideSubmitButton = "true";
-
-  if (affiliate) {
-    embedHost.dataset.whopCheckoutAffiliateCode = affiliate;
-  }
-
-  window.asasWhopCheckoutComplete = function asasWhopCheckoutComplete(_planId, receiptId) {
-    if (window.__asasWhopCheckoutDone) return;
-    var id = receiptId && String(receiptId).trim();
-    if (!id || !id.startsWith("pay_")) return;
-    window.__asasWhopCheckoutDone = true;
-    var base =
-      checkoutConfig.activateReturnUrl || "https://app.asas-mind.com/activate/session";
-    var url = new URL(base);
-    url.searchParams.set("payment_id", id);
-    window.location.assign(url.toString());
-  };
-  embedHost.dataset.whopCheckoutOnComplete = "asasWhopCheckoutComplete";
-
-  window.asasWhopCheckoutStateChange = function asasWhopCheckoutStateChange(state) {
-    checkoutState = state || "loading";
-    if (checkoutState === "ready" || checkoutState === "disabled") {
-      isSubmitting = false;
-    }
-    updateSubmitButton();
-  };
-  embedHost.dataset.whopCheckoutOnStateChange = "asasWhopCheckoutStateChange";
-
-  if (submitButton) {
-    submitButton.addEventListener("click", function onSubmitClick() {
-      if (submitButton.disabled || isSubmitting || checkoutState !== "ready") return;
-      if (!window.wco || typeof window.wco.submit !== "function") return;
-
-      isSubmitting = true;
-      updateSubmitButton();
-
-      try {
-        window.wco.submit(CHECKOUT_EMBED_ID);
-      } catch (error) {
-        isSubmitting = false;
-        updateSubmitButton();
-        console.error("Whop checkout submit failed", error);
-      }
-    });
-  }
-
-  var observer;
-  var fallbackTimeoutId;
-  var observerDisconnectTimeoutId;
-
-  function onEmbedDetected() {
-    window.clearTimeout(fallbackTimeoutId);
-    window.clearTimeout(observerDisconnectTimeoutId);
-    if (observer) observer.disconnect();
-    showEmbed();
-  }
-
-  fallbackTimeoutId = window.setTimeout(function onFallbackTimeout() {
-    showFallback();
-  }, 8000);
-
-  observerDisconnectTimeoutId = window.setTimeout(function onObserverTimeout() {
-    if (observer) observer.disconnect();
-  }, 30000);
-
-  observer = new MutationObserver(function onMutation() {
-    if (embedHost.childElementCount > 0 || embedHost.querySelector("iframe")) {
-      onEmbedDetected();
-    }
-  });
-
-  observer.observe(embedHost, { childList: true, subtree: true });
-
-  loadWhopCheckout();
+  fallbackTimeoutId = window.setTimeout(showFallback, 12000);
+  loadWhopElements();
 })();

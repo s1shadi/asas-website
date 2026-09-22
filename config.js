@@ -4,7 +4,7 @@ window.ASAS_CONFIG = {
   PUBLIC_SITE_CLOSED: false,
   checkout: {
     appOrigin: "https://app.asas-mind.com",
-    activateReturnUrl: "https://app.asas-mind.com/activate/session",
+    activateReturnUrl: "https://app.asas-mind.com/activate",
     plans: {
       monthly: {
         offer: "30d",
