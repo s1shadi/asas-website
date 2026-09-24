@@ -1,0 +1,466 @@
+/* About page — visual layer only. Tokens come from /site.css */
+
+.about-shell {
+  width: min(calc(100% - 48px), 1100px);
+  margin: 0 auto;
+}
+
+.about-shell--wide {
+  width: min(calc(100% - 48px), 1180px);
+}
+
+.about-eyebrow {
+  margin: 0 0 14px;
+  color: #66717f;
+  font-size: 0.78rem;
+  font-weight: 560;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.about-eyebrow--light {
+  color: rgba(255, 255, 255, 0.52);
+}
+
+.desktop-nav a[aria-current="page"],
+.mobile-nav a[aria-current="page"] {
+  color: var(--ink);
+}
+
+.desktop-nav a:focus-visible,
+.mobile-nav a:focus-visible,
+.login-link:focus-visible,
+.about-reading-link:focus-visible,
+.about-proof__cta:focus-visible,
+.about-cta__button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+/* —— Hero —— */
+
+.about-hero {
+  padding: clamp(88px, 11vw, 148px) 0 clamp(72px, 9vw, 120px);
+  overflow: hidden;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-hero h1 {
+  max-width: 16ch;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2.85rem, 6.4vw, 5.6rem);
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.about-lead {
+  max-width: 640px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1.7vw, 1.22rem);
+  line-height: 1.65;
+}
+
+/* —— Light editorial sections —— */
+
+.about-statement,
+.about-position,
+.about-founder {
+  padding: clamp(80px, 10vw, 120px) 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-position {
+  background: var(--paper);
+}
+
+.about-split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: clamp(48px, 8vw, 104px);
+  align-items: start;
+}
+
+.about-split h2,
+.about-founder h2,
+.about-proof h2,
+.about-cta h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4.2vw, 3.4rem);
+  font-weight: 650;
+  line-height: 1.04;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.about-prose {
+  display: grid;
+  gap: 22px;
+  max-width: 620px;
+}
+
+.about-prose p,
+.about-founder-grid p,
+.about-proof p {
+  margin: 0;
+  color: #2a3140;
+  font-size: clamp(1.03rem, 1.5vw, 1.16rem);
+  line-height: 1.72;
+  letter-spacing: -0.01em;
+}
+
+.about-reading-link {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 2px 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.about-reading-link:hover {
+  color: var(--blue-deep);
+}
+
+.about-reading-link span {
+  transition: transform 160ms ease;
+}
+
+.about-reading-link:hover span {
+  transform: translateX(3px);
+}
+
+/* —— Dark approach —— */
+
+.about-system {
+  padding: clamp(88px, 11vw, 128px) 0;
+  color: #fff;
+  background: #0b0e14;
+  border-bottom: 1px solid #0b0e14;
+}
+
+.about-system-head {
+  max-width: 760px;
+}
+
+.about-system h2 {
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  font-weight: 650;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.about-principles {
+  margin: clamp(52px, 7vw, 84px) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.about-principles li {
+  min-height: 248px;
+  padding: 28px 28px 8px 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.about-principles li + li {
+  padding-left: 28px;
+}
+
+.about-principles li:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+.about-principles span {
+  display: block;
+  color: #7f9bff;
+  font-size: 0.74rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.about-principles h3 {
+  margin: 56px 0 14px;
+  font-size: clamp(1.22rem, 2vw, 1.55rem);
+  font-weight: 620;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.about-principles p {
+  margin: 0;
+  max-width: 32ch;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.96rem;
+  line-height: 1.65;
+}
+
+/* —— Founder —— */
+
+.about-founder-grid {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(40px, 7vw, 88px);
+  align-items: center;
+}
+
+.about-founder-mark {
+  width: 100%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 28px;
+  background: #101114;
+  border: 1px solid rgba(16, 17, 20, 0.08);
+}
+
+.about-founder-mark img {
+  width: 42%;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.about-founder h2 {
+  margin-bottom: 20px;
+}
+
+.about-founder-grid > div:last-child {
+  max-width: 620px;
+}
+
+/* —— Trustpilot —— */
+
+.about-proof {
+  padding: clamp(72px, 9vw, 104px) 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+
+.about-proof-panel {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding: clamp(28px, 4vw, 40px);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  background: var(--surface);
+}
+
+.about-proof-panel > div {
+  max-width: 640px;
+}
+
+.about-proof h2 {
+  margin: 0 0 14px;
+}
+
+.about-proof__cta {
+  flex: 0 0 auto;
+  min-height: 50px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 620;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 120ms ease, color 120ms ease, background-color 120ms ease;
+}
+
+.about-proof__cta:hover {
+  border-color: var(--ink);
+  background: var(--soft);
+}
+
+/* —— Closing CTA —— */
+
+.about-cta {
+  padding: clamp(88px, 11vw, 132px) 0;
+  color: #fff;
+  background: #101114;
+}
+
+.about-cta h2 {
+  max-width: 14ch;
+  color: #fff;
+}
+
+.about-cta__button {
+  margin-top: 36px;
+  min-height: 52px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: #fff;
+  color: #101114;
+  font-size: 0.92rem;
+  font-weight: 620;
+  text-decoration: none;
+  transition: background-color 120ms ease, transform 120ms ease;
+}
+
+.about-cta__button:hover {
+  background: #eef0f4;
+}
+
+.about-cta__button:active {
+  transform: scale(0.985);
+}
+
+.about-cta__button:focus-visible {
+  outline-color: #fff;
+}
+
+/* —— Responsive —— */
+
+@media (max-width: 1024px) {
+  .about-shell,
+  .about-shell--wide {
+    width: min(calc(100% - 40px), 1100px);
+  }
+
+  .about-split {
+    gap: 48px;
+  }
+
+  .about-principles li {
+    min-height: 220px;
+    padding-right: 20px;
+  }
+
+  .about-principles li + li {
+    padding-left: 20px;
+  }
+
+  .about-principles h3 {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 800px) {
+  .about-shell,
+  .about-shell--wide {
+    width: min(calc(100% - 36px), 1100px);
+  }
+
+  .about-hero h1 {
+    max-width: none;
+    font-size: clamp(2.6rem, 11vw, 3.8rem);
+  }
+
+  .about-split,
+  .about-founder-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-split {
+    gap: 28px;
+  }
+
+  .about-principles {
+    grid-template-columns: 1fr;
+  }
+
+  .about-principles li,
+  .about-principles li + li {
+    min-height: 0;
+    padding: 28px 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .about-principles li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .about-principles h3 {
+    margin-top: 28px;
+  }
+
+  .about-principles p {
+    max-width: none;
+  }
+
+  .about-founder-mark {
+    width: 148px;
+    border-radius: 22px;
+  }
+
+  .about-proof-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .about-proof__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about-cta__button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .about-shell,
+  .about-shell--wide {
+    width: min(calc(100% - 28px), 1100px);
+  }
+
+  .about-hero {
+    padding: 64px 0 56px;
+  }
+
+  .about-statement,
+  .about-position,
+  .about-founder,
+  .about-system,
+  .about-proof,
+  .about-cta {
+    padding: 64px 0;
+  }
+
+  .about-proof-panel {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .about-proof__cta {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-reading-link span,
+  .about-cta__button,
+  .about-proof__cta {
+    transition: none;
+  }
+}
