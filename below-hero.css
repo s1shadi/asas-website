@@ -410,10 +410,10 @@
 
 .share-moment--left {
   z-index: 2;
-  left: 76px;
-  top: 176px;
-  width: 310px;
-  height: 400px;
+  left: 24px;
+  top: 168px;
+  width: 300px;
+  height: 390px;
   opacity: 0.74;
   filter: blur(1px);
   transform: rotate(-7deg);
@@ -423,10 +423,10 @@
 
 .share-moment--right {
   z-index: 2;
-  right: 58px;
-  top: 142px;
-  width: 325px;
-  height: 418px;
+  right: -18px;
+  top: 152px;
+  width: 300px;
+  height: 390px;
   opacity: 0.78;
   filter: blur(0.75px);
   transform: rotate(7deg);
@@ -436,7 +436,7 @@
 
 .share-moment--front {
   z-index: 4;
-  left: 325px;
+  left: 235px;
   top: 88px;
   width: 390px;
   height: 500px;
@@ -448,13 +448,13 @@
 
 .share-moment--mid-right {
   z-index: 3;
-  right: 168px;
-  top: 118px;
-  width: 340px;
-  height: 438px;
+  left: 520px;
+  top: 124px;
+  width: 330px;
+  height: 426px;
   opacity: 0.9;
   filter: blur(0.35px);
-  transform: rotate(4deg);
+  transform: rotate(3.5deg);
   box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
   animation: share-float-mid-right 11s ease-in-out infinite;
   animation-delay: -2s;
@@ -513,11 +513,11 @@
 @keyframes share-float-mid-right {
   0%,
   100% {
-    transform: rotate(4deg) translateY(0);
+    transform: rotate(3.5deg) translateY(0);
   }
 
   50% {
-    transform: rotate(4deg) translateY(-7px);
+    transform: rotate(3.5deg) translateY(-7px);
   }
 }
 
@@ -1567,8 +1567,20 @@
     width: min(calc(100% - 32px), 1240px);
   }
 
+  .share-moment--left {
+    left: 8px;
+  }
+
   .share-moment--front {
-    left: 280px;
+    left: 210px;
+  }
+
+  .share-moment--mid-right {
+    left: 470px;
+  }
+
+  .share-moment--right {
+    right: -28px;
   }
 }
 
@@ -1695,24 +1707,25 @@
   }
 
   .share-moment--left {
-    left: -76px;
+    left: -64px;
     top: 120px;
+    width: 200px;
+    height: 258px;
+  }
+
+  .share-moment--mid-right {
+    left: auto;
+    right: 18%;
+    top: 98px;
     width: 210px;
     height: 270px;
   }
 
   .share-moment--right {
-    right: -78px;
-    top: 104px;
-    width: 215px;
-    height: 276px;
-  }
-
-  .share-moment--mid-right {
-    right: 42px;
-    top: 96px;
-    width: 228px;
-    height: 294px;
+    right: -64px;
+    top: 112px;
+    width: 200px;
+    height: 258px;
   }
 
   .community {
@@ -1774,15 +1787,15 @@
   }
 
   .share-moment--left {
-    left: -58px;
-  }
-
-  .share-moment--right {
-    right: -60px;
+    left: -52px;
   }
 
   .share-moment--mid-right {
-    right: 18px;
+    right: 14%;
+  }
+
+  .share-moment--right {
+    right: -52px;
   }
 }
 
