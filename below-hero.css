@@ -401,6 +401,7 @@
 
 .share-moment {
   position: absolute;
+  top: 140px;
   margin: 0;
   overflow: hidden;
   border-radius: 18px;
@@ -408,40 +409,40 @@
   will-change: transform;
 }
 
+/* Equal centers at 18% / 40% / 62% / 84% — same peek on every card */
 .share-moment--left {
   z-index: 2;
-  left: 20px;
-  top: 152px;
-  width: 285px;
-  height: 370px;
+  left: 18%;
+  width: 290px;
+  height: 376px;
   opacity: 0.76;
-  filter: blur(0.9px);
-  transform: rotate(-6deg);
+  filter: blur(0.85px);
+  transform: translateX(-50%) rotate(-6deg);
   animation: share-float-left 10s ease-in-out infinite;
   animation-delay: -3s;
 }
 
 .share-moment--front {
   z-index: 4;
-  left: 145px;
+  left: 40%;
   top: 88px;
-  width: 340px;
-  height: 440px;
+  width: 350px;
+  height: 452px;
   opacity: 1;
   filter: none;
-  transform: none;
+  transform: translateX(-50%);
   box-shadow: 0 34px 80px rgba(16, 17, 20, 0.24);
 }
 
 .share-moment--mid-right {
   z-index: 3;
-  left: 470px;
+  left: 62%;
   top: 124px;
   width: 300px;
   height: 390px;
   opacity: 0.92;
   filter: none;
-  transform: rotate(3.5deg);
+  transform: translateX(-50%) rotate(3.5deg);
   box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
   animation: share-float-mid-right 11s ease-in-out infinite;
   animation-delay: -2s;
@@ -449,13 +450,13 @@
 
 .share-moment--right {
   z-index: 2;
-  right: 56px;
-  top: 152px;
-  width: 285px;
-  height: 370px;
+  left: 84%;
+  right: auto;
+  width: 290px;
+  height: 376px;
   opacity: 0.8;
   filter: blur(0.55px);
-  transform: rotate(7deg);
+  transform: translateX(-50%) rotate(7deg);
   animation: share-float-right 12s ease-in-out infinite;
   animation-delay: -5s;
 }
@@ -491,33 +492,33 @@
 @keyframes share-float-left {
   0%,
   100% {
-    transform: rotate(-6deg) translateY(0);
+    transform: translateX(-50%) rotate(-6deg) translateY(0);
   }
 
   50% {
-    transform: rotate(-6deg) translateY(-8px);
+    transform: translateX(-50%) rotate(-6deg) translateY(-8px);
   }
 }
 
 @keyframes share-float-right {
   0%,
   100% {
-    transform: rotate(7deg) translateY(0);
+    transform: translateX(-50%) rotate(7deg) translateY(0);
   }
 
   50% {
-    transform: rotate(7deg) translateY(-8px);
+    transform: translateX(-50%) rotate(7deg) translateY(-8px);
   }
 }
 
 @keyframes share-float-mid-right {
   0%,
   100% {
-    transform: rotate(3.5deg) translateY(0);
+    transform: translateX(-50%) rotate(3.5deg) translateY(0);
   }
 
   50% {
-    transform: rotate(3.5deg) translateY(-7px);
+    transform: translateX(-50%) rotate(3.5deg) translateY(-7px);
   }
 }
 
@@ -1568,21 +1569,23 @@
   }
 
   .share-moment--left {
-    left: 0;
+    width: 250px;
+    height: 324px;
   }
 
   .share-moment--front {
-    left: 170px;
-    width: 330px;
-    height: 430px;
+    width: 300px;
+    height: 388px;
   }
 
   .share-moment--mid-right {
-    left: 455px;
+    width: 260px;
+    height: 338px;
   }
 
   .share-moment--right {
-    right: 0;
+    width: 250px;
+    height: 324px;
   }
 }
 
@@ -1700,34 +1703,34 @@
     margin-top: 48px;
   }
 
-  .share-moment--front {
-    left: 42%;
-    top: 70px;
-    width: 248px;
-    height: 320px;
-    transform: translateX(-50%);
+  .share-moment--left {
+    left: 10%;
+    top: 120px;
+    width: 190px;
+    height: 246px;
   }
 
-  .share-moment--left {
-    left: -58px;
-    top: 120px;
-    width: 196px;
-    height: 252px;
+  .share-moment--front {
+    left: 36%;
+    top: 70px;
+    width: 236px;
+    height: 304px;
   }
 
   .share-moment--mid-right {
-    left: auto;
-    right: 12%;
+    left: 62%;
+    right: auto;
     top: 98px;
-    width: 205px;
-    height: 264px;
+    width: 200px;
+    height: 260px;
   }
 
   .share-moment--right {
-    right: -58px;
+    left: 90%;
+    right: auto;
     top: 118px;
-    width: 196px;
-    height: 252px;
+    width: 190px;
+    height: 246px;
   }
 
   .community {
@@ -1789,15 +1792,21 @@
   }
 
   .share-moment--left {
-    left: -52px;
+    left: 8%;
+  }
+
+  .share-moment--front {
+    left: 34%;
   }
 
   .share-moment--mid-right {
-    right: 14%;
+    left: 60%;
+    right: auto;
   }
 
   .share-moment--right {
-    right: -52px;
+    left: 92%;
+    right: auto;
   }
 }
 
