@@ -422,7 +422,7 @@
 }
 
 .share-moment--right {
-  z-index: 3;
+  z-index: 2;
   right: 58px;
   top: 142px;
   width: 325px;
@@ -446,6 +446,20 @@
   box-shadow: 0 34px 80px rgba(16, 17, 20, 0.24);
 }
 
+.share-moment--mid-right {
+  z-index: 3;
+  right: 168px;
+  top: 118px;
+  width: 340px;
+  height: 438px;
+  opacity: 0.9;
+  filter: blur(0.35px);
+  transform: rotate(4deg);
+  box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
+  animation: share-float-mid-right 11s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
 .share-moment--left {
   background-image: url("/assets/share-studio/share-layer-left.jpg");
   background-size: cover;
@@ -467,6 +481,13 @@
   background-color: #e6e9ee;
 }
 
+.share-moment--mid-right {
+  background-image: url("/assets/share-studio/share-layer-between-right.jpg");
+  background-size: cover;
+  background-position: center 42%;
+  background-color: #101114;
+}
+
 @keyframes share-float-left {
   0%,
   100% {
@@ -486,6 +507,17 @@
 
   50% {
     transform: rotate(7deg) translateY(-8px);
+  }
+}
+
+@keyframes share-float-mid-right {
+  0%,
+  100% {
+    transform: rotate(4deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(4deg) translateY(-7px);
   }
 }
 
@@ -1676,6 +1708,13 @@
     height: 276px;
   }
 
+  .share-moment--mid-right {
+    right: 42px;
+    top: 96px;
+    width: 228px;
+    height: 294px;
+  }
+
   .community {
     padding: 72px 0;
   }
@@ -1741,11 +1780,16 @@
   .share-moment--right {
     right: -60px;
   }
+
+  .share-moment--mid-right {
+    right: 18px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .share-moment--left,
-  .share-moment--right {
+  .share-moment--right,
+  .share-moment--mid-right {
     animation: none;
   }
 
