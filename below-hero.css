@@ -1026,6 +1026,36 @@
   letter-spacing: -0.01em;
 }
 
+.origin-more {
+  width: fit-content;
+  margin-top: 10px;
+  padding: 2px 0 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--blue);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.origin-more:hover {
+  color: var(--blue-deep);
+}
+
+.origin-more:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.origin-more span {
+  transition: transform 160ms ease;
+}
+
+.origin-more:hover span {
+  transform: translateX(3px);
+}
+
 /* —— Pricing + Checkout —— */
 
 .pricing-checkout {
