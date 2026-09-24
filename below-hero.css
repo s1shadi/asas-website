@@ -410,10 +410,10 @@
 
 .share-moment--left {
   z-index: 2;
-  left: 28px;
+  left: 20px;
   top: 152px;
-  width: 290px;
-  height: 376px;
+  width: 285px;
+  height: 370px;
   opacity: 0.76;
   filter: blur(0.9px);
   transform: rotate(-6deg);
@@ -423,10 +423,10 @@
 
 .share-moment--front {
   z-index: 4;
-  left: 185px;
+  left: 145px;
   top: 88px;
-  width: 350px;
-  height: 452px;
+  width: 340px;
+  height: 440px;
   opacity: 1;
   filter: none;
   transform: none;
@@ -435,12 +435,12 @@
 
 .share-moment--mid-right {
   z-index: 3;
-  left: 500px;
-  top: 126px;
-  width: 305px;
-  height: 396px;
-  opacity: 0.9;
-  filter: blur(0.3px);
+  left: 470px;
+  top: 124px;
+  width: 300px;
+  height: 390px;
+  opacity: 0.92;
+  filter: none;
   transform: rotate(3.5deg);
   box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
   animation: share-float-mid-right 11s ease-in-out infinite;
@@ -449,12 +449,12 @@
 
 .share-moment--right {
   z-index: 2;
-  right: 18px;
+  right: 56px;
   top: 152px;
-  width: 290px;
-  height: 376px;
+  width: 285px;
+  height: 370px;
   opacity: 0.8;
-  filter: blur(0.65px);
+  filter: blur(0.55px);
   transform: rotate(7deg);
   animation: share-float-right 12s ease-in-out infinite;
   animation-delay: -5s;
