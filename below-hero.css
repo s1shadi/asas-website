@@ -387,7 +387,7 @@
 
 .share-studio-stage {
   position: relative;
-  width: min(100%, 1040px);
+  width: min(100%, 1120px);
   height: 660px;
   margin: 72px auto 0;
   overflow: hidden;
@@ -410,23 +410,37 @@
 
 .share-moment--left {
   z-index: 2;
-  left: 24px;
-  top: 168px;
+  left: 72px;
+  top: 152px;
   width: 300px;
-  height: 390px;
-  opacity: 0.74;
-  filter: blur(1px);
-  transform: rotate(-7deg);
+  height: 388px;
+  opacity: 0.76;
+  filter: blur(0.9px);
+  transform: rotate(-6deg);
   animation: share-float-left 10s ease-in-out infinite;
   animation-delay: -3s;
 }
 
+.share-moment--mid-right {
+  z-index: 3;
+  left: 590px;
+  top: 128px;
+  width: 318px;
+  height: 412px;
+  opacity: 0.88;
+  filter: blur(0.4px);
+  transform: rotate(3.5deg);
+  box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
+  animation: share-float-mid-right 11s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
 .share-moment--right {
   z-index: 2;
-  right: -18px;
+  right: -56px;
   top: 152px;
   width: 300px;
-  height: 390px;
+  height: 388px;
   opacity: 0.78;
   filter: blur(0.75px);
   transform: rotate(7deg);
@@ -436,7 +450,7 @@
 
 .share-moment--front {
   z-index: 4;
-  left: 235px;
+  left: 270px;
   top: 88px;
   width: 390px;
   height: 500px;
@@ -444,20 +458,6 @@
   filter: none;
   transform: none;
   box-shadow: 0 34px 80px rgba(16, 17, 20, 0.24);
-}
-
-.share-moment--mid-right {
-  z-index: 3;
-  left: 520px;
-  top: 124px;
-  width: 330px;
-  height: 426px;
-  opacity: 0.9;
-  filter: blur(0.35px);
-  transform: rotate(3.5deg);
-  box-shadow: 0 22px 52px rgba(16, 17, 20, 0.16);
-  animation: share-float-mid-right 11s ease-in-out infinite;
-  animation-delay: -2s;
 }
 
 .share-moment--left {
@@ -491,11 +491,11 @@
 @keyframes share-float-left {
   0%,
   100% {
-    transform: rotate(-7deg) translateY(0);
+    transform: rotate(-6deg) translateY(0);
   }
 
   50% {
-    transform: rotate(-7deg) translateY(-8px);
+    transform: rotate(-6deg) translateY(-8px);
   }
 }
 
@@ -1568,19 +1568,19 @@
   }
 
   .share-moment--left {
-    left: 8px;
+    left: 40px;
   }
 
   .share-moment--front {
-    left: 210px;
+    left: 235px;
   }
 
   .share-moment--mid-right {
-    left: 470px;
+    left: 545px;
   }
 
   .share-moment--right {
-    right: -28px;
+    right: -36px;
   }
 }
 
