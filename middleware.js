@@ -15,6 +15,8 @@ const ALLOWED_EXACT = new Set([
   '/abo-verwalten/',
   '/checkout',
   '/checkout/',
+  // Trustpilot domain verification
+  '/0a96d72c-317f-4f29-95ed-85689c163ac5.html',
 ]);
 
 const ALLOWED_PREFIXES = [
