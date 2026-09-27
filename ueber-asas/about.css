@@ -224,15 +224,18 @@
   aspect-ratio: 1;
   display: grid;
   place-items: center;
+  padding: 18%;
+  box-sizing: border-box;
   border-radius: 28px;
   background: #101114;
   border: 1px solid rgba(16, 17, 20, 0.08);
 }
 
-.about-founder-mark img {
-  width: 42%;
+.about-founder-mark img,
+.about-founder-wordmark {
+  width: 100%;
   height: auto;
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
 .about-founder h2 {
@@ -268,6 +271,16 @@
 
 .about-proof h2 {
   margin: 0 0 14px;
+}
+
+.about-proof-rating {
+  margin: 22px 0 0;
+}
+
+.about-proof-rating img {
+  display: block;
+  width: min(100%, 268px);
+  height: auto;
 }
 
 .about-proof__cta {
