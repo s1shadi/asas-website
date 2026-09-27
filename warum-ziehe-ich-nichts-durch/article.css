@@ -80,6 +80,11 @@
   align-items: start;
 }
 
+.article-body {
+  min-width: 0;
+  max-width: 100%;
+}
+
 .article-summary {
   position: sticky;
   top: 100px;
@@ -119,7 +124,8 @@
 
 .article-body > h2,
 .article-product h2,
-.article-faq h2 {
+.article-faq h2,
+.article-research > h2 {
   margin: 82px 0 30px;
   color: var(--ink);
   font-size: clamp(2.15rem, 4.5vw, 3.7rem);
@@ -275,6 +281,177 @@
   margin: 0 0 26px;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.article-direct-answer {
+  margin: 0 0 48px;
+  padding: 28px 0 0;
+  border-top: 2px solid var(--ink);
+}
+
+.article-direct-answer p {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.08rem, 1.7vw, 1.22rem);
+  font-weight: 520;
+  line-height: 1.72;
+}
+
+.article-research {
+  margin-top: 96px;
+  padding-top: 8px;
+}
+
+.article-research > .article-kicker {
+  margin-bottom: 18px;
+}
+
+.article-research > h2 {
+  margin-top: 0;
+}
+
+.article-stat-grid {
+  margin: 42px 0 48px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.article-stat {
+  padding: 28px 24px 24px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: #fafbfc;
+}
+
+.article-stat__value {
+  margin: 0 0 10px !important;
+  color: var(--ink) !important;
+  font-size: clamp(2.4rem, 5vw, 3.4rem) !important;
+  font-weight: 650;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.article-stat__meta {
+  margin: 0 0 18px !important;
+  color: #5f6c7b !important;
+  font-size: 0.92rem !important;
+  line-height: 1.5;
+}
+
+.article-stat p {
+  margin: 0 0 14px;
+}
+
+.article-stat__note {
+  margin: 0 !important;
+  color: #6b7582 !important;
+  font-size: 0.86rem !important;
+  line-height: 1.55;
+}
+
+.article-table-wrap {
+  margin: 42px 0 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+}
+
+.article-research-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.article-research-table th,
+.article-research-table td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+  color: #374151;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  font-weight: 450;
+}
+
+.article-research-table thead th {
+  background: #f4f6f8;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 720;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.article-research-table tbody th {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.article-research-table tr:last-child th,
+.article-research-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.article-sources {
+  margin-top: 72px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-strong);
+}
+
+.article-sources h2 {
+  margin: 0 0 22px;
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+}
+
+.article-sources ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.article-sources li {
+  margin: 0 0 16px;
+  color: #46515f;
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.article-sources a {
+  color: var(--ink);
+  text-underline-offset: 3px;
+}
+
+.article-product a[href^="/warum"],
+.article-product a[href^="/ueber"] {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: inherit;
+  font-weight: 560;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 800px) {
   .article-shell,
   .article-shell--narrow {
@@ -300,7 +477,8 @@
 
   .article-body > h2,
   .article-product h2,
-  .article-faq h2 {
+  .article-faq h2,
+  .article-research > h2 {
     margin-top: 66px;
   }
 
@@ -312,5 +490,23 @@
   .article-product {
     margin-inline: -8px;
     border-radius: 18px;
+  }
+
+  .article-stat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-research-table {
+    min-width: 520px;
+  }
+
+  .article-direct-answer {
+    margin-bottom: 36px;
+  }
+
+  .article-stat,
+  .article-product,
+  .article-table-wrap {
+    max-width: 100%;
   }
 }
