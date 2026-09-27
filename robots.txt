@@ -1,4 +1,13 @@
 User-agent: *
 Allow: /
 
+# Technical / transactional pages — crawl/index not useful
+Disallow: /checkout
+Disallow: /checkout/
+Disallow: /abo-verwalten
+Disallow: /abo-verwalten/
+Disallow: /check
+Disallow: /check/
+Disallow: /closed.html
+
 Sitemap: https://asas-mind.com/sitemap.xml

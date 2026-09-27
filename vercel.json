@@ -37,7 +37,20 @@
     { "source": "/datenschutz.html", "destination": "/datenschutz", "permanent": true },
     { "source": "/agb.html", "destination": "/agb", "permanent": true },
     { "source": "/widerruf.html", "destination": "/widerruf", "permanent": true },
+    { "source": "/impressum/", "destination": "/impressum", "permanent": true },
+    { "source": "/datenschutz/", "destination": "/datenschutz", "permanent": true },
+    { "source": "/agb/", "destination": "/agb", "permanent": true },
+    { "source": "/widerruf/", "destination": "/widerruf", "permanent": true },
     { "source": "/ratgeber", "destination": "/warum-ziehe-ich-nichts-durch/", "permanent": true },
-    { "source": "/ratgeber/", "destination": "/warum-ziehe-ich-nichts-durch/", "permanent": true }
+    { "source": "/ratgeber/", "destination": "/warum-ziehe-ich-nichts-durch/", "permanent": true },
+    { "source": "/ziele-erreichen", "destination": "/ziele-erreichen/", "permanent": true },
+    { "source": "/warum-ziehe-ich-nichts-durch", "destination": "/warum-ziehe-ich-nichts-durch/", "permanent": true },
+    { "source": "/disziplin-lernen", "destination": "/disziplin-lernen/", "permanent": true },
+    { "source": "/prokrastination-ueberwinden", "destination": "/prokrastination-ueberwinden/", "permanent": true },
+    { "source": "/ueber-asas", "destination": "/ueber-asas/", "permanent": true },
+    { "source": "/affiliate", "destination": "/affiliate/", "permanent": true },
+    { "source": "/check", "destination": "/check/", "permanent": true },
+    { "source": "/checkout", "destination": "/checkout/", "permanent": true },
+    { "source": "/abo-verwalten", "destination": "/abo-verwalten/", "permanent": true }
   ]
 }

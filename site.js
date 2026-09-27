@@ -1,4 +1,6 @@
 (function initSite() {
+  captureAffiliate();
+
   const toggle = document.querySelector('.menu-toggle');
   const mobileNav = document.querySelector('.mobile-nav');
 
@@ -30,6 +32,15 @@
 
   initHeroSlides();
 })();
+
+function captureAffiliate() {
+  try {
+    var affiliate = new URLSearchParams(window.location.search).get('a');
+    if (affiliate) sessionStorage.setItem('asas-affiliate', affiliate);
+  } catch (error) {
+    // sessionStorage may be unavailable in private/blocked contexts
+  }
+}
 
 function initHeroSlides() {
   const root = document.querySelector('[data-hero-slides-root]');
