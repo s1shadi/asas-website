@@ -109,9 +109,8 @@
 }
 
 .article-body > p,
-.article-body section > p,
+.article-body section:not(.article-product):not(.article-faq) > p,
 .article-steps span,
-.article-product > p,
 .article-faq details p {
   color: #374151;
   font-size: clamp(1.02rem, 1.45vw, 1.12rem);
@@ -220,8 +219,11 @@
   color: #fff;
 }
 
-.article-product > p {
-  color: rgba(255, 255, 255, 0.7);
+.article-product > p,
+.article-body .article-product > p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.02rem, 1.45vw, 1.12rem);
+  line-height: 1.78;
 }
 
 .article-product a {
