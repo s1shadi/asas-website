@@ -232,28 +232,29 @@
 
 .about-founder-grid {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr);
   gap: clamp(40px, 7vw, 88px);
   align-items: center;
 }
 
 .about-founder-mark {
-  width: 100%;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  padding: 18%;
-  box-sizing: border-box;
-  border-radius: 28px;
-  background: #101114;
-  border: 1px solid rgba(16, 17, 20, 0.08);
+  width: min(100%, 168px);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  aspect-ratio: auto;
 }
 
 .about-founder-mark img,
 .about-founder-wordmark {
+  display: block;
   width: 100%;
   height: auto;
-  filter: none;
+  filter: brightness(0);
 }
 
 .about-founder h2 {
@@ -449,8 +450,7 @@
   }
 
   .about-founder-mark {
-    width: 148px;
-    border-radius: 22px;
+    width: min(148px, 42vw);
   }
 
   .about-proof-panel {
