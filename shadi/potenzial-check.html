@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASAS — Potenzial-Check</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07080b;
+        --ink: #f2f3f5;
+        --muted: #9aa1ad;
+        --line: rgba(242, 243, 245, 0.12);
+        --blue: #6b83ff;
+        --gold: #c6a75e;
+        --panel: rgba(14, 16, 22, 0.82);
+        --font: "Manrope", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: clip;
+        overflow-y: scroll;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        color: var(--ink);
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+        background: var(--bg);
+      }
+
+      body {
+        position: relative;
+        overflow-x: clip;
+      }
+
+      .bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(7, 8, 11, 0.58) 0%,
+            rgba(7, 8, 11, 0.78) 45%,
+            rgba(7, 8, 11, 0.96) 100%
+          ),
+          radial-gradient(ellipse 70% 45% at 80% 8%, rgba(107, 131, 255, 0.07), transparent 58%),
+          url("./hero-photo.png") center 18% / cover no-repeat;
+        filter: blur(3px);
+        transform: scale(1.08);
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(780px, 100%);
+        margin: 0 auto;
+        padding: 24px 22px max(120px, calc(48px + env(safe-area-inset-bottom)));
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 36px;
+      }
+
+      .logo {
+        display: block;
+        width: 112px;
+        height: auto;
+      }
+
+      .back {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .back:hover {
+        color: var(--ink);
+      }
+
+      .stage {
+        width: min(44ch, 100%);
+        margin: 0 auto;
+      }
+
+      .view[hidden] {
+        display: none !important;
+      }
+
+      .kicker {
+        margin: 0 0 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.1rem, 5.6vw, 3.1rem);
+        line-height: 1.05;
+        letter-spacing: -0.045em;
+        font-weight: 800;
+        text-wrap: balance;
+      }
+
+      .lede {
+        margin: 16px 0 0;
+        font-size: 1.05rem;
+        line-height: 1.45;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .meta-row {
+        margin: 22px 0 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 14px;
+        font-size: 0.86rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: rgba(242, 243, 245, 0.72);
+      }
+
+      .meta-row span::before {
+        content: "·";
+        margin-right: 14px;
+        color: rgba(154, 161, 173, 0.55);
+      }
+
+      .meta-row span:first-child::before {
+        content: none;
+        margin: 0;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 12px 26px;
+        border-radius: 16px;
+        border: 1px solid rgba(242, 243, 245, 0.18);
+        background: rgba(242, 243, 245, 0.96);
+        color: #0b0d12;
+        font: inherit;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .btn:hover {
+        background: #ffffff;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: rgba(242, 243, 245, 0.22);
+      }
+
+      .btn-ghost:hover {
+        background: rgba(242, 243, 245, 0.08);
+      }
+
+      .btn-whatsapp {
+        background: rgba(37, 211, 102, 0.14);
+        border-color: rgba(37, 211, 102, 0.45);
+        color: #d7ffe7;
+      }
+
+      .btn-whatsapp:hover {
+        background: rgba(37, 211, 102, 0.22);
+      }
+
+      .intro-actions {
+        margin-top: 32px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .progress {
+        margin: 0 0 22px;
+      }
+
+      .progress-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .progress-bar {
+        height: 3px;
+        border-radius: 999px;
+        background: rgba(242, 243, 245, 0.1);
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, rgba(107, 131, 255, 0.55), rgba(242, 243, 245, 0.9));
+        transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .q-scene {
+        font-size: 0.92rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--blue);
+        margin: 0 0 10px;
+      }
+
+      .q-title {
+        margin: 0;
+        font-size: clamp(1.35rem, 3.8vw, 1.7rem);
+        line-height: 1.25;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+        text-wrap: pretty;
+      }
+
+      .options {
+        margin: 26px 0 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .option {
+        width: 100%;
+        text-align: left;
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1px solid rgba(242, 243, 245, 0.12);
+        background: rgba(10, 11, 14, 0.72);
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.98rem;
+        line-height: 1.4;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          border-color 160ms ease,
+          background 160ms ease,
+          transform 160ms ease;
+      }
+
+      .option:hover,
+      .option:focus-visible {
+        border-color: rgba(107, 131, 255, 0.55);
+        background: rgba(18, 21, 30, 0.92);
+        outline: none;
+      }
+
+      .option:active {
+        transform: scale(0.992);
+      }
+
+      .option.is-picked {
+        border-color: rgba(107, 131, 255, 0.7);
+        background: linear-gradient(145deg, rgba(48, 54, 70, 0.96), rgba(18, 21, 30, 0.96));
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .result-mark {
+        margin: 0 0 8px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .result-score {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        margin: 8px 0 0;
+      }
+
+      .result-score strong {
+        font-size: clamp(4.2rem, 14vw, 5.8rem);
+        line-height: 0.92;
+        letter-spacing: -0.06em;
+        font-weight: 800;
+      }
+
+      .result-score span {
+        padding-bottom: 0.55em;
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--muted);
+      }
+
+      .result-label {
+        margin: 18px 0 0;
+        font-size: clamp(1.35rem, 3.6vw, 1.7rem);
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+      }
+
+      .result-copy {
+        margin: 12px 0 0;
+        font-size: 1.02rem;
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .result-actions {
+        margin-top: 30px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .result-note {
+        margin: 14px 0 0;
+        font-size: 12px;
+        font-weight: 600;
+        color: rgba(154, 161, 173, 0.85);
+      }
+
+      .view-enter {
+        animation: view-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      @keyframes view-in {
+        from {
+          opacity: 0;
+          transform: translate3d(0, 12px, 0);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .progress-fill,
+        .view-enter,
+        .option,
+        .btn {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+
+      .legal-footer {
+        margin-top: 48px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(242, 243, 245, 0.1);
+      }
+
+      .legal-links {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+      }
+
+      .legal-links a {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .legal-links a:hover {
+        color: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <div class="shell">
+      <header class="nav">
+        <img class="logo" src="./asas-wordmark-white.png" alt="ASAS" width="160" height="40" />
+        <a class="back" href="./system.html">Zurück</a>
+      </header>
+
+      <main class="stage">
+        <section class="view view-enter" id="view-intro" aria-labelledby="intro-title">
+          <p class="kicker">Potenzial-Check</p>
+          <h1 id="intro-title">Wie viel lässt du liegen?</h1>
+          <p class="lede">
+            Fünf kurze Situationsfragen darüber, wie du denkst und handelst. Am Ende siehst du, wie
+            viel Potenzial ohne ein System wie ASAS liegen bleibt.
+          </p>
+          <p class="meta-row">
+            <span>5 Fragen</span>
+            <span>~90 Sekunden</span>
+            <span>Kein Coaching-Pitch</span>
+          </p>
+          <div class="intro-actions">
+            <button class="btn" type="button" id="start-btn">Check starten</button>
+          </div>
+        </section>
+
+        <section class="view" id="view-quiz" hidden aria-live="polite">
+          <div class="progress" aria-hidden="true">
+            <div class="progress-top">
+              <span id="progress-label">Frage 1 von 5</span>
+              <span id="progress-pct">20%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+          </div>
+          <p class="q-scene" id="q-scene"></p>
+          <h2 class="q-title" id="q-title"></h2>
+          <div class="options" id="q-options" role="group" aria-label="Antwort wählen"></div>
+        </section>
+
+        <section class="view" id="view-result" hidden aria-labelledby="result-title">
+          <p class="result-mark">Dein Ergebnis</p>
+          <div class="result-score" aria-live="polite">
+            <strong id="result-percent">0</strong>
+            <span>%</span>
+          </div>
+          <h2 class="result-label" id="result-title">Potenzial ohne ASAS</h2>
+          <p class="result-copy" id="result-copy"></p>
+          <div class="result-actions">
+            <a class="btn" id="cta-buy" href="./bereit.html">
+              Zugang wählen
+            </a>
+            <a class="btn btn-whatsapp" id="cta-wa" href="#" target="_blank" rel="noopener noreferrer">
+              WhatsApp — kurze Einordnung
+            </a>
+            <button class="btn btn-ghost" type="button" id="restart-btn">Nochmal</button>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </section>
+      </main>
+
+      <footer class="legal-footer" aria-label="Rechtliches">
+        <ul class="legal-links">
+          <li><a href="https://asas-mind.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a></li>
+          <li><a href="https://asas-mind.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a></li>
+          <li><a href="https://asas-mind.com/agb" target="_blank" rel="noopener noreferrer">AGB</a></li>
+          <li><a href="https://asas-mind.com/widerruf" target="_blank" rel="noopener noreferrer">Widerruf</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script>
+      (() => {
+        const WHATSAPP_NUMBER = "4915905463277";
+        const CHECKOUT_URL = "./bereit.html";
+
+        const questions = [
+          {
+            scene: "Spätnachmittag",
+            title:
+              "Dein wichtigstes Vorhaben für die Woche liegt noch offen. Gleichzeitig kommen drei kurze, dringende Anfragen rein. Was passiert eher?",
+            options: [
+              { text: "Ich bleibe dran und antworte später.", score: 0 },
+              {
+                text: "Ich mache die Anfragen „schnell“ — und das Wichtige bleibt oft liegen.",
+                score: 1,
+              },
+              { text: "Dann bin ich den Rest des Tages nur noch am Reagieren.", score: 2 },
+              { text: "Ich schiebe alles um und plane das Vorhaben noch einmal neu.", score: 3 },
+            ],
+          },
+          {
+            scene: "Abends allein",
+            title:
+              "Der Tag ist vorbei. Niemand fragt dich, was du wirklich erledigt hast. Wie gehst du damit um?",
+            options: [
+              { text: "Ich weiß klar, was heute wirklich zählte.", score: 0 },
+              { text: "Ich fühle es irgendwie — prüfe aber nicht genau nach.", score: 1 },
+              { text: "Ich denke kurz darüber nach und schaue schon auf morgen.", score: 2 },
+              {
+                text: "Oft merke ich erst Tage später: Eigentlich ist nichts weitergegangen.",
+                score: 3,
+              },
+            ],
+          },
+          {
+            scene: "Nach 10–14 Tagen",
+            title:
+              "Du hast einen klaren Plan gestartet. Nach zwei Wochen fühlt sich wenig „groß“ an. Was machst du typischerweise?",
+            options: [
+              { text: "Ich bleibe dabei und gebe dem Ganzen noch etwas Zeit.", score: 0 },
+              { text: "Ich ändere Kleinigkeiten, bleibe aber beim Thema.", score: 1 },
+              {
+                text: "Dann hole ich mir oft etwas Neues — einen anderen Plan oder ein anderes System.",
+                score: 2,
+              },
+              {
+                text: "Ich lasse es schleifen und denke: Später mache ich es richtig.",
+                score: 3,
+              },
+            ],
+          },
+          {
+            scene: "Persönlicher Dip",
+            title:
+              "Schlaf, Training oder Fokus sind seit ein paar Tagen schwach. Dein Business braucht trotzdem Output. Was passiert eher?",
+            options: [
+              { text: "Privat läuft es mies — die Arbeit läuft trotzdem weiter.", score: 0 },
+              { text: "Die Arbeit wird chaotischer, ich hänge mehr Stunden dran.", score: 1 },
+              { text: "Beides rutscht — das merke ich oft erst hinterher.", score: 2 },
+              {
+                text: "Dann stelle ich alles hinten an, bis ich mich wieder fit fühle.",
+                score: 3,
+              },
+            ],
+          },
+          {
+            scene: "Montag morgen",
+            title:
+              "Du öffnest den Kalender. Das Quartalsziel ist irgendwo klar — aber der Tag ist voll. Was sitzt zuerst im Kopf?",
+            options: [
+              { text: "Was ich heute tun muss, damit das Ziel weitergeht.", score: 0 },
+              { text: "Alles, was gerade dringend reinplatzt.", score: 1 },
+              {
+                text: "Dass ich eigentlich klarer sein müsste — und dann doch im Tageschaos lande.",
+                score: 2,
+              },
+              { text: "Wie ich das Ziel diesmal besser angehen könnte.", score: 3 },
+            ],
+          },
+        ];
+
+        const views = {
+          intro: document.getElementById("view-intro"),
+          quiz: document.getElementById("view-quiz"),
+          result: document.getElementById("view-result"),
+        };
+
+        const els = {
+          start: document.getElementById("start-btn"),
+          restart: document.getElementById("restart-btn"),
+          scene: document.getElementById("q-scene"),
+          title: document.getElementById("q-title"),
+          options: document.getElementById("q-options"),
+          progressLabel: document.getElementById("progress-label"),
+          progressPct: document.getElementById("progress-pct"),
+          progressFill: document.getElementById("progress-fill"),
+          percent: document.getElementById("result-percent"),
+          resultTitle: document.getElementById("result-title"),
+          copy: document.getElementById("result-copy"),
+          note: document.getElementById("result-note"),
+          buy: document.getElementById("cta-buy"),
+          wa: document.getElementById("cta-wa"),
+        };
+
+        let index = 0;
+        let scores = [];
+        let animFrame = 0;
+
+        function show(name) {
+          Object.entries(views).forEach(([key, node]) => {
+            const active = key === name;
+            node.hidden = !active;
+            node.classList.toggle("view-enter", active);
+            if (active) void node.offsetWidth;
+          });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function renderQuestion() {
+          const q = questions[index];
+          const step = index + 1;
+          const pct = Math.round((step / questions.length) * 100);
+          els.progressLabel.textContent = `Frage ${step} von ${questions.length}`;
+          els.progressPct.textContent = `${pct}%`;
+          els.progressFill.style.width = `${pct}%`;
+          els.scene.textContent = q.scene;
+          els.title.textContent = q.title;
+          els.options.replaceChildren();
+
+          q.options.forEach((opt, optIndex) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "option";
+            btn.textContent = opt.text;
+            btn.addEventListener("click", () => pick(optIndex, opt.score, btn));
+            els.options.appendChild(btn);
+          });
+        }
+
+        function pick(_optIndex, score, btn) {
+          [...els.options.children].forEach((node) => node.classList.remove("is-picked"));
+          btn.classList.add("is-picked");
+          scores[index] = score;
+          window.setTimeout(() => {
+            if (index < questions.length - 1) {
+              index += 1;
+              renderQuestion();
+              views.quiz.classList.remove("view-enter");
+              void views.quiz.offsetWidth;
+              views.quiz.classList.add("view-enter");
+            } else {
+              finish();
+            }
+          }, 220);
+        }
+
+        function tierFromLeak(leakPct) {
+          if (leakPct <= 35) {
+            return {
+              label: "Du hast schon eine Linie.",
+              copy:
+                "Deine Antworten wirken relativ klar. Trotzdem bleibt Spielraum: Ohne einen ehrlichen Tagesabschluss wird „gut genug“ schnell zur Gewohnheit. ASAS macht deinen Kurs über 30 Tage hinweg sichtbar — und verbindlicher.",
+              note: "Passend, wenn du schon Struktur hast und sie verbindlicher machen willst.",
+              preferBuy: true,
+            };
+          }
+          if (leakPct <= 62) {
+            return {
+              label: "Du lässt Potenzial liegen.",
+              copy:
+                "Du arbeitest — aber ein Teil deiner Kraft geht in Reaktion, Bauchgefühl und Planwechsel. Genau dort verpufft Potenzial: nicht, weil dir Wissen fehlt, sondern weil am Abend oft unklar bleibt, was wirklich zählte.",
+              note: "Starte direkt — oder schreibe kurz auf WhatsApp, wenn du dein Ergebnis einordnen willst.",
+              preferBuy: true,
+            };
+          }
+          return {
+            label: "Viel Potenzial bleibt liegen.",
+            copy:
+              "Das Wissen ist da. Die Umsetzung bleibt oft unkontrolliert: Dringendes verdrängt Wichtiges, private Tiefphasen ziehen dein Business mit, und Pläne werden gewechselt, bevor echte Ergebnisse da sind. Ohne System lässt du einen großen Teil deines Potenzials liegen.",
+            note: "Viele in genau dieser Lage schreiben zuerst — und starten danach den 3-Monats-Zugang.",
+            preferBuy: false,
+          };
+        }
+
+        function leakPercent(total) {
+          const max = questions.length * 3;
+          return Math.round(18 + (total / max) * 70);
+        }
+
+        function animatePercent(target) {
+          window.cancelAnimationFrame(animFrame);
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (reduce) {
+            els.percent.textContent = String(target);
+            return;
+          }
+          const start = performance.now();
+          const from = 0;
+          const duration = 900;
+          const tick = (now) => {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            els.percent.textContent = String(Math.round(from + (target - from) * eased));
+            if (t < 1) animFrame = window.requestAnimationFrame(tick);
+          };
+          animFrame = window.requestAnimationFrame(tick);
+        }
+
+        function finish() {
+          const total = scores.reduce((sum, n) => sum + n, 0);
+          const leak = leakPercent(total);
+          const tier = tierFromLeak(leak);
+
+          els.resultTitle.textContent = tier.label;
+          els.copy.textContent = tier.copy;
+          els.note.textContent = tier.note;
+          els.buy.href = CHECKOUT_URL;
+
+          const msg = `Hey ich interessiere mich für ASAS. Mein Potenzial Check hat ${leak}% ergeben.`;
+          els.wa.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+
+          if (tier.preferBuy) {
+            els.buy.style.order = "0";
+            els.wa.style.order = "1";
+          } else {
+            els.wa.style.order = "0";
+            els.buy.style.order = "1";
+          }
+
+          show("result");
+          animatePercent(leak);
+        }
+
+        function start() {
+          index = 0;
+          scores = [];
+          show("quiz");
+          renderQuestion();
+        }
+
+        els.start.addEventListener("click", start);
+        els.restart.addEventListener("click", start);
+      })();
+    </script>
+  </body>
+</html>

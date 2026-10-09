@@ -9,5 +9,6 @@ Disallow: /abo-verwalten/
 Disallow: /check
 Disallow: /check/
 Disallow: /closed.html
+Disallow: /shadi/
 
 Sitemap: https://asas-mind.com/sitemap.xml

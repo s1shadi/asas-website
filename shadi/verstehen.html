@@ -1,0 +1,2487 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASAS — Das System dahinter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #07080b;
+        --ink: #f2f3f5;
+        --muted: #9aa1ad;
+      --blue: #6b83ff;
+      --gold: #c6a75e;
+      --red: #e85d5d;
+      --font: "Manrope", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        overflow-x: clip;
+        overflow-y: scroll;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        height: auto;
+        color: var(--ink);
+        font-family: var(--font);
+        -webkit-font-smoothing: antialiased;
+        background: var(--bg);
+      }
+
+      body {
+        position: relative;
+        overflow-x: clip;
+        overflow-y: visible;
+      }
+
+      .bg {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(7, 8, 11, 0.62) 0%,
+            rgba(7, 8, 11, 0.78) 42%,
+            rgba(7, 8, 11, 0.96) 100%
+          ),
+          url("./hero-photo.png") center 18% / cover no-repeat;
+        pointer-events: none;
+        transform: scale(1.08);
+        filter: blur(3px);
+      }
+
+      .shell {
+        position: relative;
+        z-index: 1;
+        width: min(780px, 100%);
+        margin: 0 auto;
+        padding: 24px 22px max(120px, calc(48px + env(safe-area-inset-bottom)));
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 48px;
+      }
+
+      .logo {
+        display: block;
+        width: 112px;
+        height: auto;
+      }
+
+      .back {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .back:hover {
+        color: var(--ink);
+      }
+
+      .hero {
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        gap: 14px;
+        margin-bottom: 34px;
+      }
+
+      .kicker {
+        margin: 0;
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.1rem, 5.6vw, 3.2rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+        font-weight: 800;
+        text-wrap: balance;
+        max-width: 12ch;
+      }
+
+      .lede {
+        margin: 4px 0 0;
+        max-width: 34ch;
+        font-size: 1.05rem;
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--muted);
+        text-wrap: pretty;
+      }
+
+      .story-wrap {
+        --story-accent: #6b83ff;
+        margin: 14px auto 0;
+        width: min(36rem, 100%);
+        text-align: left;
+      }
+
+      .story-wrap[data-step="1"],
+      .story-wrap[data-step="2"],
+      .story-wrap[data-step="6"] {
+        --story-accent: #6b83ff;
+      }
+
+      .story-wrap[data-step="3"] {
+        --story-accent: #6b83ff;
+      }
+
+      .story-wrap[data-step="4"] {
+        --story-accent: #e85d5d;
+      }
+
+      .story-wrap[data-step="5"] {
+        --story-accent: #c6a75e;
+      }
+
+      .story-deck {
+        position: relative;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid rgba(242, 243, 245, 0.14);
+        background:
+          radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--story-accent) 18%, transparent), transparent 55%),
+          linear-gradient(165deg, rgba(22, 25, 34, 0.92), rgba(8, 9, 13, 0.94));
+        box-shadow:
+          0 24px 50px rgba(0, 0, 0, 0.38),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition:
+          border-color 320ms ease,
+          box-shadow 320ms ease;
+      }
+
+      .story-wrap.is-open .story-deck {
+        border-color: color-mix(in srgb, var(--story-accent) 45%, rgba(242, 243, 245, 0.14));
+        box-shadow:
+          0 28px 60px rgba(0, 0, 0, 0.42),
+          0 0 0 1px color-mix(in srgb, var(--story-accent) 18%, transparent),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      .story-deck::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: linear-gradient(
+          180deg,
+          transparent,
+          var(--story-accent) 20%,
+          var(--story-accent) 80%,
+          transparent
+        );
+        opacity: 0.85;
+        transform: scaleY(0.55);
+        transform-origin: top;
+        transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), background 320ms ease;
+      }
+
+      .story-wrap.is-open .story-deck::before {
+        transform: scaleY(1);
+      }
+
+      .story-scan {
+        pointer-events: none;
+        position: absolute;
+        inset: -20% -30%;
+        background: linear-gradient(
+          115deg,
+          transparent 35%,
+          rgba(255, 255, 255, 0.045) 48%,
+          transparent 62%
+        );
+        transform: translateX(-40%);
+        animation: story-scan 5.5s ease-in-out infinite;
+      }
+
+      .story-deck-inner {
+        position: relative;
+        z-index: 1;
+        padding: 18px 18px 16px;
+      }
+
+      .story-now {
+        display: none;
+        margin: 0 0 14px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(242, 243, 245, 0.08);
+      }
+
+      .story-wrap.is-open .story-now {
+        display: block;
+        animation: story-now-in 380ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .story-now-kicker {
+        margin: 0 0 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--story-accent);
+      }
+
+      .story-now-kicker::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--story-accent);
+        box-shadow: 0 0 0 0 color-mix(in srgb, var(--story-accent) 55%, transparent);
+        animation: story-pulse 1.8s ease-out infinite;
+      }
+
+      .story-now-title {
+        margin: 0;
+        font-size: clamp(1.15rem, 3.4vw, 1.35rem);
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      .story-stage {
+        position: relative;
+        margin: 0;
+        min-height: 7.5rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      .story-num {
+        display: none;
+        position: absolute;
+        right: -4px;
+        top: -18px;
+        font-size: clamp(4.5rem, 16vw, 6.2rem);
+        line-height: 0.85;
+        font-weight: 800;
+        letter-spacing: -0.08em;
+        color: rgba(242, 243, 245, 0.045);
+        pointer-events: none;
+        user-select: none;
+      }
+
+      .story-wrap.is-open .story-num {
+        display: block;
+        animation: story-num-in 480ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .story-step {
+        display: none;
+        position: relative;
+        z-index: 1;
+        margin: 0;
+      }
+
+      .story-wrap.is-open .story-step.is-active {
+        display: block;
+        animation: story-step-in 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .story-wrap:not(.is-open) .story-step[data-step="1"] {
+        display: block;
+        max-height: 6.2rem;
+        overflow: hidden;
+        mask-image: linear-gradient(180deg, #000 36%, transparent 100%);
+        -webkit-mask-image: linear-gradient(180deg, #000 36%, transparent 100%);
+      }
+
+      .story-wrap.is-open .story-step.is-active > * {
+        animation: story-line-in 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+
+      .story-wrap.is-open .story-step.is-active > *:nth-child(1) {
+        animation-delay: 40ms;
+      }
+
+      .story-wrap.is-open .story-step.is-active > *:nth-child(2) {
+        animation-delay: 90ms;
+      }
+
+      .story-wrap.is-open .story-step.is-active > *:nth-child(3) {
+        animation-delay: 140ms;
+      }
+
+      .story-wrap.is-open .story-step.is-active > *:nth-child(4) {
+        animation-delay: 180ms;
+      }
+
+      .story-wrap.is-open .story-step.is-active > *:nth-child(5) {
+        animation-delay: 220ms;
+      }
+
+      @keyframes story-scan {
+        0%,
+        55% {
+          transform: translateX(-45%);
+          opacity: 0;
+        }
+        65% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(45%);
+          opacity: 0;
+        }
+      }
+
+      @keyframes story-pulse {
+        0% {
+          box-shadow: 0 0 0 0 color-mix(in srgb, var(--story-accent) 55%, transparent);
+        }
+        70% {
+          box-shadow: 0 0 0 10px transparent;
+        }
+        100% {
+          box-shadow: 0 0 0 0 transparent;
+        }
+      }
+
+      @keyframes story-now-in {
+        from {
+          opacity: 0;
+          transform: translateY(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes story-num-in {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes story-step-in {
+        from {
+          opacity: 0;
+          filter: blur(4px);
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          filter: blur(0);
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes story-line-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes story-cta-glow {
+        0%,
+        100% {
+          box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+        }
+        50% {
+          box-shadow:
+            0 12px 34px rgba(0, 0, 0, 0.34),
+            0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+      }
+
+      @keyframes story-arrow {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(4px);
+        }
+      }
+
+      .story-stage .lead {
+        margin: 0;
+        font-size: clamp(1.45rem, 4.2vw, 1.7rem);
+        line-height: 1.15;
+        letter-spacing: -0.04em;
+        font-weight: 800;
+        color: var(--ink);
+      }
+
+      .story-stage .sub {
+        margin: 12px 0 0;
+        font-size: 1rem;
+        line-height: 1.45;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .choice-grid {
+        margin: 18px 0 0;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .choice-side {
+        margin: 0;
+        padding: 14px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(242, 243, 245, 0.12);
+        background: rgba(0, 0, 0, 0.22);
+        text-align: left;
+      }
+
+      .choice-side strong {
+        display: block;
+        margin: 0 0 10px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink);
+      }
+
+      .choice-side span {
+        display: block;
+        margin: 0;
+        font-size: 0.88rem;
+        line-height: 1.4;
+        font-weight: 700;
+        color: rgba(242, 243, 245, 0.78);
+      }
+
+      .choice-side.business {
+        border-color: rgba(198, 167, 94, 0.28);
+        background: linear-gradient(160deg, rgba(198, 167, 94, 0.12), rgba(0, 0, 0, 0.2));
+      }
+
+      .choice-side.life {
+        border-color: rgba(107, 131, 255, 0.28);
+        background: linear-gradient(160deg, rgba(107, 131, 255, 0.12), rgba(0, 0, 0, 0.2));
+      }
+
+      .choice-or {
+        align-self: center;
+        margin: 0;
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(154, 161, 173, 0.75);
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+
+      @media (max-width: 420px) {
+        .choice-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .choice-or {
+          writing-mode: horizontal-tb;
+          transform: none;
+          text-align: center;
+          padding: 2px 0;
+        }
+      }
+
+      .hook {
+        margin: 0;
+        font-size: clamp(1.2rem, 3.6vw, 1.4rem);
+        line-height: 1.3;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      .bridge-mini {
+        margin: 14px 0 0;
+        font-size: 0.98rem;
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .mech-item {
+        margin: 0;
+      }
+
+      .mech-item h3 {
+        margin: 0 0 12px;
+        font-size: clamp(1.35rem, 4vw, 1.6rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.15;
+      }
+
+      .mech-item.fokus h3 {
+        color: #6b83ff;
+      }
+
+      .mech-item.konfrontation h3 {
+        color: #e85d5d;
+      }
+
+      .mech-item.reflexion h3 {
+        color: #c6a75e;
+      }
+
+      .mech-item .line {
+        margin: 0 0 12px;
+        font-size: 1.08rem;
+        line-height: 1.35;
+        font-weight: 750;
+        color: var(--ink);
+      }
+
+      .mech-item p {
+        margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.5;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .tab-link {
+        appearance: none;
+        display: inline;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-weight: inherit;
+        cursor: pointer;
+        text-decoration: underline;
+        text-decoration-thickness: 1.5px;
+        text-underline-offset: 0.18em;
+        transition: opacity 160ms ease;
+      }
+
+      .tab-link:hover,
+      .tab-link:focus-visible {
+        opacity: 0.85;
+        outline: none;
+      }
+
+      .persons {
+        margin: 18px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 12px;
+      }
+
+      .persons-label {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 750;
+        color: var(--ink);
+      }
+
+      .persons-label.spaced {
+        margin-top: 24px;
+      }
+
+      .person {
+        margin: 0;
+        font-size: 0.94rem;
+        line-height: 1.45;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .person strong {
+        color: var(--ink);
+        font-weight: 800;
+        margin-right: 0.3em;
+      }
+
+      .person em {
+        display: block;
+        margin-top: 4px;
+        font-style: italic;
+        font-weight: 650;
+        color: rgba(242, 243, 245, 0.88);
+      }
+
+      .close-line {
+        margin: 0;
+        font-size: 1.12rem;
+        line-height: 1.35;
+        font-weight: 750;
+        color: var(--ink);
+      }
+
+      .close-line span {
+        display: block;
+        margin-top: 14px;
+        font-size: 0.98rem;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .story-action {
+        margin-top: 14px;
+      }
+
+      .more,
+      .story-next {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 56px;
+        margin: 0;
+        padding: 0 20px;
+        border: 0;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #ffffff, #e8eaef);
+        color: #0b0d12;
+        font: inherit;
+        font-size: 1rem;
+        font-weight: 800;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          transform 180ms ease,
+          filter 180ms ease;
+        animation: story-cta-glow 2.8s ease-in-out infinite;
+      }
+
+      .more::after,
+      .story-next::after {
+        content: "→";
+        display: inline-block;
+        animation: story-arrow 1.4s ease-in-out infinite;
+      }
+
+      .more:hover,
+      .story-next:hover {
+        filter: brightness(1.04);
+        transform: translateY(-1px);
+      }
+
+      .more:active,
+      .story-next:active {
+        transform: translateY(1px);
+      }
+
+      .more:focus-visible,
+      .story-next:focus-visible {
+        outline: 2px solid var(--story-accent);
+        outline-offset: 3px;
+      }
+
+      .story-wrap.is-open .more {
+        display: none;
+      }
+
+      .story-next {
+        display: none;
+      }
+
+      .story-wrap.is-open .story-next {
+        display: flex;
+      }
+
+      .story-secondary {
+        display: none;
+        margin-top: 12px;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .story-wrap.is-open .story-secondary {
+        display: flex;
+      }
+
+      .story-wrap.is-open[data-step="1"] .story-back {
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .story-back,
+      .story-close {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: none;
+        color: rgba(154, 161, 173, 0.8);
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .story-back:hover,
+      .story-close:hover {
+        color: var(--ink);
+      }
+
+      .story-progress {
+        margin-top: 14px;
+      }
+
+      .story-contains {
+        margin: 0;
+        text-align: center;
+        font-size: 0.84rem;
+        line-height: 1.45;
+        font-weight: 650;
+        color: rgba(154, 161, 173, 0.82);
+      }
+
+      .story-wrap.is-open .story-contains {
+        display: none;
+      }
+
+      .story-track {
+        display: none;
+        position: relative;
+        height: 3px;
+        border-radius: 999px;
+        background: rgba(242, 243, 245, 0.1);
+        overflow: hidden;
+      }
+
+      .story-wrap.is-open .story-track {
+        display: block;
+      }
+
+      .story-track > span {
+        display: block;
+        height: 100%;
+        width: calc(var(--story-progress, 16.66) * 1%);
+        border-radius: inherit;
+        background: linear-gradient(90deg, color-mix(in srgb, var(--story-accent) 55%, #fff), var(--story-accent));
+        transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1), background 320ms ease;
+      }
+
+      .story-progress-meta {
+        display: none;
+        margin-top: 8px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .story-wrap.is-open .story-progress-meta {
+        display: flex;
+      }
+
+      .story-progress-label {
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(154, 161, 173, 0.78);
+      }
+
+      .story-progress-next {
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: color-mix(in srgb, var(--story-accent) 75%, #9aa1ad);
+        text-align: right;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .story-scan,
+        .story-now-kicker::before,
+        .more,
+        .story-next,
+        .more::after,
+        .story-next::after {
+          animation: none;
+        }
+
+        .story-wrap.is-open .story-now,
+        .story-wrap.is-open .story-num,
+        .story-wrap.is-open .story-step.is-active,
+        .story-wrap.is-open .story-step.is-active > * {
+          animation: none;
+        }
+      }
+
+      .pillars {
+        margin: 2px 0 0;
+        font-size: 0.95rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+
+      .foundations {
+        --pillar-accent: #6b83ff;
+        width: min(42rem, 100%);
+        margin: 36px auto 0;
+      }
+
+      .foundations[data-pillar="fokus"] {
+        --pillar-accent: #6b83ff;
+      }
+
+      .foundations[data-pillar="konfrontation"] {
+        --pillar-accent: #e85d5d;
+      }
+
+      .foundations[data-pillar="verlauf"] {
+        --pillar-accent: #7ec8a3;
+      }
+
+      .foundations[data-pillar="reflexion"] {
+        --pillar-accent: #c6a75e;
+      }
+
+      .foundations-head {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .foundations-kicker {
+        margin: 0 0 8px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      .foundations-head h2 {
+        margin: 0;
+        font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        font-weight: 800;
+        color: var(--ink);
+      }
+
+      .foundations-head p {
+        margin: 10px auto 0;
+        max-width: 34ch;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .foundation-tabs {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        margin: 0 0 22px;
+      }
+
+      .foundation-tab {
+        appearance: none;
+        position: relative;
+        display: grid;
+        gap: 4px;
+        justify-items: center;
+        min-height: 64px;
+        padding: 12px 8px;
+        border-radius: 16px;
+        border: 1px solid rgba(242, 243, 245, 0.12);
+        background: rgba(10, 12, 18, 0.55);
+        color: var(--muted);
+        font: inherit;
+        cursor: pointer;
+        transition:
+          border-color 220ms ease,
+          background 220ms ease,
+          color 220ms ease,
+          transform 220ms ease;
+      }
+
+      .foundation-tab strong {
+        font-size: 0.86rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: inherit;
+      }
+
+      .foundation-tab span {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        opacity: 0.72;
+      }
+
+      .foundation-tab:hover {
+        transform: translateY(-2px);
+        border-color: rgba(242, 243, 245, 0.22);
+        color: var(--ink);
+      }
+
+      .foundation-tab:focus-visible {
+        outline: 2px solid var(--pillar-accent);
+        outline-offset: 2px;
+      }
+
+      .foundation-tab.is-active {
+        color: var(--ink);
+        border-color: color-mix(in srgb, var(--tab-accent, var(--pillar-accent)) 55%, transparent);
+        background:
+          linear-gradient(
+            165deg,
+            color-mix(in srgb, var(--tab-accent, var(--pillar-accent)) 18%, transparent),
+            rgba(10, 12, 18, 0.72)
+          );
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      }
+
+      .foundation-tab[data-pillar="fokus"] {
+        --tab-accent: #6b83ff;
+      }
+
+      .foundation-tab[data-pillar="konfrontation"] {
+        --tab-accent: #e85d5d;
+      }
+
+      .foundation-tab[data-pillar="verlauf"] {
+        --tab-accent: #7ec8a3;
+      }
+
+      .foundation-tab[data-pillar="reflexion"] {
+        --tab-accent: #c6a75e;
+      }
+
+      .foundation-stage {
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+        border: 1px solid rgba(242, 243, 245, 0.12);
+        background:
+          radial-gradient(90% 70% at 50% 0%, color-mix(in srgb, var(--pillar-accent) 22%, transparent), transparent 60%),
+          linear-gradient(180deg, rgba(18, 20, 28, 0.95), rgba(7, 8, 11, 0.98));
+        box-shadow:
+          0 30px 70px rgba(0, 0, 0, 0.45),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: background 420ms ease, border-color 420ms ease;
+      }
+
+      .foundation-stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 18%, color-mix(in srgb, var(--pillar-accent) 16%, transparent), transparent 42%);
+        pointer-events: none;
+        transition: opacity 420ms ease;
+      }
+
+      .device-orbit {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        justify-items: center;
+        padding: 34px 20px 10px;
+      }
+
+      .device-glow {
+        position: absolute;
+        top: 18%;
+        width: min(260px, 70%);
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, color-mix(in srgb, var(--pillar-accent) 35%, transparent), transparent 68%);
+        filter: blur(8px);
+        animation: device-glow 3.8s ease-in-out infinite;
+        pointer-events: none;
+      }
+
+      .device {
+        position: relative;
+        width: min(220px, 58vw);
+        transform-origin: 50% 80%;
+        animation: device-float 5.5s ease-in-out infinite;
+      }
+
+      .device.is-switching {
+        animation: device-switch 480ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .device-bezel {
+        position: relative;
+        padding: 10px;
+        border-radius: 36px;
+        background: linear-gradient(160deg, #2a2e38, #0a0b10 55%, #151820);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow:
+          0 28px 50px rgba(0, 0, 0, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      }
+
+      .device-bezel::before {
+        content: "";
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        z-index: 3;
+        width: 34%;
+        height: 16px;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        background: #050505;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+      }
+
+      .device-screen {
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+        background: #050505;
+        aspect-ratio: 390 / 844;
+      }
+
+      .device-screen > [data-screen] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+          opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 420ms linear;
+      }
+
+      .device-screen > [data-screen].is-active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .device-screen > img[data-screen] {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transform: translateY(18px) scale(1.04);
+        filter: blur(6px) brightness(0.7);
+        transition:
+          opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+          filter 520ms cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 420ms linear;
+      }
+
+      .device-screen > img[data-screen].is-active {
+        transform: translateY(0) scale(1);
+        filter: blur(0) brightness(1);
+      }
+
+      .screen-seq {
+        background: #050505;
+      }
+
+      .screen-seq > img,
+      .screen-seq .verlauf-a,
+      .screen-seq .verlauf-b,
+      .screen-seq .reflexion-slide,
+      .screen-seq .today-reveal {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      /* Fokus: Today-Top → Fokusbilanz (eine lange Page) */
+      .fokus-scroll-track {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: #050505;
+      }
+
+      .fokus-scroll-track img {
+        display: block;
+        width: 100%;
+        height: auto;
+        transform: translate3d(0, 0, 0);
+        will-change: transform;
+      }
+
+      .screen-seq.is-active.is-fokus-scrolling .fokus-scroll-track img {
+        animation: fokus-scroll-down 3.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      .screen-seq.is-active.is-fokus-settled .fokus-scroll-track img {
+        transform: translate3d(0, -43.98%, 0);
+      }
+
+      .fokus-scroll-hint {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        top: 12px;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        min-height: 24px;
+        padding: 0 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(8, 10, 14, 0.55);
+        color: rgba(242, 243, 245, 0.78);
+        font-size: 0.64rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .screen-seq.is-active.is-fokus-scrolling .fokus-scroll-hint {
+        animation: fokus-hint 3.4s ease both;
+      }
+
+      @keyframes fokus-scroll-down {
+        0%,
+        28% {
+          transform: translate3d(0, 0, 0);
+        }
+        100% {
+          transform: translate3d(0, -43.98%, 0);
+        }
+      }
+
+      @keyframes fokus-hint {
+        0%,
+        18% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-4px);
+        }
+        28%,
+        62% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(4px);
+        }
+      }
+
+      /* Konfrontation: echter Lockscreen → Today + Daily-Check-Spotlight */
+      .lock-scene {
+        position: absolute;
+        inset: 0;
+        z-index: 3;
+        display: grid;
+        grid-template-rows: auto 1fr auto auto;
+        padding: 48px 14px 18px;
+        overflow: hidden;
+        transform: translateY(0);
+        opacity: 1;
+        transition:
+          transform 780ms cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 420ms ease;
+      }
+
+      .lock-scene.is-away {
+        transform: translateY(-110%);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .lock-wallpaper {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.9) brightness(0.85);
+      }
+
+      .lock-wallpaper-shade {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 28%),
+          linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.55) 100%);
+      }
+
+      .lock-time {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        color: #fff;
+        padding-top: 8px;
+      }
+
+      .lock-time strong {
+        display: block;
+        font-family: "SF Pro Display", "SF Pro Rounded", Manrope, system-ui, sans-serif;
+        font-size: 3.55rem;
+        line-height: 0.95;
+        font-weight: 600;
+        letter-spacing: -0.045em;
+        text-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .lock-time span {
+        display: block;
+        margin-top: 4px;
+        font-size: 0.92rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .lock-spacer {
+        position: relative;
+        z-index: 1;
+      }
+
+      .ios-notification {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 10px;
+        margin: 0 2px;
+        padding: 11px 12px 12px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(38, 38, 40, 0.72);
+        backdrop-filter: blur(22px) saturate(1.4);
+        -webkit-backdrop-filter: blur(22px) saturate(1.4);
+        box-shadow:
+          0 18px 40px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+
+      .screen-seq.is-active .ios-notification {
+        animation: lock-note-in 560ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both;
+      }
+
+      .screen-seq.is-active.is-notif-press .ios-notification {
+        transform: scale(0.97);
+        transition: transform 180ms ease;
+      }
+
+      .ios-notification img {
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+        object-fit: cover;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .ios-notification-copy {
+        min-width: 0;
+      }
+
+      .ios-notification-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 2px;
+      }
+
+      .ios-notification-top strong {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .ios-notification-top span {
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .ios-notification-title {
+        margin: 0;
+        font-size: 0.86rem;
+        line-height: 1.2;
+        font-weight: 750;
+        color: #fff;
+      }
+
+      .ios-notification-body {
+        margin: 2px 0 0;
+        font-size: 0.82rem;
+        line-height: 1.25;
+        font-weight: 550;
+        color: rgba(255, 255, 255, 0.86);
+      }
+
+      .lock-controls {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 22px 18px 10px;
+      }
+
+      .lock-orb {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 0;
+        background: rgba(40, 40, 42, 0.42);
+        backdrop-filter: blur(18px) saturate(1.2);
+        -webkit-backdrop-filter: blur(18px) saturate(1.2);
+        box-shadow:
+          inset 0 0.5px 0 rgba(255, 255, 255, 0.18),
+          0 1px 2px rgba(0, 0, 0, 0.25);
+        display: grid;
+        place-items: center;
+        color: #fff;
+      }
+
+      .lock-orb svg {
+        width: 22px;
+        height: 22px;
+        display: block;
+      }
+
+      .lock-home {
+        position: absolute;
+        left: 50%;
+        bottom: 8px;
+        width: 36%;
+        height: 4px;
+        transform: translateX(-50%);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.88);
+        z-index: 2;
+      }
+
+      .today-reveal {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transform: scale(1.04);
+        filter: blur(5px) brightness(0.72);
+        transition:
+          transform 780ms cubic-bezier(0.22, 1, 0.36, 1) 60ms,
+          filter 780ms cubic-bezier(0.22, 1, 0.36, 1) 60ms;
+      }
+
+      .screen-seq.is-active.is-unlocked .today-reveal {
+        transform: scale(1);
+        filter: blur(0) brightness(1);
+      }
+
+      .check-spotlight {
+        position: absolute;
+        z-index: 2;
+        left: 9.5%;
+        right: 9.5%;
+        top: 14%;
+        height: 6.2%;
+        border-radius: 14px;
+        pointer-events: none;
+        opacity: 0;
+        box-shadow:
+          0 0 0 999px rgba(0, 0, 0, 0.55),
+          0 0 0 1.5px rgba(255, 255, 255, 0.92),
+          0 0 28px rgba(90, 130, 255, 0.5);
+        transition: opacity 420ms ease;
+      }
+
+      .screen-seq.is-active.is-unlocked .check-spotlight {
+        opacity: 1;
+        animation: spotlight-pulse 1.8s ease-in-out 420ms infinite;
+      }
+
+      .check-spotlight-label {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        top: 21.2%;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        min-height: 22px;
+        padding: 0 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(8, 10, 14, 0.72);
+        color: rgba(242, 243, 245, 0.9);
+        font-size: 0.62rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .screen-seq.is-active.is-unlocked .check-spotlight-label {
+        animation: spotlight-label 2.4s ease 500ms both;
+      }
+
+      @keyframes spotlight-pulse {
+        0%,
+        100% {
+          box-shadow:
+            0 0 0 999px rgba(0, 0, 0, 0.58),
+            0 0 0 1.5px rgba(255, 255, 255, 0.88),
+            0 0 24px rgba(110, 160, 255, 0.35);
+        }
+        50% {
+          box-shadow:
+            0 0 0 999px rgba(0, 0, 0, 0.5),
+            0 0 0 2px rgba(255, 255, 255, 1),
+            0 0 36px rgba(110, 160, 255, 0.62);
+        }
+      }
+
+      @keyframes spotlight-label {
+        0% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-4px);
+        }
+        25%,
+        75% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(-50%) translateY(4px);
+        }
+      }
+
+      @keyframes lock-note-in {
+        from {
+          opacity: 0;
+          transform: translateY(18px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      /* Verlauf: Fortschritt ↔ Analyse (sauberer Crossfade) */
+      .verlauf-a,
+      .verlauf-b {
+        opacity: 0;
+        transition: opacity 680ms cubic-bezier(0.22, 1, 0.36, 1);
+        transform: scale(1.01);
+      }
+
+      .screen-seq.is-active.is-fortschritt .verlauf-a,
+      .screen-seq.is-active.is-analyse .verlauf-b {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .verlauf-chip {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 28px;
+        padding: 0 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(8, 10, 14, 0.72);
+        color: rgba(242, 243, 245, 0.55);
+        font-size: 0.68rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+      }
+
+      .screen-seq.is-active .verlauf-chip {
+        opacity: 1;
+      }
+
+      .verlauf-chip [data-chip="a"],
+      .verlauf-chip [data-chip="b"] {
+        color: inherit;
+        font-weight: 800;
+      }
+
+      .screen-seq.is-active.is-fortschritt .verlauf-chip [data-chip="a"],
+      .screen-seq.is-active.is-analyse .verlauf-chip [data-chip="b"] {
+        color: #7ec8a3;
+      }
+
+      /* Reflexion: Mirror-Slides */
+      .reflexion-slide {
+        opacity: 0;
+        transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+        transform: scale(1.02);
+      }
+
+      .screen-seq.is-active.is-mirror-1 .reflexion-a,
+      .screen-seq.is-active.is-mirror-2 .reflexion-b,
+      .screen-seq.is-active.is-mirror-3 .reflexion-c {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      .reflexion-dots {
+        position: absolute;
+        z-index: 3;
+        left: 50%;
+        bottom: 14px;
+        transform: translateX(-50%);
+        display: inline-flex;
+        gap: 6px;
+        opacity: 0;
+      }
+
+      .screen-seq.is-active .reflexion-dots {
+        opacity: 1;
+      }
+
+      .reflexion-dots i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.28);
+      }
+
+      .screen-seq.is-active.is-mirror-1 .reflexion-dots i:nth-child(1),
+      .screen-seq.is-active.is-mirror-2 .reflexion-dots i:nth-child(2),
+      .screen-seq.is-active.is-mirror-3 .reflexion-dots i:nth-child(3) {
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .foundation-copy {
+        position: relative;
+        z-index: 1;
+        padding: 8px 22px 26px;
+      }
+
+      .foundation-panel {
+        display: none;
+        text-align: left;
+      }
+
+      .foundation-panel.is-active {
+        display: block;
+        animation: foundation-copy-in 480ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .foundation-panel h3 {
+        margin: 0 0 6px;
+        font-size: clamp(1.4rem, 4vw, 1.75rem);
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        font-weight: 800;
+        color: var(--pillar-accent);
+      }
+
+      .foundation-panel .leadline {
+        margin: 0 0 16px;
+        font-size: 1.05rem;
+        line-height: 1.35;
+        font-weight: 750;
+        color: var(--ink);
+      }
+
+      .detail-row {
+        padding: 14px 0;
+        border-top: 1px solid rgba(242, 243, 245, 0.1);
+      }
+
+      .detail-row:first-of-type {
+        border-top: 1px solid rgba(242, 243, 245, 0.1);
+      }
+
+      .detail-row strong {
+        display: block;
+        margin: 0 0 6px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(242, 243, 245, 0.55);
+      }
+
+      .detail-row p {
+        margin: 0;
+        font-size: 0.98rem;
+        line-height: 1.45;
+        font-weight: 650;
+        color: var(--ink);
+      }
+
+      .detail-row p + p {
+        margin-top: 8px;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .detail-row ul {
+        margin: 8px 0 0;
+        padding: 0 0 0 1.1em;
+        display: grid;
+        gap: 6px;
+        font-size: 0.98rem;
+        line-height: 1.4;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .detail-row li {
+        padding-left: 0.1em;
+      }
+
+      @keyframes device-float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      @keyframes device-glow {
+        0%,
+        100% {
+          opacity: 0.55;
+          transform: scale(0.95);
+        }
+        50% {
+          opacity: 0.9;
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes device-switch {
+        0% {
+          transform: translateY(0) scale(1);
+        }
+        40% {
+          transform: translateY(10px) scale(0.97);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes foundation-copy-in {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+          filter: blur(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          filter: blur(0);
+        }
+      }
+
+      @media (max-width: 520px) {
+        .foundation-tabs {
+          gap: 6px;
+        }
+
+        .foundation-tab {
+          min-height: 58px;
+          padding: 10px 4px;
+          border-radius: 14px;
+        }
+
+        .foundation-tab strong {
+          font-size: 0.78rem;
+        }
+
+        .foundation-tab span {
+          display: none;
+        }
+
+        .foundation-copy {
+          padding: 4px 16px 22px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .device,
+        .device-glow,
+        .device.is-switching,
+        .foundation-panel.is-active {
+          animation: none;
+        }
+
+        .device-screen > img[data-screen],
+        .device-screen > [data-screen],
+        .lock-scene,
+        .check-reveal,
+        .verlauf-a,
+        .verlauf-b {
+          transition: none;
+          animation: none;
+          transform: none;
+          filter: none;
+        }
+
+        .screen-seq.is-active .lock-note {
+          animation: none;
+          opacity: 1;
+          transform: none;
+        }
+
+        .lock-scene.is-away {
+          display: none;
+        }
+
+        .screen-seq.is-active .verlauf-a,
+        .screen-seq.is-active .verlauf-b {
+          opacity: 1;
+        }
+
+        .screen-seq.is-active .verlauf-b {
+          opacity: 0;
+        }
+
+        .screen-seq.is-active .fokus-scroll-track,
+        .screen-seq.is-active.is-fokus-scrolling .fokus-scroll-track {
+          animation: none;
+          transform: translate3d(0, -50%, 0);
+        }
+
+        .fokus-scroll-hint {
+          display: none;
+        }
+      }
+
+      .actions {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 12px 28px;
+        border-radius: 16px;
+        border: 1px solid rgba(242, 243, 245, 0.18);
+        background: rgba(242, 243, 245, 0.96);
+        color: #0b0d12;
+        font: inherit;
+        font-size: 1rem;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .cta:hover {
+        background: #ffffff;
+      }
+
+      .ghost {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 52px;
+        padding: 12px 22px;
+        border-radius: 16px;
+        border: 1px solid rgba(242, 243, 245, 0.18);
+        background: transparent;
+        color: var(--ink);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .ghost:hover {
+        border-color: rgba(242, 243, 245, 0.35);
+        background: rgba(242, 243, 245, 0.06);
+      }
+
+      .legal-footer {
+        margin-top: 48px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(242, 243, 245, 0.1);
+      }
+
+      .legal-links {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 18px;
+      }
+
+      .legal-links a {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      .legal-links a:hover {
+        color: var(--ink);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg" aria-hidden="true"></div>
+
+    <div class="shell">
+      <header class="nav">
+        <img class="logo" src="./asas-wordmark-white.png" alt="ASAS" width="160" height="40" />
+        <a class="back" href="./system.html">Zurück</a>
+      </header>
+
+      <section class="hero">
+        <p class="kicker">Kein langes Tutorial</p>
+        <h1>Das System dahinter</h1>
+        <p class="pillars">4 Grundlagen</p>
+        <p class="lede">
+          Verstehe, worauf es ankommt, damit du weißt, worauf du dich einlässt.
+        </p>
+        <div class="story-wrap" id="story-wrap" data-step="1" style="--story-progress: 16.66">
+          <div class="story-deck">
+            <div class="story-scan" aria-hidden="true"></div>
+            <div class="story-deck-inner">
+              <div class="story-now" aria-live="polite">
+                <p class="story-now-kicker">Jetzt lesen</p>
+                <p class="story-now-title" id="story-now-title">Die falsche Entscheidung</p>
+              </div>
+
+              <div class="story-stage" id="story">
+                <span class="story-num" id="story-num" aria-hidden="true">01</span>
+
+                <div class="story-step is-active" data-step="1">
+                  <p class="lead">Kontrolle ist Macht.</p>
+                  <p class="sub">Die meisten denken, sie müssten sich entscheiden.</p>
+                  <div class="choice-grid" aria-label="Falsche Entscheidung">
+                    <div class="choice-side business">
+                      <strong>Business</strong>
+                      <span>Geld</span>
+                      <span>Beziehungen</span>
+                      <span>Lifestyle</span>
+                    </div>
+                    <p class="choice-or">oder</p>
+                    <div class="choice-side life">
+                      <strong>Alltag &amp; Person</strong>
+                      <span>Training</span>
+                      <span>Gesundheit</span>
+                      <span>Gewohnheiten</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="story-step" data-step="2">
+                  <p class="hook">Was, wenn du die Kontrolle über alles haben kannst?</p>
+                  <p class="bridge-mini">
+                    Nicht durch Motivation. Durch drei Dinge — die ASAS verbindet und für dich übernimmt.
+                  </p>
+                </div>
+
+                <div class="story-step" data-step="3">
+                  <article class="mech-item fokus">
+                    <h3>
+                      <button class="tab-link" type="button" data-open-tab="fokus">Fokus</button>
+                    </h3>
+                    <p class="line">Fokus gezielt setzen.</p>
+                    <p>
+                      Keine 10 Optionen, zwischen denen du jeden Tag wählst. Eine Priorität, die du jeden
+                      Tag siehst. Ein klarer Bereich — und ein Drittel der Arbeit ist geschafft.
+                    </p>
+                  </article>
+                </div>
+
+                <div class="story-step" data-step="4">
+                  <article class="mech-item konfrontation">
+                    <h3>
+                      <button class="tab-link" type="button" data-open-tab="konfrontation">Konfrontation</button>
+                    </h3>
+                    <p class="line">Handeln täglich konfrontieren.</p>
+                    <p>
+                      Nicht was du wolltest. Was du getan hast. Jeden Abend. Ehrlich. Ohne Ausreden.
+                    </p>
+                  </article>
+                </div>
+
+                <div class="story-step" data-step="5">
+                  <article class="mech-item reflexion">
+                    <h3>
+                      <button class="tab-link" type="button" data-open-tab="reflexion">Reflexion</button>
+                    </h3>
+                    <p class="line">Verhalten nüchtern sehen.</p>
+                    <p>
+                      Kein Selbstvorwurf. Kein Ablenken. Über den
+                      <button class="tab-link" type="button" data-open-tab="verlauf">Verlauf</button>
+                      siehst du Muster, wie sie sind — nicht wie sie dir gefallen. Am Ende: ein klarer
+                      Spiegel. Wer du warst, nicht wie du dich fühlst.
+                    </p>
+                  </article>
+                  <p class="persons-label spaced">Beim Reflektieren sind wenige ehrlich.</p>
+                  <ul class="persons">
+                    <li class="person"><strong>A</strong> Sucht das Problem immer im Außen.</li>
+                    <li class="person"><strong>B</strong> Beschuldigt sich selbst — egal, wie die Umstände waren.</li>
+                    <li class="person">
+                      <strong>C</strong> Schaut aufs große Ganze.
+                      <em> „Ich habe heute nicht gearbeitet, weil ich zu tief in Gedanken und Angst war.“</em>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="story-step" data-step="6">
+                  <p class="close-line">
+                    Fokus setzen. Handeln konfrontieren. Verhalten nüchtern sehen.
+                    <span>
+                      ASAS verbindet das zu einem System und übernimmt die Struktur für dich.
+                      Öffne die Kästen unten.
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="story-action">
+                <button class="more" id="story-more" type="button" aria-expanded="false" aria-controls="story">
+                  Verstehe die 3 Mechanismen
+                </button>
+                <button class="story-next" id="story-next" type="button">Weiter</button>
+              </div>
+
+              <div class="story-secondary">
+                <button class="story-back" id="story-back" type="button">Zurück</button>
+                <button class="story-close" id="story-close" type="button">Schließen</button>
+              </div>
+
+              <div class="story-progress">
+                <p class="story-contains">Enthält: Fokus · Konfrontation · Reflexion · wie ASAS das verbindet</p>
+                <div class="story-track" aria-hidden="true"><span></span></div>
+                <div class="story-progress-meta">
+                  <p class="story-progress-label" id="story-progress-label">Schritt 1 von 6</p>
+                  <p class="story-progress-next" id="story-progress-next">Als Nächstes: Fokus</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="foundations" id="matrix" data-pillar="fokus" aria-label="Die vier Grundlagen">
+        <div class="foundations-head">
+          <p class="foundations-kicker">In der App</p>
+          <h2>Vier Grundlagen. Ein System.</h2>
+          <p>Tippe auf einen Bereich — das Handy öffnet die Ansicht. Der Text erklärt, was darunter liegt.</p>
+        </div>
+
+        <div class="foundation-tabs" role="tablist" aria-label="Grundlagen wählen">
+          <button
+            class="foundation-tab is-active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            data-pillar="fokus"
+            id="tab-fokus"
+          >
+            <strong>Fokus</strong>
+            <span>Priorität</span>
+          </button>
+          <button
+            class="foundation-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-pillar="konfrontation"
+            id="tab-konfrontation"
+          >
+            <strong>Konfrontation</strong>
+            <span>Daily Check</span>
+          </button>
+          <button
+            class="foundation-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-pillar="verlauf"
+            id="tab-verlauf"
+          >
+            <strong>Verlauf</strong>
+            <span>Fortschritt · Analyse</span>
+          </button>
+          <button
+            class="foundation-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            data-pillar="reflexion"
+            id="tab-reflexion"
+          >
+            <strong>Reflexion</strong>
+            <span>Mirror Wrapped</span>
+          </button>
+        </div>
+
+        <div class="foundation-stage">
+          <div class="device-orbit">
+            <div class="device-glow" aria-hidden="true"></div>
+            <div class="device" id="foundation-device">
+              <div class="device-bezel">
+                <div class="device-screen" aria-live="polite">
+                  <div class="screen-seq is-active" data-screen="fokus" id="fokus-seq">
+                    <div class="fokus-scroll-track">
+                      <img src="./screens/today-scroll-tall.png" alt="ASAS Today — von oben zur Fokusbilanz" />
+                    </div>
+                    <span class="fokus-scroll-hint">Scrollt zur Fokusbilanz</span>
+                  </div>
+
+                  <div class="screen-seq" data-screen="konfrontation" id="konfrontation-seq">
+                    <img
+                      class="today-reveal"
+                      src="./screens/today-check-ready.png"
+                      alt="ASAS Today mit Daily Check"
+                    />
+                    <div class="check-spotlight" aria-hidden="true"></div>
+                    <span class="check-spotlight-label" aria-hidden="true"></span>
+                    <div class="lock-scene" id="lock-scene">
+                      <img class="lock-wallpaper" src="./screens/lock-wallpaper.png" alt="" />
+                      <div class="lock-wallpaper-shade" aria-hidden="true"></div>
+                      <div class="lock-time">
+                        <strong>21:04</strong>
+                        <span>Donnerstag, 8. Oktober</span>
+                      </div>
+                      <div class="lock-spacer" aria-hidden="true"></div>
+                      <div class="ios-notification" id="ios-notification">
+                        <img src="./screens/asas-app-icon.png" alt="" width="34" height="34" />
+                        <div class="ios-notification-copy">
+                          <div class="ios-notification-top">
+                            <strong>ASAS</strong>
+                            <span>jetzt</span>
+                          </div>
+                          <p class="ios-notification-title">DAILY CHECK</p>
+                          <p class="ios-notification-body">Welchen Fokus hast du heute umgesetzt?</p>
+                        </div>
+                      </div>
+                      <div class="lock-controls" aria-hidden="true">
+                        <span class="lock-orb" aria-label="Taschenlampe">
+                          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <path d="M8.5 3.5h7l1.2 3.2H7.3L8.5 3.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M9.2 6.7h5.6v4.2c0 .7-.3 1.4-.8 1.9l-.7.7V20a1.2 1.2 0 0 1-2.4 0v-6.5l-.7-.7a2.6 2.6 0 0 1-.8-1.9V6.7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                            <path d="M12 14.2v2.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                          </svg>
+                        </span>
+                        <span class="lock-orb" aria-label="Kamera">
+                          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <rect x="3.5" y="7" width="17" height="12.5" rx="3.2" stroke="currentColor" stroke-width="1.6"/>
+                            <circle cx="12" cy="13.2" r="3.4" stroke="currentColor" stroke-width="1.6"/>
+                            <path d="M9.2 7 10.2 5.2h3.6L15 7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                      </div>
+                      <span class="lock-home" aria-hidden="true"></span>
+                    </div>
+                  </div>
+
+                  <div class="screen-seq" data-screen="verlauf" id="verlauf-seq">
+                    <img class="verlauf-a" src="./screens/progress.png" alt="ASAS Fortschritt" />
+                    <img class="verlauf-b" src="./screens/analyse.png" alt="ASAS Analyse" />
+                    <span class="verlauf-chip">
+                      <span data-chip="a">Fortschritt</span>
+                      <span>·</span>
+                      <span data-chip="b">Analyse</span>
+                    </span>
+                  </div>
+
+                  <div class="screen-seq" data-screen="reflexion" id="reflexion-seq">
+                    <img class="reflexion-slide reflexion-a" src="./screens/mirror-cover.png" alt="ASAS Mirror Wrapped" />
+                    <img class="reflexion-slide reflexion-b" src="./screens/mirror-held.png" alt="ASAS Mirror — was gehalten hat" />
+                    <img class="reflexion-slide reflexion-c" src="./screens/mirror-close.png" alt="ASAS Mirror — Abschluss" />
+                    <span class="reflexion-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="foundation-copy">
+            <article class="foundation-panel is-active" data-panel="fokus">
+              <h3>Fokus</h3>
+              <p class="leadline">Fokus gezielt setzen — eine Priorität statt zehn Optionen.</p>
+              <div class="detail-row">
+                <strong>Was es bringt</strong>
+                <p>Drei Bereiche in deinem Alltag.</p>
+                <ul>
+                  <li>Ein Hauptfokus (dein Ziel)</li>
+                  <li>Etwas, das dich im Alltag stabil hält</li>
+                  <li>Eine gewählte Sache, die dich Disziplin kostet</li>
+                </ul>
+              </div>
+              <div class="detail-row">
+                <strong>So nutzt du es</strong>
+                <p>Du legst für jeden Fokus eine Regel fest.</p>
+                <ul>
+                  <li>Wo stehst du heute?</li>
+                  <li>Wo willst du in 30 Tagen sein?</li>
+                  <li>Was tust du täglich dafür?</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="foundation-panel" data-panel="konfrontation">
+              <h3>Konfrontation</h3>
+              <p class="leadline">Push um deine Check-Zeit — dann landest du oben im Today mit dem Daily Check.</p>
+              <div class="detail-row">
+                <strong>Was es bringt</strong>
+                <p>Täglich eine ehrliche Antwort.</p>
+                <p>Kein Teilweise. Kein Schönreden.</p>
+              </div>
+              <div class="detail-row">
+                <strong>So nutzt du es</strong>
+                <p>Original-Push: „DAILY CHECK — Welchen Fokus hast du heute umgesetzt?“</p>
+                <p>Tippen → Today oben → „Daily Check starten“. Pro Fokus: Ja oder Nein.</p>
+              </div>
+            </article>
+
+            <article class="foundation-panel" data-panel="verlauf">
+              <h3>Verlauf</h3>
+              <p class="leadline">Fortschritt und Analyse — Muster sichtbar, ohne Motivationsfolie.</p>
+              <div class="detail-row">
+                <strong>Was es bringt</strong>
+                <p>Kurve, Streaks, 30-Tage-Raster.</p>
+                <p>Plus Analyse: was hält, wo du ausweichst, wo Performance entsteht.</p>
+              </div>
+              <div class="detail-row">
+                <strong>So nutzt du es</strong>
+                <p>Unter Fortschritt liest du den Verlauf.</p>
+                <p>In der Analyse siehst du den Anteil und die Erfüllung pro Fokus.</p>
+              </div>
+            </article>
+
+            <article class="foundation-panel" data-panel="reflexion">
+              <h3>Reflexion</h3>
+              <p class="leadline">Der Mirror Wrapped — wer du warst, nicht wie du dich fühlst.</p>
+              <div class="detail-row">
+                <strong>Was es bringt</strong>
+                <p>Sieh in den Spiegel. Deine Entscheidungen der letzten 30 Tage — niemand, der sie schönredet.</p>
+                <p>Nur du und das Ergebnis. Was dich gebremst hat. Wo du schon stark stehst.</p>
+              </div>
+              <div class="detail-row">
+                <strong>So nutzt du es</strong>
+                <p>Nach dem Final Check an Tag 30 wird er freigeschaltet.</p>
+                <p>Du gehst die Slides durch und nimmst mit, was zählt.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="actions">
+        <a class="cta" href="./bereit.html">Ich bin bereit</a>
+        <a class="ghost" href="./system.html">Zurück zur Übersicht</a>
+      </div>
+
+      <footer class="legal-footer" aria-label="Rechtliches">
+        <ul class="legal-links">
+          <li><a href="https://asas-mind.com/impressum" target="_blank" rel="noopener noreferrer">Impressum</a></li>
+          <li><a href="https://asas-mind.com/datenschutz" target="_blank" rel="noopener noreferrer">Datenschutz</a></li>
+          <li><a href="https://asas-mind.com/agb" target="_blank" rel="noopener noreferrer">AGB</a></li>
+          <li><a href="https://asas-mind.com/widerruf" target="_blank" rel="noopener noreferrer">Widerruf</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <script>
+      (() => {
+        const foundations = document.getElementById("matrix");
+        const tabs = [...foundations.querySelectorAll(".foundation-tab")];
+        const screens = [...foundations.querySelectorAll(".device-screen > [data-screen]")];
+        const panels = [...foundations.querySelectorAll(".foundation-panel")];
+        const device = document.getElementById("foundation-device");
+        const konfrontationSeq = document.getElementById("konfrontation-seq");
+        const fokusSeq = document.getElementById("fokus-seq");
+        const verlaufSeq = document.getElementById("verlauf-seq");
+        const reflexionSeq = document.getElementById("reflexion-seq");
+        const lockScene = document.getElementById("lock-scene");
+        const wrap = document.getElementById("story-wrap");
+        const more = document.getElementById("story-more");
+        const next = document.getElementById("story-next");
+        const back = document.getElementById("story-back");
+        const closeBtn = document.getElementById("story-close");
+        const nowTitle = document.getElementById("story-now-title");
+        const progressLabel = document.getElementById("story-progress-label");
+        const progressNext = document.getElementById("story-progress-next");
+        const storyNum = document.getElementById("story-num");
+        const steps = [...wrap.querySelectorAll(".story-step")];
+        const titles = [
+          "Die falsche Entscheidung",
+          "Warum Kontrolle über alles möglich ist",
+          "Fokus — Priorität setzen",
+          "Konfrontation — echtes Handeln",
+          "Reflexion — Verhalten nüchtern sehen",
+          "Wie ASAS das verbindet",
+        ];
+        const totalSteps = steps.length;
+        let step = 1;
+        let switchTimer = 0;
+        let unlockTimer = 0;
+        let unlockTimer2 = 0;
+        let fokusTimer = 0;
+        let verlaufTimer = 0;
+        let reflexionTimer = 0;
+
+        const setStep = (value) => {
+          step = Math.max(1, Math.min(totalSteps, value));
+          wrap.dataset.step = String(step);
+          wrap.style.setProperty("--story-progress", ((step / totalSteps) * 100).toFixed(2));
+          steps.forEach((node) => {
+            node.classList.toggle("is-active", Number(node.dataset.step) === step);
+          });
+          nowTitle.textContent = titles[step - 1];
+          storyNum.textContent = String(step).padStart(2, "0");
+          progressLabel.textContent = `Schritt ${step} von ${totalSteps}`;
+          if (step >= totalSteps) {
+            progressNext.textContent = "Als Nächstes: in der App";
+            next.textContent = "Sieh es in der App";
+          } else {
+            progressNext.textContent = `Als Nächstes: ${titles[step]}`;
+            next.textContent = "Weiter";
+          }
+        };
+
+        const clearKonfrontation = () => {
+          window.clearTimeout(unlockTimer);
+          window.clearTimeout(unlockTimer2);
+          if (!konfrontationSeq || !lockScene) return;
+          konfrontationSeq.classList.remove("is-unlocked", "is-notif-press");
+          lockScene.classList.remove("is-away");
+        };
+
+        const playKonfrontation = () => {
+          clearKonfrontation();
+          unlockTimer = window.setTimeout(() => {
+            konfrontationSeq.classList.add("is-notif-press");
+            unlockTimer2 = window.setTimeout(() => {
+              lockScene.classList.add("is-away");
+              konfrontationSeq.classList.remove("is-notif-press");
+              konfrontationSeq.classList.add("is-unlocked");
+            }, 220);
+          }, 1750);
+        };
+
+        const playFokusScroll = () => {
+          window.clearTimeout(fokusTimer);
+          if (!fokusSeq) return;
+          fokusSeq.classList.remove("is-fokus-scrolling", "is-fokus-settled");
+          void fokusSeq.offsetWidth;
+          fokusSeq.classList.add("is-fokus-scrolling");
+          fokusTimer = window.setTimeout(() => {
+            fokusSeq.classList.remove("is-fokus-scrolling");
+            fokusSeq.classList.add("is-fokus-settled");
+          }, 3400);
+        };
+
+        const stopVerlauf = () => {
+          window.clearTimeout(verlaufTimer);
+          if (!verlaufSeq) return;
+          verlaufSeq.classList.remove("is-fortschritt", "is-analyse");
+        };
+
+        const playVerlauf = () => {
+          stopVerlauf();
+          if (!verlaufSeq) return;
+          let showAnalyse = false;
+          const tick = () => {
+            verlaufSeq.classList.toggle("is-fortschritt", !showAnalyse);
+            verlaufSeq.classList.toggle("is-analyse", showAnalyse);
+            showAnalyse = !showAnalyse;
+            verlaufTimer = window.setTimeout(tick, 2600);
+          };
+          tick();
+        };
+
+        const stopReflexion = () => {
+          window.clearTimeout(reflexionTimer);
+          if (!reflexionSeq) return;
+          reflexionSeq.classList.remove("is-mirror-1", "is-mirror-2", "is-mirror-3");
+        };
+
+        const playReflexion = () => {
+          stopReflexion();
+          if (!reflexionSeq) return;
+          const order = ["is-mirror-1", "is-mirror-2", "is-mirror-3"];
+          let index = 0;
+          const tick = () => {
+            reflexionSeq.classList.remove(...order);
+            reflexionSeq.classList.add(order[index]);
+            index = (index + 1) % order.length;
+            reflexionTimer = window.setTimeout(tick, 2400);
+          };
+          tick();
+        };
+
+        const stopAllSequences = () => {
+          clearKonfrontation();
+          window.clearTimeout(fokusTimer);
+          if (fokusSeq) fokusSeq.classList.remove("is-fokus-scrolling", "is-fokus-settled");
+          stopVerlauf();
+          stopReflexion();
+        };
+
+        const playSequence = (name) => {
+          stopAllSequences();
+          if (name === "fokus") playFokusScroll();
+          if (name === "konfrontation") playKonfrontation();
+          if (name === "verlauf") playVerlauf();
+          if (name === "reflexion") playReflexion();
+        };
+
+        const openTab = (name, { scroll = false } = {}) => {
+          if (!name) return;
+
+          if (foundations.dataset.pillar !== name) {
+            foundations.dataset.pillar = name;
+            tabs.forEach((tab) => {
+              const active = tab.dataset.pillar === name;
+              tab.classList.toggle("is-active", active);
+              tab.setAttribute("aria-selected", active ? "true" : "false");
+            });
+            screens.forEach((node) => {
+              node.classList.toggle("is-active", node.dataset.screen === name);
+            });
+            panels.forEach((panel) => {
+              panel.classList.toggle("is-active", panel.dataset.panel === name);
+            });
+
+            device.classList.remove("is-switching");
+            void device.offsetWidth;
+            device.classList.add("is-switching");
+            window.clearTimeout(switchTimer);
+            switchTimer = window.setTimeout(() => {
+              device.classList.remove("is-switching");
+            }, 500);
+
+            playSequence(name);
+          } else {
+            playSequence(name);
+          }
+
+          if (scroll) {
+            foundations.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        };
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            openTab(tab.dataset.pillar);
+          });
+        });
+
+        document.querySelectorAll("[data-open-tab]").forEach((btn) => {
+          btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            openTab(btn.getAttribute("data-open-tab"), { scroll: true });
+          });
+        });
+
+        const openStory = () => {
+          wrap.classList.add("is-open");
+          more.setAttribute("aria-expanded", "true");
+          setStep(1);
+        };
+
+        const closeStory = () => {
+          wrap.classList.remove("is-open");
+          more.setAttribute("aria-expanded", "false");
+          setStep(1);
+        };
+
+        more.addEventListener("click", openStory);
+        closeBtn.addEventListener("click", closeStory);
+
+        next.addEventListener("click", () => {
+          if (step >= totalSteps) {
+            foundations.scrollIntoView({ behavior: "smooth", block: "start" });
+            return;
+          }
+          setStep(step + 1);
+        });
+
+        back.addEventListener("click", () => {
+          setStep(step - 1);
+        });
+
+        setStep(1);
+        playFokusScroll();
+      })();
+    </script>
+  </body>
+</html>
