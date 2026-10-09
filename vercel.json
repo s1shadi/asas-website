@@ -30,6 +30,11 @@
   ],
   "redirects": [
     {
+      "source": "/shadi/index.html",
+      "destination": "/shadi/",
+      "permanent": true
+    },
+    {
       "source": "/((?!\\.well-known).*)",
       "has": [
         {
