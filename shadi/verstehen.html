@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="noindex,nofollow" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>ASAS — Das System dahinter</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,7 +71,11 @@
         z-index: 1;
         width: min(780px, 100%);
         margin: 0 auto;
-        padding: 24px 22px max(120px, calc(48px + env(safe-area-inset-bottom)));
+        padding:
+          max(24px, env(safe-area-inset-top))
+          max(16px, env(safe-area-inset-right))
+          max(140px, calc(72px + env(safe-area-inset-bottom)))
+          max(16px, env(safe-area-inset-left));
       }
 
       .nav {
@@ -869,6 +873,7 @@
         --pillar-accent: #6b83ff;
         width: min(42rem, 100%);
         margin: 36px auto 0;
+        scroll-margin-top: max(20px, calc(12px + env(safe-area-inset-top)));
       }
 
       .foundations[data-pillar="fokus"] {
@@ -1746,26 +1751,58 @@
       }
 
       @media (max-width: 520px) {
+        .shell {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
+
+        .foundations-head p {
+          max-width: none;
+          font-size: 0.9rem;
+        }
+
         .foundation-tabs {
-          gap: 6px;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          margin-bottom: 16px;
         }
 
         .foundation-tab {
-          min-height: 58px;
-          padding: 10px 4px;
+          min-height: 52px;
+          padding: 12px 10px;
           border-radius: 14px;
         }
 
         .foundation-tab strong {
-          font-size: 0.78rem;
+          font-size: 0.9rem;
         }
 
         .foundation-tab span {
           display: none;
         }
 
+        .foundation-stage {
+          border-radius: 22px;
+        }
+
+        .device-orbit {
+          padding: 22px 12px 8px;
+        }
+
+        .device {
+          width: min(240px, 68vw);
+        }
+
         .foundation-copy {
-          padding: 4px 16px 22px;
+          padding: 10px 4px 28px;
+        }
+
+        .foundation-panel h3 {
+          font-size: 1.35rem;
+        }
+
+        .foundation-panel .leadline {
+          font-size: 0.98rem;
         }
       }
 
@@ -2435,7 +2472,7 @@
           }
 
           if (scroll) {
-            foundations.scrollIntoView({ behavior: "smooth", block: "start" });
+            foundations.scrollIntoView({ behavior: "smooth", block: "nearest" });
           }
         };
 
@@ -2469,7 +2506,7 @@
 
         next.addEventListener("click", () => {
           if (step >= totalSteps) {
-            foundations.scrollIntoView({ behavior: "smooth", block: "start" });
+            foundations.scrollIntoView({ behavior: "smooth", block: "nearest" });
             return;
           }
           setStep(step + 1);
