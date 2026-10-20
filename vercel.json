@@ -75,6 +75,41 @@
       "source": "/widerruf.html",
       "destination": "/widerruf",
       "permanent": true
+    },
+    {
+      "source": "/demo-website",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/ueber-asas",
+      "destination": "/ueber-asas",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/affiliate",
+      "destination": "/affiliate",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/impressum",
+      "destination": "/impressum",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/datenschutz",
+      "destination": "/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/agb",
+      "destination": "/agb",
+      "permanent": true
+    },
+    {
+      "source": "/demo-website/widerruf",
+      "destination": "/widerruf",
+      "permanent": true
     }
   ]
 }
