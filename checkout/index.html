@@ -25,6 +25,38 @@
     <style>
       html[data-checkout-plan="monthly"] [data-plan-3months-only] { display: none !important; }
       html[data-checkout-plan="3months"] [data-plan-monthly-only] { display: none !important; }
+      .checkout-pause { padding: 12px 8px 8px; text-align: center; }
+      .checkout-pause h2 {
+        margin: 0;
+        color: #101114;
+        font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+        font-weight: 650;
+        letter-spacing: -0.035em;
+        line-height: 1.25;
+      }
+      .checkout-pause p {
+        margin: 14px auto 0;
+        max-width: 34rem;
+        color: #5c6570;
+        font-size: 1rem;
+        line-height: 1.55;
+      }
+      .checkout-pause__insta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 22px;
+        min-height: 48px;
+        padding: 0 18px;
+        border-radius: 999px;
+        background: #101114;
+        color: #fff;
+        font-weight: 650;
+        text-decoration: none;
+      }
+      .checkout-pause__insta:hover { background: #000; }
+      .checkout-pause__insta svg { display: block; }
     </style>
   </head>
   <body class="checkout-page">
@@ -78,21 +110,15 @@
           </div>
 
           <div class="checkout-frame-col">
-            <div class="checkout-frame" aria-busy="true">
-              <p class="checkout-loading" data-checkout-loading role="status">
-                Sicherer Checkout wird geladen …
-              </p>
-
-              <div
-                id="whop-elements-checkout"
-                class="checkout-embed"
-                hidden
-              ></div>
-
-              <div class="checkout-fallback" data-checkout-fallback hidden>
-                <p>Der eingebettete Checkout konnte nicht geladen werden.</p>
-                <a class="button checkout-fallback-link" data-checkout-redirect href="#">
-                  Checkout sicher öffnen
+            <div class="checkout-frame">
+              <div class="checkout-pause">
+                <h2>Entschuldigung, leider nimmt ASAS momentan keine Nutzer auf.</h2>
+                <p>Folge auf Instagram, um der Erste zu sein, sobald es wieder losgeht.</p>
+                <a class="checkout-pause__insta" href="https://www.instagram.com/asas.mind/" target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                    <path fill="currentColor" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm10 1.8H7A2.2 2.2 0 0 0 4.8 7v10A2.2 2.2 0 0 0 7 19.2h10a2.2 2.2 0 0 0 2.2-2.2V7A2.2 2.2 0 0 0 17 4.8zM12 7.4A4.6 4.6 0 1 1 7.4 12 4.6 4.6 0 0 1 12 7.4zm0 1.6A3 3 0 1 0 15 12a3 3 0 0 0-3-3zm5.05-2.25a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
+                  </svg>
+                  <span>asas.mind</span>
                 </a>
               </div>
             </div>
@@ -128,6 +154,5 @@
 
     <script src="/config.js"></script>
     <script src="/site.js?v=20260927-seo1" defer></script>
-    <script src="/checkout.js?v=20260922-01" defer></script>
   </body>
 </html>
