@@ -3,15 +3,11 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <meta name="robots" content="noindex, follow">
     <meta name="theme-color" content="#ffffff">
     <meta
       name="description"
-      content="Verwalte deine ASAS-Mitgliedschaft, Zahlungsdaten und Verlängerung über Whop."
+      content="Verwalte deine ASAS-Mitgliedschaft, Zahlungsdaten und Verlängerung über das Stripe-Kundenportal."
     >
     <link rel="icon" href="/as-mark-favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/as-mark-favicon-32.png" type="image/png" sizes="32x32">
@@ -39,35 +35,33 @@
           <p class="section-eyebrow">Abo &amp; Zahlung</p>
           <h1>Dein ASAS-Abo verwalten.</h1>
           <p class="account-lead">
-            Zahlung und Abonnement laufen über Whop. Dort kannst du deine aktive Mitgliedschaft öffnen,
-            Zahlungsdaten prüfen und die nächste Verlängerung beenden.
+            Zahlung und Abonnement laufen über Stripe. Im Kundenportal kannst du deine aktive
+            Mitgliedschaft öffnen, Zahlungsdaten prüfen und die nächste Verlängerung beenden.
           </p>
 
           <a
             class="account-primary-action"
-            href="https://whop.com/@me/settings/orders/"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://app.asas-mind.com/api/billing/portal"
           >
-            Abo bei Whop verwalten oder kündigen
+            Abo im Stripe-Portal verwalten oder kündigen
             <span aria-hidden="true">↗</span>
           </a>
 
           <p class="account-email-hint">
-            Nutze dieselbe E-Mail-Adresse, die du beim ASAS-Checkout verwendet hast.
+            Melde dich zuerst in der ASAS-App mit derselben E-Mail an, die du beim Checkout verwendet hast.
           </p>
         </header>
 
         <section class="account-steps" aria-labelledby="account-steps-title">
-          <h2 id="account-steps-title">So findest du deine Mitgliedschaft</h2>
+          <h2 id="account-steps-title">So verwaltest du dein Abo</h2>
 
           <ol class="account-steps-list">
             <li class="account-step">
               <span class="account-step-num">01</span>
               <div class="account-step-body">
-                <h3>Bei Whop anmelden.</h3>
+                <h3>In der ASAS-App anmelden.</h3>
                 <p>
-                  Öffne die Aboverwaltung und melde dich mit derselben E-Mail-Adresse an, die du beim
+                  Öffne app.asas-mind.com und melde dich mit derselben E-Mail-Adresse an, die du beim
                   Checkout verwendet hast.
                 </p>
               </div>
@@ -75,17 +69,19 @@
             <li class="account-step">
               <span class="account-step-num">02</span>
               <div class="account-step-body">
-                <h3>Profil → Orders öffnen.</h3>
-                <p>Whop zeigt dir dort deine aktiven und vergangenen Käufe.</p>
+                <h3>Stripe-Kundenportal öffnen.</h3>
+                <p>
+                  Klicke oben auf „Abo im Stripe-Portal verwalten“ oder nutze „Abo verwalten“ in der App.
+                  Das Portal öffnet sich sicher bei Stripe.
+                </p>
               </div>
             </li>
             <li class="account-step">
               <span class="account-step-num">03</span>
               <div class="account-step-body">
-                <h3>ASAS auswählen.</h3>
+                <h3>Mitgliedschaft prüfen.</h3>
                 <p>
-                  Öffne deine aktive ASAS-Mitgliedschaft, um Laufzeit, nächste Zahlung und Zahlungsart zu
-                  sehen.
+                  Im Portal siehst du Laufzeit, nächste Zahlung und Zahlungsart deines ASAS-Abonnements.
                 </p>
               </div>
             </li>
@@ -94,7 +90,7 @@
               <div class="account-step-body">
                 <h3>Verlängerung beenden.</h3>
                 <p>
-                  Wähle „Cancel membership“ und bestätige die Kündigung. Dein Zugang bleibt bis zum Ende
+                  Beende die Verlängerung und bestätige die Kündigung. Dein Zugang bleibt bis zum Ende
                   des bereits bezahlten Abrechnungszeitraums aktiv.
                 </p>
               </div>
@@ -102,7 +98,7 @@
           </ol>
 
           <p class="account-steps-note">
-            Du musst kein separates Kündigungsformular an ASAS senden. Whop bestätigt die Kündigung per
+            Du musst kein separates Kündigungsformular an ASAS senden. Stripe bestätigt Änderungen per
             E-Mail.
           </p>
         </section>
@@ -110,8 +106,8 @@
         <section class="account-support" aria-labelledby="account-support-title">
           <h2 id="account-support-title">Du findest deine Mitgliedschaft nicht?</h2>
           <p>
-            Prüfe zuerst, ob du mit der E-Mail-Adresse aus deiner Kaufbestätigung angemeldet bist. Wenn
-            ASAS danach nicht unter Orders erscheint, helfen wir dir bei der Zuordnung.
+            Prüfe zuerst, ob du in der ASAS-App mit der E-Mail-Adresse aus deiner Kaufbestätigung
+            angemeldet bist. Wenn das Portal danach kein Abo zeigt, helfen wir dir bei der Zuordnung.
           </p>
           <a
             class="account-support-link"

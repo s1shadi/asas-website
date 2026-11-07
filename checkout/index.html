@@ -3,10 +3,6 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="/as-mark-favicon.svg" type="image/svg+xml">
@@ -18,11 +14,13 @@
     <title>Checkout — ASAS</title>
     <script>
       (function () {
-        var planKey = new URLSearchParams(window.location.search).get("plan") === "3months" ? "3months" : "monthly";
+        var plan = new URLSearchParams(window.location.search).get("plan");
+        var planKey = plan === "3months" || plan === "12months" ? plan : "monthly";
         document.documentElement.dataset.checkoutPlan = planKey;
       })();
     </script>
     <style>
+<<<<<<< Updated upstream
       html[data-checkout-plan="monthly"] [data-plan-3months-only] { display: none !important; }
       html[data-checkout-plan="3months"] [data-plan-monthly-only] { display: none !important; }
       .checkout-pause { padding: 12px 8px 8px; text-align: center; }
@@ -57,6 +55,14 @@
       }
       .checkout-pause__insta:hover { background: #000; }
       .checkout-pause__insta svg { display: block; }
+=======
+      html[data-checkout-plan="monthly"] [data-plan-3months-only],
+      html[data-checkout-plan="monthly"] [data-plan-12months-only] { display: none !important; }
+      html[data-checkout-plan="3months"] [data-plan-monthly-only],
+      html[data-checkout-plan="3months"] [data-plan-12months-only] { display: none !important; }
+      html[data-checkout-plan="12months"] [data-plan-monthly-only],
+      html[data-checkout-plan="12months"] [data-plan-3months-only] { display: none !important; }
+>>>>>>> Stashed changes
     </style>
   </head>
   <body class="checkout-page">
@@ -78,26 +84,31 @@
 
             <p class="checkout-kicker">Dein gewählter Zugang</p>
             <h1 data-checkout-title>
-              <span data-plan-monthly-only data-checkout-title-monthly>Ein Zyklus nach dem anderen</span>
-              <span data-plan-3months-only data-checkout-title-3months>Drei aufeinanderfolgende Zyklen</span>
+              <span data-plan-monthly-only>Ein Zyklus nach dem anderen</span>
+              <span data-plan-3months-only>Drei aufeinanderfolgende Zyklen</span>
+              <span data-plan-12months-only>Ein Jahr aufeinanderfolgende Zyklen</span>
             </h1>
             <p class="checkout-summary" data-checkout-summary>
-              <span data-plan-monthly-only data-checkout-summary-monthly>39 € / Monat</span>
-              <span data-plan-3months-only data-checkout-summary-3months>99 € für die ersten 90 Tage</span>
+              <span data-plan-monthly-only>19 € / Monat</span>
+              <span data-plan-3months-only>49 € alle 3 Monate</span>
+              <span data-plan-12months-only>179 € pro Jahr</span>
             </p>
             <p class="checkout-terms" data-checkout-terms>
-              <span data-plan-monthly-only data-checkout-terms-monthly>
-                Direkter Start für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.
+              <span data-plan-monthly-only>
+                19 € monatlich, automatische monatliche Verlängerung. Kündigung zum Ende des bezahlten Abrechnungszeitraums.
               </span>
-              <span data-plan-3months-only data-checkout-terms-3months>
-                Die ersten 90 Tage kosten insgesamt 99 €. Danach verlängert sich der Zugang für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.
+              <span data-plan-3months-only>
+                49 € im Voraus für jeweils 3 Monate, automatische Verlängerung alle 3 Monate. Kündigung zum Ende des bezahlten Abrechnungszeitraums.
+              </span>
+              <span data-plan-12months-only>
+                179 € im Voraus pro Jahr, automatische jährliche Verlängerung. Kündigung zum Ende des bezahlten Abrechnungszeitraums.
               </span>
             </p>
             <noscript>
               <p class="checkout-terms">
-                Monatstarif: 39 € / Monat. 90-Tage-Tarif: 99 € für die ersten 90 Tage — wähle
-                <a href="/checkout/?plan=monthly">Monat</a> oder
-                <a href="/checkout/?plan=3months">90 Tage</a>.
+                Monat: <a href="https://app.asas-mind.com/buy/checkout?offer=30d">19 € / Monat</a> ·
+                3 Monate: <a href="https://app.asas-mind.com/buy/checkout?offer=90d">49 €</a> ·
+                12 Monate: <a href="https://app.asas-mind.com/buy/checkout?offer=365d">179 €</a>.
               </p>
             </noscript>
 
@@ -110,6 +121,7 @@
           </div>
 
           <div class="checkout-frame-col">
+<<<<<<< Updated upstream
             <div class="checkout-frame">
               <div class="checkout-pause">
                 <h2>Entschuldigung, leider nimmt ASAS momentan keine Nutzer auf.</h2>
@@ -119,6 +131,19 @@
                     <path fill="currentColor" d="M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zm10 1.8H7A2.2 2.2 0 0 0 4.8 7v10A2.2 2.2 0 0 0 7 19.2h10a2.2 2.2 0 0 0 2.2-2.2V7A2.2 2.2 0 0 0 17 4.8zM12 7.4A4.6 4.6 0 1 1 7.4 12 4.6 4.6 0 0 1 12 7.4zm0 1.6A3 3 0 1 0 15 12a3 3 0 0 0-3-3zm5.05-2.25a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1z"/>
                   </svg>
                   <span>asas.mind</span>
+=======
+            <div class="checkout-frame" aria-busy="true">
+              <p class="checkout-loading" data-checkout-loading role="status">
+                Weiterleitung zum sicheren Checkout …
+              </p>
+
+              <div id="whop-elements-checkout" class="checkout-embed" hidden></div>
+
+              <div class="checkout-fallback" data-checkout-fallback hidden>
+                <p>Der Checkout öffnet sich in der ASAS-App.</p>
+                <a class="button checkout-fallback-link" data-checkout-redirect href="https://app.asas-mind.com/buy">
+                  Checkout sicher öffnen
+>>>>>>> Stashed changes
                 </a>
               </div>
             </div>
@@ -154,5 +179,9 @@
 
     <script src="/config.js"></script>
     <script src="/site.js?v=20260927-seo1" defer></script>
+<<<<<<< Updated upstream
+=======
+    <script src="/checkout.js?v=20261107-stripe1" defer></script>
+>>>>>>> Stashed changes
   </body>
 </html>

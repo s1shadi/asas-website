@@ -232,15 +232,15 @@
         </section>
 
         <section class="legal-section">
-          <h2 class="legal-subtitle">12. Zahlungsabwicklung und Abonnements über Whop</h2>
-          <p class="legal-text">Zahlungen und kostenpflichtige ASAS-Abonnements werden über Whop abgewickelt.</p>
-          <p class="legal-text">Anbieter:<br>Whop, Inc.<br>300 Kent Ave #401<br>Brooklyn, NY 11249<br>USA</p>
-          <p class="legal-text">Whop verarbeitet im Rahmen des Kauf- und Zahlungsvorgangs insbesondere die zur Zahlungsabwicklung erforderlichen Daten. Hierzu können abhängig von Zahlungsmethode und Land beispielsweise gehören: Name und Kontaktdaten, Zahlungs- und Abrechnungsinformationen, Zahlungsinstrument, Transaktionsinformationen, Kauf- und Abonnementstatus.</p>
+          <h2 class="legal-subtitle">12. Zahlungsabwicklung und Abonnements über Stripe</h2>
+          <p class="legal-text">Zahlungen und kostenpflichtige ASAS-Abonnements werden über Stripe abgewickelt.</p>
+          <p class="legal-text">Anbieter (u. a.):<br>Stripe Payments Europe, Ltd.<br>1 Grand Canal Street Lower<br>Grand Canal Dock<br>Dublin<br>D02 H210<br>Irland</p>
+          <p class="legal-text">Stripe verarbeitet im Rahmen des Kauf- und Zahlungsvorgangs insbesondere die zur Zahlungsabwicklung erforderlichen Daten. Hierzu können abhängig von Zahlungsmethode und Land beispielsweise gehören: Name und Kontaktdaten, Zahlungs- und Abrechnungsinformationen, Zahlungsinstrument, Transaktionsinformationen, Kauf- und Abonnementstatus.</p>
           <p class="legal-text">ASAS selbst speichert keine vollständigen Karten-, Bankkonto- oder Zahlungsinstrumentdaten.</p>
-          <p class="legal-text">Zur Prüfung und Verwaltung des Zugangs erhält bzw. verarbeitet ASAS nur die hierfür erforderlichen Whop-Informationen. Dauerhaft werden insbesondere gespeichert: Whop-Benutzer-ID und Zeitpunkt der letzten erfolgreichen Whop-Zugangsprüfung.</p>
-          <p class="legal-text">Eine Zahlungs- bzw. Kaufreferenz kann während der Aktivierung vorübergehend verarbeitet werden, wird jedoch nicht als vollständige Zahlungsdatenhaltung in der ASAS-Datenbank gespeichert.</p>
+          <p class="legal-text">Zur Prüfung und Verwaltung des Zugangs erhält bzw. verarbeitet ASAS nur die hierfür erforderlichen Stripe-Informationen. Dauerhaft werden insbesondere gespeichert: Stripe-Kunden-ID, Stripe-Abonnement-ID und Status, gewählter Tarif bzw. Preis-Referenz sowie Zeitpunkt der letzten erfolgreichen Stripe-Zugangsprüfung.</p>
+          <p class="legal-text">Eine Checkout- bzw. Session-Referenz kann während der Aktivierung vorübergehend verarbeitet werden, wird jedoch nicht als vollständige Zahlungsdatenhaltung in der ASAS-Datenbank gespeichert.</p>
           <p class="legal-text">Rechtsgrundlage der Verarbeitung, soweit sie durch ASAS zur Vertragserfüllung erfolgt, ist Art. 6 Abs. 1 Buchstabe b DSGVO.</p>
-          <p class="legal-text">Whop verarbeitet Zahlungs- und Plattformdaten darüber hinaus nach seinen eigenen Datenschutzbedingungen.</p>
+          <p class="legal-text">Stripe verarbeitet Zahlungs- und Plattformdaten darüber hinaus nach seinen eigenen Datenschutzbedingungen. Soweit eine Übermittlung in Drittländer erforderlich ist, erfolgt sie nach den von Stripe eingesetzten geeigneten Garantien (insbesondere Standardvertragsklauseln).</p>
         </section>
 
         <section class="legal-section">
@@ -253,7 +253,7 @@
 
         <section class="legal-section">
           <h2 class="legal-subtitle">14. Cookies und lokaler Browserspeicher</h2>
-          <p class="legal-text">ASAS verwendet technisch erforderliche Cookies und Browser-Speichermechanismen. Hierzu gehört insbesondere ein kurzlebiges, HTTP-only gespeichertes Aktivierungs-Cookie, das nach einem Whop-Kauf zur sicheren Zuordnung des Kaufs zur ASAS-Aktivierung verwendet wird.</p>
+          <p class="legal-text">ASAS verwendet technisch erforderliche Cookies und Browser-Speichermechanismen. Hierzu gehört insbesondere ein kurzlebiges, HTTP-only gespeichertes Aktivierungs-Cookie, das nach einem Stripe-Kauf zur sicheren Zuordnung des Kaufs zur ASAS-Aktivierung verwendet wird.</p>
           <p class="legal-text">Darüber hinaus verwendet der Authentifizierungsanbieter Clerk technisch erforderliche Session-Cookies zur Anmeldung und Sitzungsverwaltung.</p>
           <p class="legal-text">ASAS verwendet außerdem LocalStorage, SessionStorage und in einzelnen technischen Bereichen Browser-Speicher für Onboarding-Zwischenspeicherung, Tutorial-Fortschritt, bereits angezeigte Informationshinweise, PWA-Installationsstatus, Sharing-Einstellungen, Push-bezogene technische Warteschlangen und lokale App-Zustände.</p>
           <p class="legal-text">Diese Daten dienen grundsätzlich der von Ihnen angeforderten App-Funktionalität und werden nicht für verhaltensbasierte Werbung verwendet.</p>
@@ -279,7 +279,7 @@
         <section class="legal-section">
           <h2 class="legal-subtitle">18. Account- und Datenlöschung</h2>
           <p class="legal-text">ASAS stellt eine Funktion zur Löschung der in der ASAS-Anwendung gespeicherten Nutzerdaten bereit. Bei Durchführung der Löschung werden insbesondere die dem Benutzer zugeordneten ASAS-Daten aus der Anwendungsdatenbank gelöscht. Ein gespeichertes Profilbild wird ebenfalls aus dem ASAS-Objektspeicher entfernt. Auch gespeicherte Push-Abonnements und zugehörige Push-Daten werden gelöscht.</p>
-          <p class="legal-text"><strong>Wichtig:</strong> Die Löschung des ASAS-App-Kontos kündigt nicht automatisch ein bestehendes kostenpflichtiges Whop-Abonnement. Ein kostenpflichtiges Abonnement muss gesondert gekündigt werden. Die In-App-Löschung entfernt derzeit außerdem nicht automatisch das getrennt bei Clerk bestehende Authentifizierungskonto.</p>
+          <p class="legal-text"><strong>Wichtig:</strong> Die Löschung des ASAS-App-Kontos kündigt nicht automatisch ein bestehendes kostenpflichtiges Stripe-Abonnement. Ein kostenpflichtiges Abonnement muss gesondert gekündigt werden. Die In-App-Löschung entfernt derzeit außerdem nicht automatisch das getrennt bei Clerk bestehende Authentifizierungskonto.</p>
           <p class="legal-text">Wenn Sie eine vollständige datenschutzrechtliche Löschung einschließlich der bei unseren Dienstleistern von uns kontrollierten personenbezogenen Daten verlangen möchten, können Sie uns unter <a class="footer-link" href="mailto:de.support.asas@gmail.com">de.support.asas@gmail.com</a> kontaktieren.</p>
           <p class="legal-text">Gesetzliche Aufbewahrungspflichten und zulässige Aufbewahrung zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen bleiben unberührt.</p>
         </section>
@@ -306,7 +306,7 @@
 
         <section class="legal-section">
           <h2 class="legal-subtitle">22. Empfänger und Dienstleister</h2>
-          <p class="legal-text">Je nach Nutzung von ASAS können personenbezogene Daten insbesondere gegenüber folgenden Kategorien von Empfängern verarbeitet oder offengelegt werden: Cloudflare für Hosting, Datenbank, Objektspeicherung und Infrastruktur; Clerk für Authentifizierung und Benutzerverwaltung; Whop und beteiligte Zahlungsdienstleister für Kauf, Zahlung und Abonnementverwaltung; Vercel für das Hosting und die Webanalyse der öffentlichen Website; Browser- bzw. Betriebssystem-Push-Dienste bei freiwillig aktivierten Push-Benachrichtigungen; Google im Rahmen der Support-Kommunikation per Gmail.</p>
+          <p class="legal-text">Je nach Nutzung von ASAS können personenbezogene Daten insbesondere gegenüber folgenden Kategorien von Empfängern verarbeitet oder offengelegt werden: Cloudflare für Hosting, Datenbank, Objektspeicherung und Infrastruktur; Clerk für Authentifizierung und Benutzerverwaltung; Stripe und beteiligte Zahlungsdienstleister für Kauf, Zahlung und Abonnementverwaltung; Vercel für das Hosting und die Webanalyse der öffentlichen Website; Browser- bzw. Betriebssystem-Push-Dienste bei freiwillig aktivierten Push-Benachrichtigungen; Google im Rahmen der Support-Kommunikation per Gmail.</p>
           <p class="legal-text">Eine Weitergabe zu anderen Zwecken erfolgt nur, wenn hierfür eine gesetzliche Grundlage besteht.</p>
         </section>
 

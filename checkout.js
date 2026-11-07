@@ -5,7 +5,9 @@
   var checkoutConfig = config.checkout || {};
   var plans = checkoutConfig.plans || {};
   var params = new URLSearchParams(window.location.search);
-  var planKey = params.get("plan") === "3months" ? "3months" : "monthly";
+  var requestedPlan = params.get("plan");
+  var planKey = requestedPlan === "3months" || requestedPlan === "12months"
+    ? requestedPlan : "monthly";
   var plan = plans[planKey] || plans.monthly;
   var affiliate = params.get("a") || sessionStorage.getItem("asas-affiliate") || "";
 
@@ -16,15 +18,21 @@
   var copy = {
     monthly: {
       title: "Ein Zyklus nach dem anderen",
-      summary: "39 € / Monat",
+      summary: "19 € / Monat",
       terms:
-        "Direkter Start für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.",
+        "19 € monatlich, automatische monatliche Verlängerung. Kündigung zum Ende des bezahlten Abrechnungszeitraums.",
     },
     "3months": {
       title: "Drei aufeinanderfolgende Zyklen",
-      summary: "99 € für die ersten 90 Tage",
+      summary: "49 € alle 3 Monate",
       terms:
-        "Die ersten 90 Tage kosten insgesamt 99 €. Danach verlängert sich der Zugang für 39 € pro Monat. Die vollständigen Vertragsbedingungen werden dir vor der Zahlung im Checkout angezeigt.",
+        "49 € im Voraus für jeweils 3 Monate, automatische Verlängerung alle 3 Monate. Kündigung zum Ende des bezahlten Abrechnungszeitraums.",
+    },
+    "12months": {
+      title: "Ein Jahr aufeinanderfolgende Zyklen",
+      summary: "179 € pro Jahr",
+      terms:
+        "179 € im Voraus pro Jahr, automatische jährliche Verlängerung. Kündigung zum Ende des bezahlten Abrechnungszeitraums.",
     },
   };
 
@@ -126,6 +134,12 @@
     script.addEventListener("load", mountCheckout, { once: true });
     script.addEventListener("error", showFallback, { once: true });
     document.head.appendChild(script);
+  }
+
+  // Stripe cutover: send buyers through the app checkout (provider-flagged), not Whop Elements.
+  if (checkoutConfig.preferAppCheckout) {
+    window.location.replace(buildAppCheckoutUrl());
+    return;
   }
 
   if (!plan || !plan.planId || !embedHost) {
