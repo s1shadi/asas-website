@@ -4,3 +4,5 @@
   .dw-offer--column:not(.dw-offer--best) .dw-offer__cta:hover { background: transparent; }
 }
 .dw-offer__cta:active { transform: scale(.985); }
+
+.dw-offer__cta { display: flex; position: relative; box-sizing: border-box; align-items: center; justify-content: center; width: 100%; height: auto; min-height: 3.4rem; white-space: normal; text-align: center; line-height: 1.35; }
