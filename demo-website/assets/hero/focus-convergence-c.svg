@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 540" width="390" height="540" fill="none" aria-hidden="true">
+  <!-- Near field: lower-right force, sharpest; converges mid-right outside perf number -->
+  <defs>
+    <radialGradient id="cCore" gradientUnits="userSpaceOnUse" cx="286" cy="268" fx="274" fy="248" r="188">
+      <stop offset="0%" stop-color="#1c2940" stop-opacity=".52"/>
+      <stop offset="34%" stop-color="#132036" stop-opacity=".30"/>
+      <stop offset="68%" stop-color="#0c1422" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#080b11" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cEdge" gradientUnits="userSpaceOnUse" cx="302" cy="238" fx="318" fy="226" r="128">
+      <stop offset="0%" stop-color="#2f4a74" stop-opacity=".22"/>
+      <stop offset="40%" stop-color="#1c3152" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#080b11" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cTip" gradientUnits="userSpaceOnUse" cx="248" cy="198" fx="242" fy="192" r="72">
+      <stop offset="0%" stop-color="#243a5c" stop-opacity=".14"/>
+      <stop offset="100%" stop-color="#080b11" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g transform="rotate(28 286 268)">
+    <ellipse cx="286" cy="268" rx="168" ry="58" fill="url(#cCore)"/>
+    <ellipse cx="302" cy="238" rx="108" ry="34" fill="url(#cEdge)"/>
+  </g>
+  <!-- Soft tip toward shared direction, still clear of perf/chart calm corridor -->
+  <ellipse cx="248" cy="198" rx="64" ry="36" fill="url(#cTip)" transform="rotate(36 248 198)"/>
+</svg>

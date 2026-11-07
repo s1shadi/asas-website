@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="#ffffff">
+    <meta
+      name="description"
+      content="Verwalte deine ASAS-Mitgliedschaft, Zahlungsdaten und Verlängerung über das Stripe-Kundenportal."
+    >
+    <link rel="icon" href="/demo-website/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="/demo-website/site.css?v=20260831-15">
+    <link rel="stylesheet" href="/demo-website/abo-verwalten/abo-verwalten.css?v=20260831-15">
+    <title>Abo verwalten — ASAS</title>
+  </head>
+  <body class="account-page">
+    <a class="skip-link" href="#account-main">Zum Inhalt</a>
+
+    <header class="site-header account-header">
+      <div class="header-inner">
+        <a class="brand" href="/demo-website/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/demo-website/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" decoding="async">
+        </a>
+        <a class="account-header-back" href="/demo-website/">Zur Website</a>
+      </div>
+    </header>
+
+    <main id="account-main" class="account-main">
+      <div class="account-shell">
+        <header class="account-intro">
+          <p class="section-eyebrow">Abo &amp; Zahlung</p>
+          <h1>Dein ASAS-Abo verwalten.</h1>
+          <p class="account-lead">
+            Zahlung und Abonnement laufen über Stripe. Im Kundenportal kannst du deine aktive
+            Mitgliedschaft öffnen, Zahlungsdaten prüfen und die nächste Verlängerung beenden.
+          </p>
+
+          <a
+            class="account-primary-action"
+            href="https://app.asas-mind.com/api/billing/portal"
+          >
+            Abo im Stripe-Portal verwalten oder kündigen
+            <span aria-hidden="true">↗</span>
+          </a>
+
+          <p class="account-email-hint">
+            Melde dich zuerst in der ASAS-App mit derselben E-Mail an, die du beim Checkout verwendet hast.
+          </p>
+        </header>
+
+        <section class="account-steps" aria-labelledby="account-steps-title">
+          <h2 id="account-steps-title">So verwaltest du dein Abo</h2>
+
+          <ol class="account-steps-list">
+            <li class="account-step">
+              <span class="account-step-num">01</span>
+              <div class="account-step-body">
+                <h3>In der ASAS-App anmelden.</h3>
+                <p>
+                  Öffne app.asas-mind.com und melde dich mit derselben E-Mail-Adresse an, die du beim
+                  Checkout verwendet hast.
+                </p>
+              </div>
+            </li>
+            <li class="account-step">
+              <span class="account-step-num">02</span>
+              <div class="account-step-body">
+                <h3>Stripe-Kundenportal öffnen.</h3>
+                <p>
+                  Klicke oben auf „Abo im Stripe-Portal verwalten“ oder nutze „Abo verwalten“ in der App.
+                  Das Portal öffnet sich sicher bei Stripe.
+                </p>
+              </div>
+            </li>
+            <li class="account-step">
+              <span class="account-step-num">03</span>
+              <div class="account-step-body">
+                <h3>Mitgliedschaft prüfen.</h3>
+                <p>
+                  Im Portal siehst du Laufzeit, nächste Zahlung und Zahlungsart deines ASAS-Abonnements.
+                </p>
+              </div>
+            </li>
+            <li class="account-step">
+              <span class="account-step-num">04</span>
+              <div class="account-step-body">
+                <h3>Verlängerung beenden.</h3>
+                <p>
+                  Beende die Verlängerung und bestätige die Kündigung. Dein Zugang bleibt bis zum Ende
+                  des bereits bezahlten Abrechnungszeitraums aktiv.
+                </p>
+              </div>
+            </li>
+          </ol>
+
+          <p class="account-steps-note">
+            Du musst kein separates Kündigungsformular an ASAS senden. Stripe bestätigt Änderungen per
+            E-Mail.
+          </p>
+        </section>
+
+        <section class="account-support" aria-labelledby="account-support-title">
+          <h2 id="account-support-title">Du findest deine Mitgliedschaft nicht?</h2>
+          <p>
+            Prüfe zuerst, ob du in der ASAS-App mit der E-Mail-Adresse aus deiner Kaufbestätigung
+            angemeldet bist. Wenn das Portal danach kein Abo zeigt, helfen wir dir bei der Zuordnung.
+          </p>
+          <a
+            class="account-support-link"
+            href="mailto:de.support.asas@gmail.com?subject=Hilfe%20bei%20meinem%20ASAS-Abo"
+          >
+            Hilfe bei der Zuordnung
+          </a>
+          <p class="account-support-email">de.support.asas@gmail.com</p>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a class="brand footer-brand" href="/demo-website/" aria-label="ASAS Startseite">
+          <img class="brand-wordmark" src="/demo-website/ASAS_Text_white.svg" alt="ASAS" width="662" height="127" loading="lazy" decoding="async">
+        </a>
+        <p>30 Tage. Mehr Konsequenz.</p>
+        <nav aria-label="Seitenlinks und Rechtliches">
+          <a href="/demo-website/#faq">FAQ</a>
+          <a href="/demo-website/affiliate/">Affiliate</a>
+          <a href="/demo-website/abo-verwalten/">Abo verwalten</a>
+          <a href="/impressum">Impressum</a>
+          <a href="/datenschutz">Datenschutz</a>
+          <a href="/agb">AGB</a>
+          <a href="/widerruf">Widerruf</a>
+        </nav>
+        <p class="copyright">© <span data-year>2026</span> ASAS</p>
+      </div>
+    </footer>
+
+    <script src="/demo-website/site.js?v=20260927-seo1" defer></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 540" width="390" height="540" fill="none" aria-hidden="true">
+  <!-- Mid field: left-outer vertical force (medium depth) -->
+  <defs>
+    <radialGradient id="bCore" gradientUnits="userSpaceOnUse" cx="36" cy="228" fx="48" fy="210" r="210">
+      <stop offset="0%" stop-color="#151d2e" stop-opacity=".48"/>
+      <stop offset="40%" stop-color="#0e1524" stop-opacity=".26"/>
+      <stop offset="78%" stop-color="#0a101a" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#080b11" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bEdge" gradientUnits="userSpaceOnUse" cx="58" cy="188" fx="70" fy="172" r="150">
+      <stop offset="0%" stop-color="#243552" stop-opacity=".16"/>
+      <stop offset="50%" stop-color="#152238" stop-opacity=".07"/>
+      <stop offset="100%" stop-color="#080b11" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g transform="rotate(18 36 228)">
+    <ellipse cx="36" cy="228" rx="78" ry="188" fill="url(#bCore)"/>
+    <ellipse cx="58" cy="188" rx="46" ry="132" fill="url(#bEdge)"/>
+  </g>
+</svg>
